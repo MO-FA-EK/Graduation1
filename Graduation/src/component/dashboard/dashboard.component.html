@@ -1,0 +1,109 @@
+<div class="dashboard-container">
+
+  <button class="mobile-menu-btn" (click)="toggleSidebar()">
+    ☰ Menu
+  </button>
+
+  <aside class="sidebar" [class.open]="isSidebarOpen">
+    <h3>My Panel</h3>
+    <nav>
+      <button [class.active]="activeTab === 'profile'" (click)="setTab('profile')">👤 Profile</button>
+      <button [class.active]="activeTab === 'stats'" (click)="setTab('stats')">📊 Stats</button>
+      <button [class.active]="activeTab === 'ratings'" (click)="setTab('ratings')">⭐ Ratings</button>
+      <button class="logout-btn" (click)="logout()">🚪 Logout</button>
+    </nav>
+  </aside>
+
+  <section class="content">
+
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading your dashboard...</p>
+    </div>
+
+    <div *ngIf="!isLoading">
+
+      <div *ngIf="profile; else noProfile">
+
+        <div *ngIf="activeTab === 'profile'" class="tab-content fade-in">
+          <h2>Edit Profile</h2>
+          <div class="profile-header-edit">
+            <img [src]="profile.imageUrl || 'assets/img/user.png'" alt="Profile" class="img-preview">
+            <div class="upload-hint">Profile Image</div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Username</label>
+              <input [(ngModel)]="profile.username" placeholder="Enter username" />
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <input [(ngModel)]="profile.category" placeholder="e.g. Web Developer" />
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea [(ngModel)]="profile.description" rows="4"></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label>Skills</label>
+              <input [(ngModel)]="profile.skills" placeholder="Angular, Python..." />
+            </div>
+            <div class="form-group full-width">
+              <label>Portfolio Link</label>
+              <input [(ngModel)]="profile.portfolio" />
+            </div>
+            <div class="form-group full-width">
+              <label>Image URL</label>
+              <input [(ngModel)]="profile.imageUrl" />
+            </div>
+          </div>
+
+          <button class="save-btn" [disabled]="isSaving" (click)="saveProfile()">
+            {{ isSaving ? 'Saving...' : 'Save Changes' }}
+          </button>
+        </div>
+
+        <div *ngIf="activeTab === 'stats'" class="tab-content fade-in">
+          <h2>Your Statistics</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3>👁️ Profile Views</h3>
+              <p class="stat-value">{{ profile.profileViews || 0 }}</p>
+            </div>
+            <div class="stat-card">
+              <h3>📩 Contact Clicks</h3>
+              <p class="stat-value">{{ profile.contactClicks || 0 }}</p>
+            </div>
+            <div class="stat-card">
+              <h3>⭐ Average Rating</h3>
+              <p class="stat-value">{{ profile.rating || 0 }} / 5</p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="activeTab === 'ratings'" class="tab-content fade-in">
+          <h2>Reviews & Ratings</h2>
+          <div class="rating-summary">
+            <span class="big-star">⭐</span>
+            <span class="rating-number">{{ profile.rating || 0 }}</span>
+            <span class="rating-count">({{ profile.totalRatings || 0 }} reviews)</span>
+          </div>
+          <p class="mock-note">(Review list will appear here later)</p>
+        </div>
+
+      </div>
+
+      <ng-template #noProfile>
+        <div class="error-state">
+          <h2>⚠️ User Data Not Found</h2>
+          <p>Please try logging in again.</p>
+          <button (click)="logout()">Go to Login</button>
+        </div>
+      </ng-template>
+
+    </div>
+  </section>
+
+  <div class="overlay" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
+</div>

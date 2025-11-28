@@ -1,0 +1,38 @@
+<div class="nav-bar-div">
+  <!-- ✅ الشعار -->
+  <div class="logo">
+    <div class="logo-text">
+      <a routerLink="/">SoftwJob</a>
+    </div>
+  </div>
+
+  <!-- ✅ روابط التنقل -->
+  <div class="nav-bar">
+    <div class="ul-bar">
+      <div><a routerLink="/">Homepage</a></div>
+      <div><a routerLink="/services">Services</a></div>
+      <div><a routerLink="/contact">Contact</a></div>
+      <div><a routerLink="/dashboard">Dashboard</a></div>
+
+     
+
+      <!-- ✅ روابط الدخول والتسجيل -->
+      <div><a routerLink="/login">Login</a></div>
+      <div><a routerLink="/register">Register</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ شريط البحث -->
+<div class="search-bar-wrapper">
+  <input 
+    type="text" 
+    placeholder="Search for any service..." 
+    class="search-bar-input"
+    [(ngModel)]="searchTerm"
+    (keyup.enter)="onSearch()" />
+  <button class="search-bar-button" (click)="onSearch()">
+    <i class="fa fa-search"></i>
+  </button>
+</div>
+

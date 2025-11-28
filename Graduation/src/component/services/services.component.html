@@ -1,0 +1,50 @@
+<div class="services-container">
+  <h1 class="main-title">Our Top Talent</h1>
+
+  <div *ngIf="filteredGroups.length === 0" class="no-results">
+    <div class="empty-state">
+      <p>🔍 No freelancers found matching "{{ searchTerm }}"</p>
+      <button (click)="searchTerm = ''; loadFreelancers()" class="reset-btn">Show All</button>
+    </div>
+  </div>
+
+  <div *ngFor="let group of filteredGroups" class="category-section fade-in">
+    <div class="category-header">
+      <h2 class="category-title">{{ group.category }}</h2>
+      <span class="count-badge">{{ group.freelancers.length }} Experts</span>
+    </div>
+
+    <div class="freelancers-grid">
+      <div *ngFor="let freelancer of group.freelancers; trackBy: trackFreelancer" class="freelancer-card">
+
+        <div class="card-header">
+          <img
+            [src]="freelancer.imageUrl || 'assets/img/user.png'"
+            alt="Freelancer Image"
+            class="freelancer-img">
+        </div>
+
+        <div class="freelancer-info">
+          <h3>{{ freelancer.username }}</h3>
+          <p class="role">{{ freelancer.category }}</p>
+
+          <div class="skills-preview">
+            <span *ngFor="let skill of freelancer.skills | slice:0:3" class="skill-dot">{{ skill }}</span>
+            <span *ngIf="freelancer.skills.length > 3" class="skill-more">+{{ freelancer.skills.length - 3 }}</span>
+          </div>
+
+          <p class="description">{{ freelancer.description | slice:0:80 }}...</p>
+
+          <div class="rating-row">
+            <span class="stars">⭐ {{ freelancer.rating }}</span>
+            <span class="reviews">({{ freelancer.totalRatings }} reviews)</span>
+          </div>
+
+          <a [routerLink]="['/freelancer', freelancer.id]" class="view-profile-btn">
+            View Profile
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+/* .register-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 2rem;
+  background: #111c40;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+  text-align: center;
+}
+
+button {
+  background: #00bcd4;
+}
+button:hover {
+  background: #26d7ff;
+} */
+
+
+
+
+
+
+
+
+
+
+
+.register-container {
+  max-width: 450px;
+  margin: 50px auto;
+  padding: 25px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #006AE1;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #a0c4ff;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #ff4d4d;
+  margin-top: 10px;
+}
+
+.success {
+  color: #4CAF50;
+  margin-top: 10px;
+}
+
+.switch {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .register-container {
+    margin: 30px 20px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    margin: 20px 15px;
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 13px;
+  }
+}

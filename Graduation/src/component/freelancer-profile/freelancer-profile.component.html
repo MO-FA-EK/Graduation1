@@ -1,0 +1,84 @@
+<div class="page-cover">
+
+  <button class="nav-back-btn" (click)="goBack()">
+    ← Back
+  </button>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading Profile...</p>
+  </div>
+
+  <div class="profile-container fade-in" *ngIf="!isLoading && freelancer; else notFound">
+
+    <div class="profile-header">
+      <div class="img-wrapper">
+        <img [src]="freelancer.imageUrl || 'assets/img/user.png'" alt="{{ freelancer.username }}" class="profile-img">
+      </div>
+
+      <div class="profile-info">
+        <h1>{{ freelancer.username }}</h1>
+        <p class="category">{{ freelancer.category }}</p>
+
+        <div class="stats-row">
+          <div class="stat-item">
+            <span class="icon">⭐</span>
+            <span class="val">{{ freelancer.rating }}</span>
+            <span class="lbl">Rating</span>
+          </div>
+          <div class="stat-item">
+            <span class="icon">👁️</span>
+            <span class="val">{{ freelancer.profileViews }}</span>
+            <span class="lbl">Views</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-body">
+
+      <section class="about">
+        <h2>About Me</h2>
+        <p>{{ freelancer.description }}</p>
+      </section>
+
+      <section class="skills">
+        <h2>Skills</h2>
+        <div class="skills-list">
+          <span *ngFor="let skill of freelancer.skills" class="skill-tag">
+            {{ skill }}
+          </span>
+        </div>
+      </section>
+
+      <section class="rating-section">
+        <h2>Rate this Freelancer</h2>
+        <div class="stars-container">
+          <span
+            *ngFor="let star of [1, 2, 3, 4, 5]"
+            class="star-btn"
+            [class.active]="star <= userRating"
+            (click)="rateFreelancer(star)">
+            ★
+          </span>
+        </div>
+        <p class="rating-hint" *ngIf="userRating > 0">You rated: {{ userRating }} stars</p>
+      </section>
+
+      <div class="actions">
+        <button class="contact-btn" (click)="contactFreelancer()">
+          📩 Contact via Email
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <ng-template #notFound>
+    <div class="not-found">
+      <h2>⚠️ Profile Not Found</h2>
+      <button class="back-link" routerLink="/services">Back to List</button>
+    </div>
+  </ng-template>
+
+</div>

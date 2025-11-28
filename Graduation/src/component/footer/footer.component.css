@@ -1,0 +1,17 @@
+.footer {
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    gap: 15px;
+  }
+}

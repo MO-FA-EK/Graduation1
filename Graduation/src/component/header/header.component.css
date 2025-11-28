@@ -1,0 +1,108 @@
+/* --- تنسيقات الهيدر والقوائم (القديمة) --- */
+.nav-bar-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  padding: 1rem 2rem;
+}
+
+.logo-text a {
+  text-decoration: none;
+  color: #00b4ff;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.ul-bar {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.ul-bar a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.ul-bar a:hover {
+  color: #00b4ff;
+}
+
+/* --- تنسيقات شريط البحث (الجديدة والمحسنة) --- */
+.search-bar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.search-bar-input {
+  width: 50%;
+  padding: 12px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2); /* إطار شفاف */
+  border-radius: 50px 0 0 50px; /* تدوير الحواف اليسرى */
+  outline: none;
+  background: rgba(255, 255, 255, 0.1); /* خلفية شفافة */
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-bar-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-bar-input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #00b4ff; /* لون عند الكتابة */
+  width: 55%; /* تكبير بسيط كحركة جمالية */
+}
+
+.search-bar-button {
+  background-color: #00b4ff;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 0 50px 50px 0; /* تدوير الحواف اليمنى */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.3s;
+  border: 2px solid #00b4ff;
+}
+
+.search-bar-button:hover {
+  background-color: #008ecc;
+  border-color: #008ecc;
+}
+
+/* --- التصميم المتجاوب للجوال (مدمج) --- */
+@media (max-width: 768px) {
+  .nav-bar-div {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .ul-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .search-bar-wrapper {
+    width: 100%;
+  }
+
+  /* تعديل حجم البحث في الجوال */
+  .search-bar-input {
+    width: 70%;
+  }
+
+  .search-bar-input:focus {
+    width: 75%;
+  }
+}
