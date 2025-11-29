@@ -1,34 +1,15 @@
-/* .body
-{
-    background: linear-gradient( #00ff95, #096379, #001a24);
-    overflow-x: hidden;
-
-
-
-
-}
-.header
-{
-    width: 100%;
-    z-index: 1000;
-    margin-bottom: 3%;
-} */
-
 .body {
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
-    overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Ensures content fills the page */
-    background: linear-gradient (#020024,#090979,#00D4FF);
+    justify-content: space-between;
+    background: transparent;
 }
 
-
-.header
-{
-    z-index: 2;
-    /* background: transparent; */
+.header {
+    z-index: 100;
+    position: relative;
 }
 
 @media screen and (max-width: 1268px) {

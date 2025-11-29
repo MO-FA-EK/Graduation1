@@ -6,16 +6,15 @@ import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent {
   name = '';
-  email = ''; // optional
+  email = '';
   message = '';
-  apiUrl = 'https://your-backend-api/contact'; // رابط الـ backend الخاص بالرسائل
+  apiUrl = 'https://your-backend-api/contact';
 
   sending = false;
 

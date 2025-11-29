@@ -1,84 +1,85 @@
 .login-container {
   max-width: 400px;
-  margin: 100px auto;
-  padding: 2rem;
-  background: #0a1930;
+  margin: 80px auto;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
 h2 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 2rem;
+  color: #00d4ff;
 }
 
 .form-group {
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #e0e0e0;
 }
 
 input {
   width: 100%;
-  padding: 10px;
-  border: none;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 8px;
-  margin-top: 5px;
-  background: #1b2a48;
+  background: rgba(0, 0, 0, 0.2);
   color: white;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #00d4ff;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: none;
-  background: #007bff;
-  border-radius: 8px;
+  background: linear-gradient(90deg, #00d4ff, #090979);
+  border-radius: 50px;
   color: white;
-  font-size: 16px;
+  font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.2s;
+}
+
+button:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
 }
 
 button:disabled {
-  background-color: #0056a3;
-  cursor: not-allowed;
+  opacity: 0.7;
+  cursor: wait;
 }
 
 .switch {
-  margin-top: 15px;
-  font-size: 14px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #ccc;
 }
 
 .switch a {
-  color: #00bfff;
+  color: #00d4ff;
   text-decoration: none;
+  font-weight: bold;
 }
 
-.error {
-  color: #ff4d4d;
-  margin-top: 10px;
-}
-
-.success {
-  color: #4CAF50;
-  margin-top: 10px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .login-container {
-    margin: 50px 20px;
-    padding: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .login-container {
-    margin: 30px 15px;
-    padding: 1rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-}
+.error { color: #ff6b6b; margin-top: 10px; }
+.success { color: #2ecc71; margin-top: 10px; }
