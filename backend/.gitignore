@@ -1,0 +1,15 @@
+# Python virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Django database (if local)
+db.sqlite3
+
+# Node modules (if ever accidentally added)
+node_modules/
+
+# Environment files
+.env
