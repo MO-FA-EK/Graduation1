@@ -9,7 +9,7 @@ class User(models.Model):
     rating = models.FloatField(default=0.0)
     review_count = models.IntegerField(default=0)
 
-    # 🆕 New fields
+    # New fields
     category = models.CharField(max_length=100, default="General")  # e.g. Web Developer, Designer, Writer
     experience_level = models.CharField(max_length=50, default="Beginner")  # e.g. Beginner, Intermediate, Expert
     bio = models.TextField(blank=True, null=True)  # short description of the programmer
