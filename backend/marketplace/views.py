@@ -42,24 +42,31 @@ def programmer_list(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'PATCH'])
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])  # write ops need JWT
 def programmer_detail(request, id):
     try:
         user = User.objects.get(id=id)
     except User.DoesNotExist:
-        return Response({'error': 'Programmer not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(
+            {'error': 'Programmer not found'},
+            status=status.HTTP_404_NOT_FOUND
+        )
 
     if request.method == 'GET':
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
-    # PUT/PATCH
-    serializer = UserSerializer(user, data=request.data, partial=True)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    if request.method in ['PUT', 'PATCH']:
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    if request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
@@ -68,18 +75,30 @@ def rate_programmer(request, id):
     try:
         user = User.objects.get(id=id)
     except User.DoesNotExist:
-        return Response({'error': 'Programmer not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(
+            {'error': 'Programmer not found'},
+            status=status.HTTP_404_NOT_FOUND
+        )
 
     new_rating = request.data.get('rating')
     if new_rating is None:
-        return Response({'error': 'Rating value required'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {'error': 'Rating value required'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     try:
         new_rating = float(new_rating)
         if not (0 <= new_rating <= 5):
-            return Response({'error': 'Rating must be between 0 and 5'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {'error': 'Rating must be between 0 and 5'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
     except ValueError:
-        return Response({'error': 'Rating must be a number'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {'error': 'Rating must be a number'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     total_reviews = user.review_count + 1
     total_rating = (user.rating * user.review_count + new_rating) / total_reviews

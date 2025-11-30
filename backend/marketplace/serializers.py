@@ -1,6 +1,28 @@
 from rest_framework import serializers
 from .models import User
 
+class SkillsField(serializers.Field):
+    """
+    Custom field to store skills as a comma-separated string in the DB,
+    but expose them as a list in the API.
+    """
+
+    def to_representation(self, value):
+        # DB -> JSON
+        if not value:
+            return []
+        return [s.strip() for s in str(value).split(",") if s.strip()]
+
+    def to_internal_value(self, data):
+        # JSON -> DB
+        if isinstance(data, list):
+            # convert ["A", "B"] -> "A, B"
+            return ", ".join(str(s).strip() for s in data if str(s).strip())
+        if isinstance(data, str):
+            # already a string
+            return data.strip()
+        raise serializers.ValidationError("Skills must be a list or a string.")
+
 
 class UserSerializer(serializers.ModelSerializer):
     # Map backend field names to what frontend expects
@@ -21,25 +43,26 @@ class UserSerializer(serializers.ModelSerializer):
         source="contact_clicks", read_only=True
     )
 
+    # NEW: use our custom field here
+    skills = SkillsField()
+
     class Meta:
         model = User
         fields = [
             "id",
-            "username",       # from name
+            "username",        # from name
             "email",
             "category",
-            "description",    # from bio
-            "skills",         # handled specially below
+            "description",     # from bio
+            "skills",          # custom field
             "portfolio",
-            "imageUrl",       # from image
+            "imageUrl",        # from image
             "rating",
-            "totalRatings",   # from review_count
-            "profileViews",   # from profile_views
-            "contactClicks",  # from contact_clicks
-            "experience_level",  # extra field, frontend can ignore for now
+            "totalRatings",    # from review_count
+            "profileViews",    # from profile_views
+            "contactClicks",   # from contact_clicks
+            "experience_level",
         ]
-
-    # --- VALIDATIONS YOU ALREADY HAD, ADAPTED ---
 
     def validate_email(self, value):
         """
@@ -59,43 +82,3 @@ class UserSerializer(serializers.ModelSerializer):
                 f"experience_level must be one of: {', '.join(allowed)}"
             )
         return value
-
-    # --- SKILLS: store as text in DB, send as list[] to frontend ---
-
-    def to_representation(self, instance):
-        """
-        Convert DB -> JSON.
-        skills: "A, B, C" -> ["A", "B", "C"]
-        """
-        data = super().to_representation(instance)
-        skills_text = instance.skills or ""
-        if skills_text.strip():
-            data["skills"] = [
-                s.strip() for s in skills_text.split(",") if s.strip()
-            ]
-        else:
-            data["skills"] = []
-        return data
-
-    def _normalize_skills(self, skills):
-        """
-        Convert incoming JSON value for skills -> text for DB.
-        Accepts list or string.
-        """
-        if isinstance(skills, list):
-            return ", ".join(str(s).strip() for s in skills if str(s).strip())
-        # string or anything else
-        return str(skills).strip()
-
-    def create(self, validated_data):
-        # validated_data['skills'] might be list or string
-        skills = validated_data.get("skills")
-        if skills is not None:
-            validated_data["skills"] = self._normalize_skills(skills)
-        return super().create(validated_data)
-
-    def update(self, instance, validated_data):
-        skills = validated_data.get("skills", None)
-        if skills is not None:
-            validated_data["skills"] = self._normalize_skills(skills)
-        return super().update(instance, validated_data)
