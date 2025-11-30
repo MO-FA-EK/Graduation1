@@ -1,18 +1,21 @@
 from django.db import models
 
-# Create your models here.
 class User(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    skills = models.TextField()   # simple for now, later could be ManyToMany
-    image = models.ImageField(upload_to='profiles/', blank=True, null=True)
+    skills = models.TextField()  # will store comma-separated skills
+    image = models.ImageField(upload_to="programmers/", blank=True, null=True)
     rating = models.FloatField(default=0.0)
     review_count = models.IntegerField(default=0)
 
-    # New fields
-    category = models.CharField(max_length=100, default="General")  # e.g. Web Developer, Designer, Writer
-    experience_level = models.CharField(max_length=50, default="Beginner")  # e.g. Beginner, Intermediate, Expert
-    bio = models.TextField(blank=True, null=True)  # short description of the programmer
+    category = models.CharField(max_length=100, default="Web Developer")
+    experience_level = models.CharField(max_length=20, default="Beginner")
+    bio = models.TextField(blank=True, null=True)
+
+    # NEW FIELDS to match frontend:
+    portfolio = models.URLField(blank=True, null=True)
+    profile_views = models.IntegerField(default=0)
+    contact_clicks = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
