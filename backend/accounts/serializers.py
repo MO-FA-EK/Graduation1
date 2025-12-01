@@ -1,66 +1,74 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
+from django.core import exceptions as django_exceptions
 
 from rest_framework import serializers
-from rest_framework_simplejwt.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-
-from .utils import normalize_username, normalize_email
-
-
-
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, min_length=8)
+    """
+    Serializer for user registration.
+    """
+
+    password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password']
-
-    def validate_username(self, value):
-        value = normalize_username(value)
-        if len(value) < 3:
-            raise serializers.ValidationError("Username must be at least 3 characters.")
-        if User.objects.filter(username__iexact=value).exists():
-            raise serializers.ValidationError("Username already taken.")
-        return value
+        fields = ["id", "username", "email", "password"]
 
     def validate_email(self, value):
-        value = normalize_email(value)
         if User.objects.filter(email__iexact=value).exists():
-            raise serializers.ValidationError("Email already in use.")
+            raise serializers.ValidationError("A user with this email already exists.")
         return value
 
     def validate_password(self, value):
-        validate_password(value)
+        """
+        Run Django's password validators so weak passwords are rejected.
+        """
+        try:
+            validate_password(value)
+        except django_exceptions.ValidationError as e:
+            raise serializers.ValidationError(e.messages)
         return value
 
     def create(self, validated_data):
-        return User.objects.create_user(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            password=validated_data['password']
+        user = User(
+            username=validated_data["username"],
+            email=validated_data.get("email", ""),
         )
+        user.set_password(validated_data["password"])
+        user.save()
+        return user
 
 
 class UserTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """
+    Custom login serializer:
+    - Keeps SimpleJWT behaviour
+    - Returns access, refresh, and a minimal 'user' object.
+    """
+
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        # Optional: add extra info into the token payload if you want
+        token["username"] = user.username
+        return token
 
     def validate(self, attrs):
-        username = attrs.get("username", "").strip()
-        password = attrs.get("password", "")
+        # This will raise AuthenticationFailed if credentials are wrong.
+        data = super().validate(attrs)
 
-        if not username or not password:
-            raise serializers.ValidationError("Username and password are required.")
+        user = self.user
 
-        try:
-            data = super().validate(attrs)
-        except AuthenticationFailed:
-            raise serializers.ValidationError("Invalid username or password.")
-
-        data['user'] = {
-            'id': self.user.id,
-            'username': self.user.username,
-            'email': self.user.email,
+        # Ensure response structure is exactly what we want:
+        return {
+            "access": data["access"],
+            "refresh": data["refresh"],
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email or "",
+            },
         }
-        return data

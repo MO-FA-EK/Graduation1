@@ -1,39 +1,29 @@
 from rest_framework.views import exception_handler
-from rest_framework import status
-from rest_framework.response import Response
+from rest_framework.exceptions import AuthenticationFailed, NotAuthenticated
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
+
 
 def custom_auth_exception_handler(exc, context):
+    """
+    Wrap DRF + SimpleJWT errors in cleaner, frontend-friendly messages.
+    """
+
     response = exception_handler(exc, context)
 
+    # If DRF didn't handle it, just return as-is.
     if response is None:
         return response
 
-    data = response.data
+    # IMPORTANT: check token errors (InvalidToken, TokenError) BEFORE AuthenticationFailed,
+    # because InvalidToken is a subclass of AuthenticationFailed.
+    if isinstance(exc, (InvalidToken, TokenError)):
+        response.data = {"detail": "Token is invalid or has expired."}
 
-    # -------- Token errors (refresh / validate-token) --------
-    if isinstance(data, dict) and data.get("code") == "token_not_valid":
-        return Response(
-            {"detail": "Your session expired. Please log in again."},
-            status=status.HTTP_401_UNAUTHORIZED
-        )
+    elif isinstance(exc, AuthenticationFailed):
+        # This mainly covers wrong username/password on login
+        response.data = {"detail": "Invalid username or password."}
 
-    # SimpleJWT sometimes returns token errors like this:
-    if isinstance(data, dict) and "detail" in data and "token" in str(data["detail"]).lower():
-        return Response(
-            {"detail": "Invalid token. Please log in again."},
-            status=response.status_code
-        )
+    elif isinstance(exc, NotAuthenticated):
+        response.data = {"detail": "Authentication credentials were not provided."}
 
-    # -------- Invalid login credentials --------
-    if data.get("detail") == "No active account found with the given credentials":
-        response.data = {"detail": "Incorrect username or password."}
-        return response
-
-    # -------- Missing Authorization header --------
-    if data.get("detail") == "Authentication credentials were not provided.":
-        response.data = {"detail": "Login required."}
-        return response
-
-    # Default: keep original error
     return response
-

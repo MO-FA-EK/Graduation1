@@ -21,3 +21,15 @@
 [API LOG] POST /api/programmers/16/rate/ → 200 | 31.94 ms | User: abdi
 [API LOG] GET /api/profile/ → 200 | 34.45 ms | User: abdi
 [API LOG] PATCH /api/profile/ → 200 | 31.3 ms | User: abdi
+[API LOG] POST /api/auth/login/ → 401 | 1516.38 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 1312.11 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 1470.69 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 1301.13 ms | User: Anonymous
+[API LOG] GET /api/programmers/16/ → 200 | 5.38 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 1331.6 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 1569.43 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1366.21 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 1278.84 ms | User: Anonymous
+[API LOG] GET /api/auth/validate-token/ → 401 | 0.85 ms | User: Anonymous
+[API LOG] GET /api/auth/validate-token/ → 401 | 0.8 ms | User: Anonymous
+[API LOG] GET /api/auth/validate-token/ → 401 | 12.57 ms | User: Anonymous
