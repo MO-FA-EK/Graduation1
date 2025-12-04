@@ -43,3 +43,12 @@
 [API LOG] GET /api/programmers/ → 200 | 11.48 ms | User: Anonymous
 [API LOG] GET /api/programmers/ → 200 | 12.05 ms | User: Anonymous
 [API LOG] GET /api/programmers/ → 200 | 10.76 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 194.45 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 11.65 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.87 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 19.38 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 8.83 ms | User: Anonymous
+[API LOG] GET / → 404 | 128.45 ms | User: Anonymous
+[API LOG] GET / → 404 | 4.76 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 9.99 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 7.89 ms | User: Anonymous
