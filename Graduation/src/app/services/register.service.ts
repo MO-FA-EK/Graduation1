@@ -1,23 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, delay, tap } from 'rxjs';
-import { FreelancerService } from './freelancer.service';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RegisterService {
-  private apiUrl = 'https://your-backend-api/register'; // رابط ثابت
 
-  constructor(private http: HttpClient, private freelancerService: FreelancerService) { }
+  private apiUrl = 'http://localhost:8000/api/auth/register/';
 
-  // تسجيل (Mock)
+  constructor(private http: HttpClient) { }
+
   registerDeveloper(data: any): Observable<any> {
-    // محاكاة تأخير الشبكة
-    return of({ message: 'Registration successful!' }).pipe(
-      delay(500),
-      tap(() => {
-        console.log('Mock Registration Data:', data);
-        this.freelancerService.addFreelancer(data);
-      })
-    );
+
+
+    const formData = new FormData();
+
+
+    formData.append('username', data.username);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+
+    if (data.user_type) {
+      formData.append('user_type', data.user_type);
+    }
+
+    if (data.category) formData.append('category', data.category);
+    if (data.description) formData.append('description', data.description);
+    if (data.skills) formData.append('skills', data.skills);
+    if (data.portfolio) formData.append('portfolio', data.portfolio);
+    formData.append('experience_level', 'Beginner');
+
+
+    if (data.imageUrl) {
+        formData.append('image', data.imageUrl);
+    }
+
+    return this.http.post(this.apiUrl, formData);
   }
 }

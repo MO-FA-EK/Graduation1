@@ -35,3 +35,11 @@
 [API LOG] GET /api/auth/validate-token/ → 401 | 12.57 ms | User: Anonymous
 [API LOG] GET /api/programmers/ → 200 | 7.6 ms | User: Anonymous
 [API LOG] GET /api/programmers/ → 200 | 12.16 ms | User: Anonymous
+[API LOG] GET / → 404 | 144.47 ms | User: Anonymous
+[API LOG] GET /favicon.ico → 404 | 2.87 ms | User: Anonymous
+[API LOG] GET / → 404 | 84.64 ms | User: Anonymous
+[API LOG] GET /favicon.ico → 404 | 7.73 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 211.58 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 11.48 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 12.05 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 10.76 ms | User: Anonymous
