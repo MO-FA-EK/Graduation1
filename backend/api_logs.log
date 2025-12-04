@@ -52,3 +52,4 @@
 [API LOG] GET / → 404 | 4.76 ms | User: Anonymous
 [API LOG] GET /api/programmers/ → 200 | 9.99 ms | User: Anonymous
 [API LOG] GET /api/programmers/ → 200 | 7.89 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 305.09 ms | User: Anonymous
