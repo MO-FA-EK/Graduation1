@@ -1,42 +1,57 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { AuthService } from '../../app/services/auth.service';
-
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, RouterModule, CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email = '';
+
+  username = '';
   password = '';
-  message = '';
-  isError = false;
+  errorMessage = '';
   isLoading = false;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   login() {
-    this.isLoading = true;
-    this.auth.login(this.email, this.password).subscribe({
-      next: (success) => {
-        if (success) {
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.isError = true;
-          this.message = 'Invalid credentials!';
-        }
-        this.isLoading = false;
-      },
-      error: () => {
-        this.isError = true;
-        this.message = 'Something went wrong!';
-        this.isLoading = false;
+  this.isLoading = true;
+  this.errorMessage = '';
+
+  this.authService.login(this.username, this.password).subscribe({
+    next: (res) => {
+      this.isLoading = false;
+
+      if (res.token) {
+        // 1) Save token
+        this.authService.saveToken(res.token);
+
+        // 2) Save user info (so dashboard & profile can use it)
+        this.authService.saveUser({
+          id: res.user_id,
+          username: res.username,
+          email: res.email,
+          user_type: res.user_type   // if backend sends it
+        });
+
+        // 3) Redirect to dashboard
+        this.router.navigate(['/dashboard']);
       }
-    });
-  }
+    },
+    error: (err) => {
+      this.isLoading = false;
+      this.errorMessage = 'Invalid username or password';
+    }
+  });
+}
+
 }

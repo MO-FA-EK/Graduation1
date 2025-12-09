@@ -48,18 +48,18 @@ export class DashboardComponent implements OnInit {
     this.isSaving = true;
 
     this.authService.updateUser(this.profile).subscribe({
-      next: (updatedUser) => {
+  next: (updatedUser: User) => {
+    this.isSaving = false;
+    this.profile = updatedUser;
+    alert('✅ Data saved successfully to LocalStorage!');
+  },
+  error: (err: any) => {
+    this.isSaving = false;
+    console.error(err);
+    alert('❌ Failed to save data');
+  }
+});
 
-        this.isSaving = false;
-        this.profile = updatedUser;
-        alert('✅ Data saved successfully to LocalStorage!');
-      },
-      error: (err) => {
-        this.isSaving = false;
-        console.error(err);
-        alert('❌ Failed to save data');
-      }
-    });
   }
 
 

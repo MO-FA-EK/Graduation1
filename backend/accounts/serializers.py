@@ -1,74 +1,49 @@
-from django.contrib.auth.models import User
-from django.contrib.auth.password_validation import validate_password
-from django.core import exceptions as django_exceptions
-
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth.models import User
+from marketplace.models import Programmer
 
-
-class RegisterSerializer(serializers.ModelSerializer):
-    """
-    Serializer for user registration.
-    """
-
+class RegisterSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
+    user_type = serializers.CharField()
 
-    class Meta:
-        model = User
-        fields = ["id", "username", "email", "password"]
-
-    def validate_email(self, value):
-        if User.objects.filter(email__iexact=value).exists():
-            raise serializers.ValidationError("A user with this email already exists.")
-        return value
-
-    def validate_password(self, value):
-        """
-        Run Django's password validators so weak passwords are rejected.
-        """
-        try:
-            validate_password(value)
-        except django_exceptions.ValidationError as e:
-            raise serializers.ValidationError(e.messages)
-        return value
+    category = serializers.CharField(required=False, allow_blank=True)
+    description = serializers.CharField(required=False, allow_blank=True)
+    skills = serializers.CharField(required=False, allow_blank=True)
+    portfolio = serializers.CharField(required=False, allow_blank=True)
+    imageUrl = serializers.CharField(required=False, allow_blank=True)
 
     def create(self, validated_data):
-        user = User(
-            username=validated_data["username"],
-            email=validated_data.get("email", ""),
+        user_type = validated_data.pop("user_type")
+
+        username = validated_data.pop("username")
+        email = validated_data.pop("email")
+        password = validated_data.pop("password")
+
+        # Create Django User
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password,
         )
-        user.set_password(validated_data["password"])
-        user.save()
-        return user
 
+        # Create freelancer profile
+        if user_type == "freelancer":
+            Programmer.objects.create(
+                user=user,
+                name=username,
+                email=email,
+                category=validated_data.get("category", ""),
+                bio=validated_data.get("description", ""),
+                skills=validated_data.get("skills", ""),
+                portfolio=validated_data.get("portfolio", ""),
+                image=validated_data.get("imageUrl", "")
+            )
 
-class UserTokenObtainPairSerializer(TokenObtainPairSerializer):
-    """
-    Custom login serializer:
-    - Keeps SimpleJWT behaviour
-    - Returns access, refresh, and a minimal 'user' object.
-    """
-
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        # Optional: add extra info into the token payload if you want
-        token["username"] = user.username
-        return token
-
-    def validate(self, attrs):
-        # This will raise AuthenticationFailed if credentials are wrong.
-        data = super().validate(attrs)
-
-        user = self.user
-
-        # Ensure response structure is exactly what we want:
         return {
-            "access": data["access"],
-            "refresh": data["refresh"],
-            "user": {
-                "id": user.id,
-                "username": user.username,
-                "email": user.email or "",
-            },
+            "message": "Account created successfully",
+            "username": username,
+            "email": email,
+            "user_type": user_type,
         }

@@ -7,10 +7,12 @@ import { RegisterService } from '../../app/services/register.service';
 
 @Component({
   selector: 'app-register',
+  standalone: true,
   imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent {
   userType: 'client' | 'freelancer' = 'client';
 
@@ -62,7 +64,7 @@ export class RegisterComponent {
       imageUrl: this.userType === 'freelancer' ? this.imageUrl : ''
     };
 
-    this.registerService.registerDeveloper(data).subscribe({
+    this.registerService.register(data).subscribe({
       next: (res) => {
         this.message = res.message || 'Registration successful!';
         this.isError = false;

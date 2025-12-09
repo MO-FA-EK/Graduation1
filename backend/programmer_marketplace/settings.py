@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'marketplace',   # my app
     'accounts',   # newly added
     "corsheaders",
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
