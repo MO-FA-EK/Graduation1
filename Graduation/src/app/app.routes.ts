@@ -96,5 +96,11 @@ export const routes: Routes = [
 
   { path: 'freelancer/:id', loadComponent: () => import('../component/freelancer-profile/freelancer-profile.component').then(m => m.FreelancerProfileComponent) },
 
-  { path: '**', redirectTo: 'homepage', pathMatch: 'full' }
+  { path: '**', redirectTo: 'homepage', pathMatch: 'full' },
+
+  {
+  path: 'services',
+  component: ServicesComponent
+}
+
 ];

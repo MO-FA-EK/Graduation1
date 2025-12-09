@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import status
 from .models import Programmer
 from .serializers import ProgrammerSerializer
 
@@ -18,7 +19,7 @@ def programmer_detail(request, id):
         programmer = Programmer.objects.get(id=id)
     except Programmer.DoesNotExist:
         return Response({"error": "Not found"}, status=404)
-    
+
     serializer = ProgrammerSerializer(programmer)
     return Response(serializer.data)
 
@@ -51,3 +52,37 @@ def my_profile(request):
         "username": user.username,
         "email": user.email
     })
+
+
+# 🔹 INCREMENT PROFILE VIEWS
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def increment_profile_views(request, id):
+    try:
+        programmer = Programmer.objects.get(pk=id)
+    except Programmer.DoesNotExist:
+        return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    programmer.profile_views += 1
+    programmer.save()
+
+    print("DEBUG increment_profile_views:", programmer.id, programmer.profile_views)
+
+    return Response({"profileViews": programmer.profile_views})
+
+
+# 🔹 INCREMENT CONTACT CLICKS
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def increment_contact_clicks(request, id):
+    try:
+        programmer = Programmer.objects.get(pk=id)
+    except Programmer.DoesNotExist:
+        return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    programmer.contact_clicks += 1
+    programmer.save()
+
+    print("DEBUG increment_contact_clicks:", programmer.id, programmer.contact_clicks)
+
+    return Response({"contactClicks": programmer.contact_clicks})

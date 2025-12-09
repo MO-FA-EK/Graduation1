@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
 import { FreelancerService, Freelancer } from '../../app/services/freelancer.service';
 
@@ -10,7 +10,7 @@ import { FreelancerService, Freelancer } from '../../app/services/freelancer.ser
     styleUrls: ['./freelancer-profile.component.css']
 })
 export class FreelancerProfileComponent implements OnInit {
-    freelancer: Freelancer | undefined;
+    freelancer: Freelancer | null = null;
     isLoading: boolean = true;
 
     userRating: number = 0;
@@ -31,14 +31,17 @@ export class FreelancerProfileComponent implements OnInit {
         }
     }
 
-    loadFreelancer(id: number) {
+    loadFreelancer(id: number): void {
         this.freelancerService.getFreelancerById(id).subscribe(data => {
             this.freelancer = data;
             this.isLoading = false;
 
-            if (this.freelancer) {
-                this.freelancerService.incrementProfileViews(this.freelancer.id);
-            }
+            // 🔹 increment profile views and update the value locally
+            this.freelancerService.incrementProfileViews(id).subscribe(newViews => {
+                if (this.freelancer) {
+                    this.freelancer.profileViews = newViews;
+                }
+            });
         });
     }
 
@@ -50,15 +53,12 @@ export class FreelancerProfileComponent implements OnInit {
 
         setTimeout(() => {
             if (this.freelancer) {
-
-              const currentTotal = this.freelancer.rating * this.freelancer.totalRatings;
+                const currentTotal = this.freelancer.rating * this.freelancer.totalRatings;
                 const newTotalRatings = this.freelancer.totalRatings + 1;
                 const newRating = (currentTotal + stars) / newTotalRatings;
 
-
                 this.freelancer.rating = parseFloat(newRating.toFixed(1));
                 this.freelancer.totalRatings = newTotalRatings;
-
 
                 alert(`Thank you! You rated ${stars} stars.`);
                 this.isRating = false;
@@ -67,10 +67,18 @@ export class FreelancerProfileComponent implements OnInit {
     }
 
     contactFreelancer(): void {
-        if (this.freelancer) {
-            this.freelancerService.incrementContactClicks(this.freelancer.id);
-            window.location.href = `mailto:${this.freelancer.email}?subject=Job Inquiry&body=Hi ${this.freelancer.username}...`;
-        }
+        if (!this.freelancer) return;
+
+        // 🔹 increment contact clicks and update the value locally
+        this.freelancerService.incrementContactClicks(this.freelancer.id).subscribe(newClicks => {
+            if (this.freelancer) {
+                this.freelancer.contactClicks = newClicks;
+            }
+        });
+
+        // 🔹 open default mail client
+        window.location.href =
+            `mailto:${this.freelancer.email}?subject=Job Inquiry&body=Hi ${this.freelancer.username}...`;
     }
 
     goBack(): void {

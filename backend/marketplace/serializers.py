@@ -2,9 +2,12 @@ from rest_framework import serializers
 from .models import Programmer
 
 class ProgrammerSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(source='name')  # send name as username
-    imageUrl = serializers.CharField(source='image')  # match frontend
-    totalRatings = serializers.IntegerField(source='review_count')
+    username = serializers.CharField(source='name')
+    imageUrl = serializers.CharField(source='image')
+    totalRatings = serializers.IntegerField(source='review_count', read_only=True)
+
+    profileViews = serializers.IntegerField(source='profile_views', read_only=True)
+    contactClicks = serializers.IntegerField(source='contact_clicks', read_only=True)
 
     skills = serializers.SerializerMethodField()
 
@@ -25,5 +28,7 @@ class ProgrammerSerializer(serializers.ModelSerializer):
             'portfolio',
             'imageUrl',
             'rating',
-            'totalRatings'
+            'totalRatings',
+            'profileViews',
+            'contactClicks',
         ]

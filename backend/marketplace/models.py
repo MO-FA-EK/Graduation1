@@ -11,8 +11,9 @@ class Programmer(models.Model):
     portfolio = models.CharField(max_length=500, blank=True)
     image = models.CharField(max_length=500, blank=True)
     rating = models.FloatField(default=0)
-    review_count = models.IntegerField(default=0)
-    profile_views = models.IntegerField(default=0)
+    profile_views = models.PositiveIntegerField(default=0)
+    contact_clicks = models.PositiveIntegerField(default=0)
+    review_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name

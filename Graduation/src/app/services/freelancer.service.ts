@@ -3,75 +3,92 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 export interface Freelancer {
-    id: number;
-    username: string;
-    email: string;
-    category: string;
-    description: string;
-    skills: string[];
-    portfolio?: string;
-    imageUrl?: string;
-    rating: number;
-    totalRatings: number;
-    profileViews: number;
-    contactClicks: number;
+  id: number;
+  username: string;
+  email: string;
+  category: string;
+  description: string;
+  skills: string[];
+  portfolio?: string;
+  imageUrl?: string;
+  rating: number;
+  totalRatings: number;
+  profileViews: number;
+  contactClicks: number;
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class FreelancerService {
-    private apiUrl = 'http://localhost:8000/api/programmers/';
+  private apiUrl = 'http://localhost:8000/api/programmers/';
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    getFreelancers(): Observable<Freelancer[]> {
-        return this.http.get<any>(this.apiUrl).pipe(
-            map(response => {
+  // LIST ALL FREELANCERS (Services page)
+  getFreelancers(): Observable<Freelancer[]> {
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(response => {
+        // Handle both paginated and non-paginated responses
+        const results = response.results ?? response;
 
-                const results = response.results || response;
+        if (!Array.isArray(results)) {
+          return [];
+        }
 
-                return results.map((f: any) => ({
-                    id: f.id,
-                    username: f.username,
-                    email: f.email,
-                    category: f.category,
-                    description: f.description,
-                    skills: typeof f.skills === 'string' ? f.skills.split(',') : (f.skills || []),
-                    portfolio: f.portfolio,
-                    imageUrl: f.imageUrl,
-                    rating: f.rating,
-                    totalRatings: f.totalRatings,
-                    profileViews: f.profileViews,
-                    contactClicks: f.contactClicks
-                }));
-            })
-        );
-    }
+        return results.map((f: any) => ({
+          id: f.id,
+          username: f.username,
+          email: f.email,
+          category: f.category,
+          // backend sends "bio", UI expects "description"
+          description: f.bio ?? f.description ?? '',
+          skills: typeof f.skills === 'string'
+            ? f.skills.split(',').map((s: string) => s.trim())
+            : (f.skills || []),
+          portfolio: f.portfolio ?? '',
+          imageUrl: f.imageUrl ?? '',
+          rating: f.rating ?? 0,
+          totalRatings: f.totalRatings ?? 0,
+          profileViews: f.profileViews ?? 0,
+          contactClicks: f.contactClicks ?? 0
+        }));
+      })
+    );
+  }
 
-    getFreelancerById(id: number): Observable<Freelancer> {
-        return this.http.get<any>(`${this.apiUrl}${id}/`).pipe(
-            map(f => ({
-                id: f.id,
-                username: f.username,
-                email: f.email,
-                category: f.category,
-                description: f.description,
-                skills: typeof f.skills === 'string' ? f.skills.split(',') : (f.skills || []),
-                portfolio: f.portfolio,
-                imageUrl: f.imageUrl,
-                rating: f.rating,
-                totalRatings: f.totalRatings,
-                profileViews: f.profileViews,
-                contactClicks: f.contactClicks
-            }))
-        );
-    }
+  // SINGLE FREELANCER (Profile page)
+  getFreelancerById(id: number): Observable<Freelancer> {
+    return this.http.get<any>(`${this.apiUrl}${id}/`).pipe(
+      map((f: any) => ({
+        id: f.id,
+        username: f.username,
+        email: f.email,
+        category: f.category,
+        description: f.bio ?? f.description ?? '',
+        skills: typeof f.skills === 'string'
+          ? f.skills.split(',').map((s: string) => s.trim())
+          : (f.skills || []),
+        portfolio: f.portfolio ?? '',
+        imageUrl: f.imageUrl ?? '',
+        rating: f.rating ?? 0,
+        totalRatings: f.totalRatings ?? 0,
+        profileViews: f.profileViews ?? 0,
+        contactClicks: f.contactClicks ?? 0
+      }))
+    );
+  }
 
-    incrementProfileViews(id: number): void {
-    }
+  // TRACKING: VIEWS + CONTACT CLICKS
+  incrementProfileViews(id: number): Observable<number> {
+    return this.http.post<any>(`${this.apiUrl}${id}/view/`, {}).pipe(
+      map(res => res.profileViews ?? res.profile_views ?? 0)
+    );
+  }
 
-    incrementContactClicks(id: number): void {
-
-    }
+  incrementContactClicks(id: number): Observable<number> {
+    return this.http.post<any>(`${this.apiUrl}${id}/contact/`, {}).pipe(
+      map(res => res.contactClicks ?? res.contact_clicks ?? 0)
+    );
+  }
 }
