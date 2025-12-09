@@ -27,31 +27,29 @@ export class LoginComponent {
   this.isLoading = true;
   this.errorMessage = '';
 
-  this.authService.login(this.username, this.password).subscribe({
-    next: (res) => {
-      this.isLoading = false;
+ this.authService.login(this.username, this.password).subscribe({
+  next: (res) => {
+    this.isLoading = false;
 
-      if (res.token) {
-        // 1) Save token
-        this.authService.saveToken(res.token);
+    if (res.access) {
+      this.authService.saveToken(res.access);
 
-        // 2) Save user info (so dashboard & profile can use it)
-        this.authService.saveUser({
-          id: res.user_id,
-          username: res.username,
-          email: res.email,
-          user_type: res.user_type   // if backend sends it
-        });
+      this.authService.saveUser({
+        id: res.user_id,
+        username: res.username,
+        email: res.email,
+        user_type: res.user_type
+      });
 
-        // 3) Redirect to dashboard
-        this.router.navigate(['/dashboard']);
-      }
-    },
-    error: (err) => {
-      this.isLoading = false;
-      this.errorMessage = 'Invalid username or password';
+      this.router.navigate(['/dashboard']);
     }
-  });
+  },
+  error: () => {
+    this.isLoading = false;
+    this.errorMessage = 'Invalid username or password';
+  }
+});
+
 }
 
 }

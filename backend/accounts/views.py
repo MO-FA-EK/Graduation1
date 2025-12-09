@@ -16,16 +16,31 @@ class RegisterView(generics.GenericAPIView):
 
 
 # LOGIN VIEW (Token-based)
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-class LoginView(ObtainAuthToken):
-    def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
-        token = Token.objects.get(key=response.data["token"])
-        return Response({
-            "token": token.key,
-            "user_id": token.user.id,
-            "username": token.user.username,
-            "email": token.user.email,
-        })
+class LoginSerializer(TokenObtainPairSerializer):
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        # Standard fields
+        data['user_id'] = self.user.id
+        data['username'] = self.user.username
+        data['email'] = self.user.email
+
+        # Detect if user is a freelancer by checking Programmer model
+        from marketplace.models import Programmer
+        try:
+            Programmer.objects.get(user=self.user)
+            data['user_type'] = "freelancer"
+        except Programmer.DoesNotExist:
+            data['user_type'] = "client"
+
+        return data
+
+
+
+
+class LoginView(TokenObtainPairView):
+    serializer_class = LoginSerializer

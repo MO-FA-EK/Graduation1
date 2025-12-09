@@ -21,6 +21,16 @@ export interface User {
   totalRatings?: number;
 }
 
+export interface LoginResponse {
+  access: string;
+  refresh: string;
+  user_id: number;
+  username: string;
+  email: string;
+  user_type?: string;
+}
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,21 +43,22 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   // -------- LOGIN --------
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(this.loginUrl, {
-      username: username,
-      password: password
-    });
-  }
+  login(username: string, password: string): Observable<LoginResponse> {
+  return this.http.post<LoginResponse>(this.loginUrl, {
+    username: username,
+    password: password
+  });
+}
 
-  // -------- TOKEN HANDLING --------
-  saveToken(token: string) {
-    localStorage.setItem('token', token);
-  }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
+saveToken(token: string) {
+  localStorage.setItem('access_token', token);
+}
+
+getToken(): string | null {
+  return localStorage.getItem('access_token');
+}
+
 
   logout() {
     localStorage.removeItem('token');
