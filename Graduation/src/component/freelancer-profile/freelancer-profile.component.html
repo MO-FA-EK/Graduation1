@@ -39,7 +39,13 @@
 
       <section class="about">
         <h2>About Me</h2>
-        <p>{{ freelancer.description }}</p>
+        <p>{{ freelancer.description || 'No description provided.' }}</p>
+
+        <div *ngIf="freelancer.portfolio" class="portfolio-section">
+          <a [href]="freelancer.portfolio" target="_blank" class="portfolio-link">
+            🔗 Visit My Portfolio
+          </a>
+        </div>
       </section>
 
       <section class="skills">
@@ -47,6 +53,9 @@
         <div class="skills-list">
           <span *ngFor="let skill of freelancer.skills" class="skill-tag">
             {{ skill }}
+          </span>
+          <span *ngIf="!freelancer.skills || freelancer.skills.length === 0" class="no-skills">
+            No specific skills listed.
           </span>
         </div>
       </section>

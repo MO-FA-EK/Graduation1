@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
 import { AuthService, User } from '../../app/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
@@ -17,30 +17,34 @@ export class DashboardComponent implements OnInit {
   isSaving: boolean = false;
   isSidebarOpen: boolean = false;
 
-
   profile: User | null = null;
 
-  stats = {
-    views: 150,
-    clicks: 42,
-    rating: 4.8,
-    totalReviews: 24
+//Password change variables
+  passData = {
+    old_password: '',
+    new_password: '',
+    confirm_password: ''
   };
+  passMessage = '';
+  isPassError = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      const user = this.authService.getUser();
+    this.profile = this.authService.getUser();
 
-      if (user) {
-        this.profile = user;
-      } else {
-        this.router.navigate(['/login']);
+    this.authService.getUserProfile().subscribe({
+      next: (user) => {
+        if (user) {
+          this.profile = user;
+        }
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+        if (!this.profile) this.router.navigate(['/login']);
       }
-
-      this.isLoading = false;
-    }, 1000);
+    });
   }
 
   saveProfile() {
@@ -48,26 +52,60 @@ export class DashboardComponent implements OnInit {
     this.isSaving = true;
 
     this.authService.updateUser(this.profile).subscribe({
-  next: (updatedUser: User) => {
-    this.isSaving = false;
-    this.profile = updatedUser;
-    alert('✅ Data saved successfully to LocalStorage!');
-  },
-  error: (err: any) => {
-    this.isSaving = false;
-    console.error(err);
-    alert('❌ Failed to save data');
+      next: (updatedUser: User) => {
+        this.isSaving = false;
+        this.profile = updatedUser;
+        alert('✅ Profile updated successfully!');
+      },
+      error: (err: any) => {
+        this.isSaving = false;
+        console.error(err);
+        alert('❌ Failed to update profile.');
+      }
+    });
   }
-});
 
+
+//Password change function
+  changePasswordSubmit() {
+    this.passMessage = '';
+    this.isPassError = false;
+
+    if (this.passData.new_password !== this.passData.confirm_password) {
+      this.passMessage = "New passwords do not match!";
+      this.isPassError = true;
+      return;
+    }
+
+    if (this.passData.new_password.length < 6) {
+      this.passMessage = "Password must be at least 6 characters.";
+      this.isPassError = true;
+      return;
+    }
+
+    this.isSaving = true;
+
+    this.authService.changePassword({
+      old_password: this.passData.old_password,
+      new_password: this.passData.new_password
+    }).subscribe({
+      next: (res) => {
+        this.isSaving = false;
+        this.passMessage = res.message || "Password Changed Successfully!";
+        this.isPassError = false;
+        this.passData = { old_password: '', new_password: '', confirm_password: '' };
+      },
+      error: (err) => {
+        this.isSaving = false;
+        this.isPassError = true;
+        this.passMessage = err.error?.old_password?.[0] || "Failed to update password.";
+      }
+    });
   }
-
 
   setTab(tab: string) {
     this.activeTab = tab;
-    if (window.innerWidth <= 768) {
-      this.isSidebarOpen = false;
-    }
+    if (window.innerWidth <= 768) this.isSidebarOpen = false;
   }
 
   toggleSidebar() {
@@ -75,10 +113,8 @@ export class DashboardComponent implements OnInit {
   }
 
   logout() {
-    const confirmLogout = confirm('Are you sure you want to logout?');
-    if (confirmLogout) {
+    if (confirm('Are you sure you want to logout?')) {
       this.authService.logout();
-      this.router.navigate(['/login']);
     }
   }
 }

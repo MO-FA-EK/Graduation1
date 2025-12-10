@@ -184,4 +184,6 @@ input:focus, textarea:focus {
   .content { padding-top: 4rem; }
   .form-grid { grid-template-columns: 1fr; }
   .full-width { grid-column: span 1; }
+  .error-msg { color: #ff6b6b; }
+  .success-msg { color: #2ecc71; }
 }

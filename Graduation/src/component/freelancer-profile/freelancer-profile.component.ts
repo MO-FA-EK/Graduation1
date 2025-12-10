@@ -5,6 +5,7 @@ import { FreelancerService, Freelancer } from '../../app/services/freelancer.ser
 
 @Component({
     selector: 'app-freelancer-profile',
+    standalone: true,
     imports: [CommonModule, RouterModule],
     templateUrl: './freelancer-profile.component.html',
     styleUrls: ['./freelancer-profile.component.css']
@@ -12,7 +13,6 @@ import { FreelancerService, Freelancer } from '../../app/services/freelancer.ser
 export class FreelancerProfileComponent implements OnInit {
     freelancer: Freelancer | null = null;
     isLoading: boolean = true;
-
     userRating: number = 0;
     isRating: boolean = false;
 
@@ -36,14 +36,14 @@ export class FreelancerProfileComponent implements OnInit {
             this.freelancer = data;
             this.isLoading = false;
 
-            // 🔹 increment profile views and update the value locally
+// Increase views
             this.freelancerService.incrementProfileViews(id).subscribe(newViews => {
-                if (this.freelancer) {
-                    this.freelancer.profileViews = newViews;
-                }
+                if (this.freelancer) this.freelancer.profileViews = newViews;
             });
         });
     }
+
+ // Real Evaluation Function
 
     rateFreelancer(stars: number): void {
         if (!this.freelancer || this.isRating) return;
@@ -51,34 +51,35 @@ export class FreelancerProfileComponent implements OnInit {
         this.isRating = true;
         this.userRating = stars;
 
-        setTimeout(() => {
-            if (this.freelancer) {
-                const currentTotal = this.freelancer.rating * this.freelancer.totalRatings;
-                const newTotalRatings = this.freelancer.totalRatings + 1;
-                const newRating = (currentTotal + stars) / newTotalRatings;
 
-                this.freelancer.rating = parseFloat(newRating.toFixed(1));
-                this.freelancer.totalRatings = newTotalRatings;
+       // Connect to the server
+        this.freelancerService.rateFreelancer(this.freelancer.id, stars).subscribe({
+            next: (res) => {
+                if (this.freelancer) {
 
+
+
+  // Update numbers based on server response
+                  this.freelancer.rating = res.rating;
+                    this.freelancer.totalRatings = res.totalRatings || (this.freelancer.totalRatings + 1);
+                }
                 alert(`Thank you! You rated ${stars} stars.`);
                 this.isRating = false;
+            },
+            error: (err) => {
+                console.error(err);
+                alert('Failed to save rating. Please try again.');
+                this.isRating = false;
             }
-        }, 500);
+        });
     }
 
     contactFreelancer(): void {
         if (!this.freelancer) return;
-
-        // 🔹 increment contact clicks and update the value locally
         this.freelancerService.incrementContactClicks(this.freelancer.id).subscribe(newClicks => {
-            if (this.freelancer) {
-                this.freelancer.contactClicks = newClicks;
-            }
+            if (this.freelancer) this.freelancer.contactClicks = newClicks;
         });
-
-        // 🔹 open default mail client
-        window.location.href =
-            `mailto:${this.freelancer.email}?subject=Job Inquiry&body=Hi ${this.freelancer.username}...`;
+        window.location.href = `mailto:${this.freelancer.email}`;
     }
 
     goBack(): void {

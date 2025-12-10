@@ -10,6 +10,8 @@
       <button [class.active]="activeTab === 'profile'" (click)="setTab('profile')">👤 Profile</button>
       <button [class.active]="activeTab === 'stats'" (click)="setTab('stats')">📊 Stats</button>
       <button [class.active]="activeTab === 'ratings'" (click)="setTab('ratings')">⭐ Ratings</button>
+      <button [class.active]="activeTab === 'security'" (click)="setTab('security')">🔒 Security</button>
+
       <button class="logout-btn" (click)="logout()">🚪 Logout</button>
     </nav>
   </aside>
@@ -90,6 +92,35 @@
             <span class="rating-count">({{ profile.totalRatings || 0 }} reviews)</span>
           </div>
           <p class="mock-note">(Review list will appear here later)</p>
+        </div>
+
+        <div *ngIf="activeTab === 'security'" class="tab-content fade-in">
+          <h2>Change Password</h2>
+
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Old Password</label>
+              <input type="password" [(ngModel)]="passData.old_password" placeholder="Current Password">
+            </div>
+
+            <div class="form-group full-width">
+              <label>New Password</label>
+              <input type="password" [(ngModel)]="passData.new_password" placeholder="New Password">
+            </div>
+
+            <div class="form-group full-width">
+              <label>Confirm New Password</label>
+              <input type="password" [(ngModel)]="passData.confirm_password" placeholder="Repeat New Password">
+            </div>
+          </div>
+
+          <p *ngIf="passMessage" [class.error-msg]="isPassError" [class.success-msg]="!isPassError" style="margin-top: 15px; font-weight: bold;">
+            {{ passMessage }}
+          </p>
+
+          <button class="save-btn" [disabled]="isSaving" (click)="changePasswordSubmit()">
+            {{ isSaving ? 'Updating...' : 'Update Password' }}
+          </button>
         </div>
 
       </div>

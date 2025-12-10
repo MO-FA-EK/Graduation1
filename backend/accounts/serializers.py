@@ -16,7 +16,6 @@ class RegisterSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user_type = validated_data.pop("user_type")
-
         username = validated_data.pop("username")
         email = validated_data.pop("email")
         password = validated_data.pop("password")
@@ -47,3 +46,14 @@ class RegisterSerializer(serializers.Serializer):
             "email": email,
             "user_type": user_type,
         }
+
+# Serializer Password Change
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_old_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError("Old password is incorrect.")
+        return value
