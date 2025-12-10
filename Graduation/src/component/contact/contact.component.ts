@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
@@ -14,7 +13,9 @@ export class ContactComponent {
   name = '';
   email = '';
   message = '';
-  apiUrl = 'https://your-backend-api/contact';
+
+  // The real link to the backend
+  apiUrl = 'http://localhost:8000/api/contact/';
 
   sending = false;
 
@@ -28,21 +29,24 @@ export class ContactComponent {
 
     this.sending = true;
 
-    this.http.post(this.apiUrl, { name: this.name, email: this.email, message: this.message })
-      .pipe(
-        catchError(err => {
-          console.error(err);
-          alert('Failed to send message.');
-          this.sending = false;
-          return of(null);
-        })
-      )
-      .subscribe(res => {
-        if (res !== null) {
-          alert('Message sent successfully!');
-          this.name = this.email = this.message = '';
-        }
+    this.http.post(this.apiUrl, {
+      name: this.name,
+      email: this.email,
+      message: this.message
+    })
+    .subscribe({
+      next: (res: any) => {
+        alert('✅ Message sent successfully to Support Team!');
+        this.name = '';
+        this.email = '';
+        this.message = '';
         this.sending = false;
-      });
+      },
+      error: (err) => {
+        console.error(err);
+        alert('❌ Failed to send message. Please try again later.');
+        this.sending = false;
+      }
+    });
   }
 }

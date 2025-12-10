@@ -4,11 +4,13 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from rest_framework import status
 from rest_framework.pagination import LimitOffsetPagination
 from django.db.models import Q
+from django.core.mail import send_mail  
+from django.conf import settings       
 
 from .models import Programmer
 from .serializers import ProgrammerSerializer
 
-
+# 1. View list + Search
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def programmer_list(request):
@@ -29,7 +31,7 @@ def programmer_list(request):
         serializer = ProgrammerSerializer(paginated_programmers, many=True)
         return paginator.get_paginated_response(serializer.data)
 
-
+    # POST (Create)
     serializer = ProgrammerSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -51,7 +53,6 @@ def programmer_detail(request, id):
     if request.method in ['PUT', 'PATCH']:
         serializer = ProgrammerSerializer(programmer, data=request.data, partial=True)
         if serializer.is_valid():
-
             if 'skills' in request.data:
                 programmer.skills = request.data['skills']
                 programmer.save()
@@ -65,6 +66,7 @@ def programmer_detail(request, id):
         return Response(status=204)
 
 
+# Evaluation:Calculating the cumulative average.
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def rate_programmer(request, id):
@@ -89,10 +91,10 @@ def rate_programmer(request, id):
     programmer.rating = round(new_average, 2)
     programmer.save()
 
-   
     return Response(ProgrammerSerializer(programmer).data)
 
 
+#Personal profile
 @api_view(['GET', 'PUT', 'PATCH'])
 @permission_classes([IsAuthenticated])
 def my_profile(request):
@@ -137,3 +139,38 @@ def increment_contact_clicks(request, id):
         return Response({'contactClicks': p.contact_clicks})
     except Programmer.DoesNotExist:
         return Response({'error': 'Not found'}, status=404)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def contact_us(request):
+    name = request.data.get('name')
+    email = request.data.get('email')
+    message = request.data.get('message')
+
+    if not name or not message:
+        return Response({'error': 'Name and Message are required'}, status=400)
+
+    subject = f"New Contact Message from {name}"
+    full_message = f"""
+    New message from SoftwJob:
+
+    👤 Name: {name}
+    📧 Email: {email}
+    
+    📝 Message:
+    {message}
+    """
+
+    try:
+        send_mail(
+            subject=subject,
+            message=full_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[settings.COMPANY_EMAIL],
+            fail_silently=False,
+        )
+        return Response({'message': 'Email sent successfully!'})
+    except Exception as e:
+        print("Email Error:", e)
+        return Response({'error': 'Failed to send email'}, status=500)
