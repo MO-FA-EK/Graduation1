@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of, tap, map, catchError } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface User {
   id: number;
   username: string;
   email: string;
   user_type?: string;
-
-  // Extra freelancer/dashboard fields (all optional)
   imageUrl?: string;
   category?: string;
   description?: string;
-  skills?: string | string[];   // can be string or array
+  skills?: string | string[];
   portfolio?: string;
-
   profileViews?: number;
   contactClicks?: number;
   rating?: number;
@@ -24,13 +22,12 @@ export interface User {
 export interface LoginResponse {
   access: string;
   refresh: string;
-  user_id: number;
-  username: string;
-  email: string;
+  user: User;
+  user_id?: number;
+  username?: string;
+  email?: string;
   user_type?: string;
 }
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -38,79 +35,116 @@ export interface LoginResponse {
 export class AuthService {
 
   private loginUrl = 'http://localhost:8000/api/auth/login/';
-  private profileUrl = 'http://localhost:8000/api/profile/'; // for future
+  private profileUrl = 'http://localhost:8000/api/profile/';
+  private changePassUrl = 'http://localhost:8000/api/auth/change-password/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  // -------- LOGIN --------
-  login(username: string, password: string): Observable<LoginResponse> {
-  return this.http.post<LoginResponse>(this.loginUrl, {
-    username: username,
-    password: password
-  });
-}
+  // Login
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(this.loginUrl, { username, password }).pipe(
+      tap(res => {
+        if (res.access) {
+          this.saveToken(res.access);
+          if (res.user_id) {
+             this.saveUser({
+                 id: res.user_id,
+                 username: res.username,
+                 email: res.email,
+                 user_type: res.user_type
+             });
+          }
+        }
+      })
+    );
+  }
 
-
-saveToken(token: string) {
-  localStorage.setItem('access_token', token);
-}
-
-getToken(): string | null {
-  return localStorage.getItem('access_token');
-}
-
+  saveToken(token: string) { localStorage.setItem('access_token', token); }
+  getToken(): string | null { return localStorage.getItem('access_token'); }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('access_token');
     localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 
-  // Used by AuthGuard
-  isLoggedIn(): boolean {
-    return !!this.getToken();
+  isLoggedIn(): boolean { return !!this.getToken(); }
+  isAuthenticated(): boolean { return this.isLoggedIn(); }
+
+
+// ✅ Helper Functions
+  getUser(): User | null {
+    const raw = localStorage.getItem('user');
+    return raw ? JSON.parse(raw) : null;
   }
 
-  // Keep compatibility with old code
-  isAuthenticated(): boolean {
-    return this.isLoggedIn();
-  }
-
-  // -------- USER HANDLING (for dashboard) --------
-  saveUser(user: User) {
+  saveUser(user: any) {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  getUser(): User | null {
-    const raw = localStorage.getItem('user');
-    if (!raw) return null;
-    try {
-      return JSON.parse(raw) as User;
-    } catch {
-      return null;
-    }
+// ✅ Retrieve the complete profile
+
+  getUserProfile(): Observable<User | null> {
+    const token = this.getToken();
+    if (!token) return of(null);
+
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+    return this.http.get<any>(this.profileUrl, { headers }).pipe(
+      map(data => {
+        return {
+          id: data.id,
+          username: data.username,
+          email: data.email,
+          category: data.category,
+          description: data.bio,
+          skills: data.skills || [],
+          portfolio: data.portfolio,
+          imageUrl: data.image || data.imageUrl,
+          rating: data.rating,
+          totalRatings: data.totalRatings,
+          profileViews: data.profileViews,
+          contactClicks: data.contactClicks
+        } as User;
+      }),
+      tap(user => this.saveUser(user)),
+      catchError(() => of(null))
+    );
   }
 
-  // Fake update for now: update local copy and return it as Observable
-  updateUser(profile: Partial<User>): Observable<User> {
-    const current = this.getUser();
-    if (!current) {
-      // in real app you might call backend here
-      const fallback: User = {
-        id: 0,
-        username: profile.username || '',
-        email: profile.email || '',
-        user_type: profile.user_type
-      };
-      this.saveUser(fallback);
-      return of(fallback);
-    }
+//✅ Update profile
 
-    const updated: User = {
-      ...current,
-      ...profile,
+  updateUser(profileData: Partial<User>): Observable<User> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+    const payload = {
+      username: profileData.username,
+      bio: profileData.description,
+      category: profileData.category,
+      skills: profileData.skills,
+      portfolio: profileData.portfolio,
+      imageUrl: profileData.imageUrl
     };
 
-    this.saveUser(updated);
-    return of(updated);
+    return this.http.patch<any>(this.profileUrl, payload, { headers }).pipe(
+      map(updatedData => {
+        const currentUser = this.getUser() || {} as User;
+        const user: User = {
+          ...currentUser,
+          ...updatedData,
+          description: updatedData.bio,
+          skills: profileData.skills
+        };
+        this.saveUser(user);
+        return user;
+      })
+    );
+  }
+// Change password
+  changePassword(data: any): Observable<any> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.put(this.changePassUrl, data, { headers });
   }
 }
