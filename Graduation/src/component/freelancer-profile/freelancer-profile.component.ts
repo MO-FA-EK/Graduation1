@@ -5,7 +5,6 @@ import { FreelancerService, Freelancer } from '../../app/services/freelancer.ser
 
 @Component({
     selector: 'app-freelancer-profile',
-    standalone: true,
     imports: [CommonModule, RouterModule],
     templateUrl: './freelancer-profile.component.html',
     styleUrls: ['./freelancer-profile.component.css']

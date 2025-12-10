@@ -6,7 +6,6 @@ import { AuthService, User } from '../../app/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
