@@ -1,17 +1,24 @@
 import { Component } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, FormsModule],
+  standalone: true,
+  imports: [
+    CommonModule,   // ← REQUIRED
+    RouterLink,     // ← For routerLink
+    FormsModule     // ← For ngModel
+  ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
   searchTerm: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   onSearch() {
     if (this.searchTerm.trim()) {

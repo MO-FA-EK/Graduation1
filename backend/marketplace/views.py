@@ -6,11 +6,25 @@ from .models import Programmer
 from .serializers import ProgrammerSerializer
 
 # LIST PROGRAMMERS
+from django.db.models import Q
+
 @api_view(["GET"])
 def programmer_list(request):
-    programmers = Programmer.objects.all()
-    serializer = ProgrammerSerializer(programmers, many=True)
+    search = request.GET.get("search", "")
+    qs = Programmer.objects.all()
+
+    if search:
+        qs = qs.filter(
+            Q(name__icontains=search) |
+            Q(email__icontains=search) |
+            Q(category__icontains=search) |
+            Q(bio__icontains=search) |
+            Q(skills__icontains=search)
+        )
+
+    serializer = ProgrammerSerializer(qs, many=True)
     return Response(serializer.data)
+
 
 # PROGRAMMER DETAILS
 @api_view(["GET"])

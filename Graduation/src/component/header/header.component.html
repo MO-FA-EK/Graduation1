@@ -1,12 +1,12 @@
 <div class="nav-bar-div">
-  <!-- ✅ الشعار -->
+  <!-- Logo -->
   <div class="logo">
     <div class="logo-text">
       <a routerLink="/">SoftwJob</a>
     </div>
   </div>
 
-  <!-- ✅ روابط التنقل -->
+  <!-- Navigation links -->
   <div class="nav-bar">
     <div class="ul-bar">
       <div><a routerLink="/">Homepage</a></div>
@@ -14,25 +14,23 @@
       <div><a routerLink="/contact">Contact</a></div>
       <div><a routerLink="/dashboard">Dashboard</a></div>
 
-     
-
-      <!-- ✅ روابط الدخول والتسجيل -->
+      <!-- Login / Register -->
       <div><a routerLink="/login">Login</a></div>
       <div><a routerLink="/register">Register</a></div>
     </div>
   </div>
 </div>
 
-<!-- ✅ شريط البحث -->
+<!-- GLOBAL SEARCH BAR (stays EXACTLY as Mohammed designed) -->
 <div class="search-bar-wrapper">
   <input 
     type="text" 
-    placeholder="Search for any service..." 
     class="search-bar-input"
+    placeholder="Search for any service..."
     [(ngModel)]="searchTerm"
     (keyup.enter)="onSearch()" />
+
   <button class="search-bar-button" (click)="onSearch()">
     <i class="fa fa-search"></i>
   </button>
 </div>
-

@@ -2,14 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FreelancerService } from '../../app/services/freelancer.service';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-services',
   standalone: true,
   imports: [
-    CommonModule,   // ← gives you *ngIf, *ngFor, slice pipe
-    RouterModule    // ← gives you routerLink
-  ],
+  CommonModule,
+  RouterModule,
+  FormsModule     // ⭐ REQUIRED for ngModel
+],
+
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.css']
 })
@@ -19,23 +23,50 @@ export class ServicesComponent implements OnInit {
   filteredGroups: any[] = [];
   searchTerm: string = "";
 
-  constructor(private freelancerService: FreelancerService) {}
+  constructor(
+  private freelancerService: FreelancerService,
+  private route: ActivatedRoute
+) {}
+
 
   ngOnInit(): void {
-    this.loadFreelancers();
-  }
+  this.route.queryParams.subscribe(params => {
+    this.searchTerm = params['search'] || "";
+    this.loadFreelancers(this.searchTerm);
+  });
+}
 
-  loadFreelancers(): void {
-    this.freelancerService.getFreelancers().subscribe({
-      next: (data: any) => {
-        this.freelancers = data;
-        this.filteredGroups = this.groupByCategory(data);
-      },
-      error: (err: any) => {
-        console.error(err);
-      }
-    });
-  }
+
+  loadFreelancers(search: string = ""): void {
+  this.freelancerService.getFreelancers(search).subscribe({
+    next: (data: any) => {
+      this.freelancers = data;
+      this.filteredGroups = this.groupByCategory(data);
+    },
+    error: (err: any) => {
+      console.error(err);
+    }
+  });
+}
+
+
+  onSearch(): void {
+  this.freelancerService.getFreelancers(this.searchTerm).subscribe({
+    next: (data: any) => {
+      this.freelancers = data;
+      this.filteredGroups = this.groupByCategory(data);
+    },
+    error: (err: any) => {
+      console.error(err);
+    }
+  });
+}
+
+clearSearch(): void {
+  this.searchTerm = "";
+  this.onSearch();
+}
+
 
   groupByCategory(list: any[]) {
     const categories: any = {};

@@ -26,36 +26,34 @@ export class FreelancerService {
   constructor(private http: HttpClient) {}
 
   // LIST ALL FREELANCERS (Services page)
-  getFreelancers(): Observable<Freelancer[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(response => {
-        // Handle both paginated and non-paginated responses
-        const results = response.results ?? response;
+  getFreelancers(search?: string): Observable<Freelancer[]> {
+  let url = this.apiUrl;
 
-        if (!Array.isArray(results)) {
-          return [];
-        }
-
-        return results.map((f: any) => ({
-          id: f.id,
-          username: f.username,
-          email: f.email,
-          category: f.category,
-          // backend sends "bio", UI expects "description"
-          description: f.bio ?? f.description ?? '',
-          skills: typeof f.skills === 'string'
-            ? f.skills.split(',').map((s: string) => s.trim())
-            : (f.skills || []),
-          portfolio: f.portfolio ?? '',
-          imageUrl: f.imageUrl ?? '',
-          rating: f.rating ?? 0,
-          totalRatings: f.totalRatings ?? 0,
-          profileViews: f.profileViews ?? 0,
-          contactClicks: f.contactClicks ?? 0
-        }));
-      })
-    );
+  if (search && search.trim() !== "") {
+    url = `${this.apiUrl}?search=${encodeURIComponent(search)}`;
   }
+
+  return this.http.get<any>(url).pipe(
+    map(response => {
+      const results = response.results || response;
+      return results.map((f: any) => ({
+        id: f.id,
+        username: f.username,
+        email: f.email,
+        category: f.category,
+        description: f.description,
+        skills: typeof f.skills === 'string' ? f.skills.split(',') : (f.skills || []),
+        portfolio: f.portfolio,
+        imageUrl: f.imageUrl,
+        rating: f.rating,
+        totalRatings: f.totalRatings,
+        profileViews: f.profileViews ?? 0,
+        contactClicks: f.contactClicks ?? 0
+      }));
+    })
+  );
+}
+
 
   // SINGLE FREELANCER (Profile page)
   getFreelancerById(id: number): Observable<Freelancer> {
