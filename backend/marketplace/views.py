@@ -14,8 +14,7 @@ from django.conf import settings
 from .models import Programmer, Rating
 from .serializers import ProgrammerSerializer
 
-
-# 1. LIST + SEARCH
+#View list + Search
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def programmer_list(request):
@@ -36,7 +35,6 @@ def programmer_list(request):
         serializer = ProgrammerSerializer(paginated, many=True)
         return paginator.get_paginated_response(serializer.data)
 
-    # POST (Create)
     serializer = ProgrammerSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -60,8 +58,14 @@ def programmer_detail(request, id):
     if request.method in ['PUT', 'PATCH']:
         serializer = ProgrammerSerializer(programmer, data=request.data, partial=True)
         if serializer.is_valid():
+
+
             if 'skills' in request.data:
-                programmer.skills = request.data['skills']
+                skills_data = request.data['skills']
+                if isinstance(skills_data, list):
+                    programmer.skills = ",".join(skills_data)
+                else:
+                    programmer.skills = str(skills_data)
                 programmer.save()
 
             serializer.save()
@@ -73,8 +77,7 @@ def programmer_detail(request, id):
         return Response(status=204)
 
 
-
-# 3. NEW RATING SYSTEM
+#Rating Logic (Average)
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def rate_programmer(request, id):
@@ -94,12 +97,14 @@ def rate_programmer(request, id):
     except ValueError:
         return Response({'error': 'Invalid rating'}, status=400)
 
-    # Save or update the rating by this user
-    Rating.objects.update_or_create(
-        programmer=programmer,
-        user=request.user,
-        defaults={'stars': stars}
-    )
+
+
+    current_total_score = programmer.rating * programmer.review_count
+    programmer.review_count += 1
+    new_average = (current_total_score + new_star_value) / programmer.review_count
+    
+    programmer.rating = round(new_average, 2)
+    programmer.save()
 
     # 🔥 IMPORTANT: Reload the programmer to recalc values
     programmer.refresh_from_db()
@@ -109,8 +114,7 @@ def rate_programmer(request, id):
     return Response(serializer.data)
 
 
-
-# 4. PERSONAL PROFILE
+# Personal Profile (DASHBOARD SAVE FIX)
 @api_view(['GET', 'PUT', 'PATCH'])
 @permission_classes([IsAuthenticated])
 def my_profile(request):
@@ -124,21 +128,39 @@ def my_profile(request):
         return Response(ProgrammerSerializer(profile).data)
 
     if request.method in ['PUT', 'PATCH']:
-        serializer = ProgrammerSerializer(profile, data=request.data, partial=True)
 
+        data = request.data.copy()
+
+        if 'skills' in data:
+            skills_data = data['skills']
+            if isinstance(skills_data, list):
+                
+
+                profile.skills = ",".join(skills_data)
+            else:
+                profile.skills = str(skills_data)
+            
+            profile.save() 
+            
+            
+            if isinstance(data, dict):
+                del data['skills']
+            else:
+                data._mutable = True
+                data.pop('skills', None)
+                data._mutable = False
+
+
+
+        serializer = ProgrammerSerializer(profile, data=data, partial=True)
         if serializer.is_valid():
-            if 'skills' in request.data:
-                profile.skills = request.data['skills']
-                profile.save()
-
             serializer.save()
             return Response(ProgrammerSerializer(profile).data)
-
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-# 5. INCREASE PROFILE VIEWS
+# Counters
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def increment_profile_views(request, id):
@@ -165,8 +187,7 @@ def increment_contact_clicks(request, id):
         return Response({'error': 'Not found'}, status=404)
 
 
-
-# 7. CONTACT US FORM
+# Contact Us
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def contact_us(request):
