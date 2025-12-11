@@ -313,3 +313,13 @@
 [API LOG] GET /api/programmers/ → 200 | 5.77 ms | User: Anonymous
 [API LOG] GET /api/programmers/5/ → 200 | 4.52 ms | User: Anonymous
 [API LOG] POST /api/programmers/5/view/ → 200 | 12.73 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 19.6 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 7.56 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 11.49 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 35.82 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 6.36 ms | User: Anonymous
+[API LOG] GET /favicon.ico → 404 | 173.21 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 65.5 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 10.75 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 12.18 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 6.56 ms | User: Anonymous
