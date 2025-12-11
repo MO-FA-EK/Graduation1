@@ -313,3 +313,283 @@
 [API LOG] GET /api/programmers/ → 200 | 5.77 ms | User: Anonymous
 [API LOG] GET /api/programmers/5/ → 200 | 4.52 ms | User: Anonymous
 [API LOG] POST /api/programmers/5/view/ → 200 | 12.73 ms | User: Anonymous
+[API LOG] POST /api/programmers/1/rate/ → 401 | 2.84 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1320.54 ms | User: Anonymous
+[API LOG] POST /api/programmers/1/rate/ → 404 | 3.61 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/2/rate/ → 400 | 5.68 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/15/rate/ → 404 | 3.79 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/2/rate/ → 200 | 15.51 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/2/ → 200 | 10.32 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 11.47 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 32.43 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 401 | 1.03 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 12.3 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 45.62 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 11.29 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 200 | 10.36 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/2/ → 200 | 11.18 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 13.77 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 47.33 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 14.93 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 9.15 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 200 | 11.03 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/2/rate/ → 200 | 20.73 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/2/ → 200 | 9.42 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 16.48 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 200 | 11.64 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 38.55 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 35.18 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 11.17 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 8.08 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 2.21 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 2.29 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 8.13 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 15.99 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 6.86 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 400 | 4.53 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/2/rate/ → 400 | 3.14 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/2/rate/ → 200 | 11.47 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/2/rate/ → 200 | 18.45 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/2/ → 200 | 9.89 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 11.36 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 16.89 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 10.76 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 9.98 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 1.03 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 0.96 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 1.67 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 1.99 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 3.35 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 18.53 ms | User: Anonymous
+[API LOG] GET /api/programmers/3/ → 200 | 10.66 ms | User: Anonymous
+[API LOG] POST /api/programmers/3/rate/ → 401 | 0.77 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 33.08 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 38.97 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 3.2 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 200 | 14.89 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/2/ → 200 | 10.95 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 12.55 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 74.03 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 8.25 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 13.21 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 2.08 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 9.9 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 10.7 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 2.56 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 15.83 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 12.35 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 11.17 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 18.58 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 8.59 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 13.1 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 7.62 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 9.53 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 17.85 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 3.93 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 13.84 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 10.03 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 0.81 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1466.92 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 200 | 16.88 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/2/rate/ → 401 | 2.74 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 1.78 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 2.08 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 401 | 98.97 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 1315.92 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 1282.93 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1318.76 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 10.88 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/ → 200 | 24.37 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 8.89 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 11.42 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 200 | 102.6 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/2/ → 200 | 10.54 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 200 | 53.87 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/2/ → 200 | 24.47 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 200 | 73.81 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/2/ → 200 | 6.59 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 16.65 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 8.91 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 10.97 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 24.18 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 11.26 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 51.77 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 7.17 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 49.46 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 27.83 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 21.24 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 7.14 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 40.2 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 24.41 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 57.18 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 12.57 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 40.12 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 6.26 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 27.98 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 19.99 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 65.86 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 14.46 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 43.37 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 28.75 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 51.04 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 12.09 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 60.3 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 9.34 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 44.8 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 6.55 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 40.58 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 23.19 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 75.47 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 8.37 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 20.84 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 27.95 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 16.17 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 8.7 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 14.21 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 11.35 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 41.09 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1305.0 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 13.45 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/ → 200 | 38.24 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 8.68 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 11.83 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 13.87 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 15.23 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 28.91 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 23.49 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 53.85 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 63.8 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 50.32 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 30.22 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 39.81 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 38.1 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 114.95 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 28.34 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/ → 200 | 20.26 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 12.58 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 16.94 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 54.9 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 103.32 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 23.74 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 28.33 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 66.76 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 34.07 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 27.05 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 18.28 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 34.29 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 83.11 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 61.61 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 34.45 ms | User: Suleyman Ali
+[API LOG] POST /api/programmers/4/rate/ → 200 | 63.17 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/ → 200 | 24.06 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 30.63 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 47.1 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 14.25 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 17.5 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 17.49 ms | User: Anonymous
+[API LOG] GET /api/programmers/5/ → 200 | 6.71 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/view/ → 200 | 14.92 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/rate/ → 200 | 31.59 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/5/ → 200 | 7.73 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/view/ → 200 | 11.74 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/rate/ → 200 | 18.76 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/5/ → 200 | 12.19 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/view/ → 200 | 7.11 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/rate/ → 200 | 25.26 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/5/ → 200 | 7.49 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/view/ → 200 | 9.46 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/rate/ → 200 | 55.99 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/5/ → 200 | 8.29 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/view/ → 200 | 14.2 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/rate/ → 200 | 16.97 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/5/ → 200 | 6.11 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/view/ → 200 | 8.0 ms | User: Anonymous
+[API LOG] GET /api/programmers/5/ → 200 | 12.72 ms | User: Anonymous
+[API LOG] POST /api/programmers/5/view/ → 200 | 11.33 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 23.23 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1470.37 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.99 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/ → 200 | 22.52 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 16.37 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 25.35 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 20.57 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 5.96 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 10.36 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 35.21 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 6.03 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 12.41 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 56.2 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 31.82 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 9.41 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 20.83 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 24.27 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 17.49 ms | User: Anonymous
+[API LOG] GET /api/programmers/5/ → 200 | 267.31 ms | User: Anonymous
+[API LOG] GET /favicon.ico → 404 | 50.43 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 13.42 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 63.07 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/5/rate/ → 200 | 37.75 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/5/rate/ → 200 | 13.49 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/5/rate/ → 200 | 29.08 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/4/rate/ → 200 | 54.23 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/4/rate/ → 200 | 21.29 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/4/rate/ → 200 | 29.46 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/4/rate/ → 200 | 14.52 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/4/rate/ → 200 | 33.99 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/4/rate/ → 200 | 21.11 ms | User: Hamze Ahmed
+[API LOG] POST /api/programmers/4/rate/ → 200 | 38.27 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 9.37 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 15.61 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 33.31 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 16.11 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 14.66 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 27.54 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 11.13 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 18.02 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 30.18 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 6.55 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 17.89 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 28.98 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 10.36 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 21.27 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 10.96 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 6.66 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 18.41 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 39.27 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 8.29 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 12.21 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 25.88 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 11.19 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 11.37 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 31.08 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 14.48 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 11.26 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 23.22 ms | User: Suleyman Ali
+[API LOG] GET /api/programmers/4/ → 200 | 15.01 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 10.35 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 17.6 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 18.18 ms | User: Suleyman Ali
+[API LOG] POST /api/auth/login/ → 200 | 1442.23 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 14.53 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 17.74 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 9.03 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 13.29 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 17.5 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/4/ → 200 | 10.7 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 8.32 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 22.8 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 24.66 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 1394.98 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1451.44 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 10.27 ms | User: Luqman
+[API LOG] GET /api/programmers/ → 200 | 36.64 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 13.93 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 16.03 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 38.57 ms | User: Luqman
+[API LOG] GET /api/programmers/4/ → 200 | 13.35 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 9.91 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 20.87 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 1422.43 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1468.84 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 13.35 ms | User: London
+[API LOG] GET /api/profile/ → 200 | 16.48 ms | User: London

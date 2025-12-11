@@ -13,7 +13,9 @@
 
     <div class="profile-header">
       <div class="img-wrapper">
-        <img [src]="freelancer.imageUrl || 'assets/img/user.png'" alt="{{ freelancer.username }}" class="profile-img">
+        <img [src]="freelancer.imageUrl || 'assets/img/user.png'" 
+             alt="{{ freelancer.username }}" 
+             class="profile-img">
       </div>
 
       <div class="profile-info">
@@ -39,7 +41,9 @@
 
       <section class="about">
         <h2>About Me</h2>
-        <p>{{ freelancer.description || 'No description provided.' }}</p>
+
+        <!-- FIXED: description → bio -->
+        <p>{{ freelancer.bio || 'No description provided.' }}</p>
 
         <div *ngIf="freelancer.portfolio" class="portfolio-section">
           <a [href]="freelancer.portfolio" target="_blank" class="portfolio-link">
@@ -50,11 +54,14 @@
 
       <section class="skills">
         <h2>Skills</h2>
+
         <div class="skills-list">
           <span *ngFor="let skill of freelancer.skills" class="skill-tag">
             {{ skill }}
           </span>
-          <span *ngIf="!freelancer.skills || freelancer.skills.length === 0" class="no-skills">
+
+          <span *ngIf="!freelancer.skills || freelancer.skills.length === 0" 
+                class="no-skills">
             No specific skills listed.
           </span>
         </div>
@@ -62,6 +69,7 @@
 
       <section class="rating-section">
         <h2>Rate this Freelancer</h2>
+
         <div class="stars-container">
           <span
             *ngFor="let star of [1, 2, 3, 4, 5]"
@@ -71,7 +79,10 @@
             ★
           </span>
         </div>
-        <p class="rating-hint" *ngIf="userRating > 0">You rated: {{ userRating }} stars</p>
+
+        <p class="rating-hint" *ngIf="userRating > 0">
+          You rated: {{ userRating }} stars
+        </p>
       </section>
 
       <div class="actions">
