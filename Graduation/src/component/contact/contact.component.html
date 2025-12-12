@@ -1,10 +1,10 @@
 <div class="contact-container">
   <h2>Contact Us</h2>
-  <p>Send us your questions or complaints. No account needed.</p>
+  <p>Send us your questions or complaints.</p>
 
   <form (ngSubmit)="sendMessage()">
     <input type="text" [(ngModel)]="name" name="name" placeholder="Your Name" required>
-    <input type="email" [(ngModel)]="email" name="email" placeholder="Your Email (optional)">
+    <input type="email" [(ngModel)]="email" name="email" placeholder="Your Email">
     <textarea [(ngModel)]="message" name="message" placeholder="Your Message" required></textarea>
     <button type="button" [disabled]="sending" (click)="sendMessage()">
       {{ sending ? 'Sending...' : 'Send Message' }}
