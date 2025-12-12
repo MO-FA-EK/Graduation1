@@ -1,17 +1,13 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import (
-    IsAuthenticatedOrReadOnly,
-    IsAuthenticated,
-    AllowAny
-)
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework.pagination import LimitOffsetPagination
 from django.db.models import Q
 from django.core.mail import send_mail
 from django.conf import settings
 
-from .models import Programmer, Rating
+from .models import Programmer
 from .serializers import ProgrammerSerializer
 
 #View list + Search
@@ -21,18 +17,18 @@ def programmer_list(request):
     if request.method == 'GET':
         programmers = Programmer.objects.all()
         search_query = request.GET.get('search')
-
+        
         if search_query:
             programmers = programmers.filter(
-                Q(name__icontains=search_query) |
-                Q(skills__icontains=search_query) |
-                Q(category__icontains=search_query) |
-                Q(bio__icontains=search_query)
+                Q(name__icontains=search_query) |       
+                Q(skills__icontains=search_query) |     
+                Q(category__icontains=search_query) |   
+                Q(bio__icontains=search_query)          
             )
 
         paginator = LimitOffsetPagination()
-        paginated = paginator.paginate_queryset(programmers, request)
-        serializer = ProgrammerSerializer(paginated, many=True)
+        paginated_programmers = paginator.paginate_queryset(programmers, request)
+        serializer = ProgrammerSerializer(paginated_programmers, many=True)
         return paginator.get_paginated_response(serializer.data)
 
     serializer = ProgrammerSerializer(data=request.data)
@@ -42,8 +38,6 @@ def programmer_list(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-# 2. DETAIL PAGE (GET, EDIT, DELETE)
 @api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def programmer_detail(request, id):
@@ -67,7 +61,7 @@ def programmer_detail(request, id):
                 else:
                     programmer.skills = str(skills_data)
                 programmer.save()
-
+                
             serializer.save()
             return Response(ProgrammerSerializer(programmer).data)
         return Response(serializer.errors, status=400)
@@ -86,14 +80,12 @@ def rate_programmer(request, id):
     except Programmer.DoesNotExist:
         return Response({'error': 'Not found'}, status=404)
 
-    stars = request.data.get("rating") or request.data.get("stars")
-    if not stars:
-        return Response({'error': 'Rating (1–5) required'}, status=400)
+    new_rating = request.data.get('rating')
+    if new_rating is None:
+        return Response({'error': 'Rating required'}, status=400)
 
     try:
-        stars = int(stars)
-        if stars < 1 or stars > 5:
-            return Response({'error': 'Rating must be between 1 and 5'}, status=400)
+        new_star_value = float(new_rating)
     except ValueError:
         return Response({'error': 'Invalid rating'}, status=400)
 
@@ -106,12 +98,7 @@ def rate_programmer(request, id):
     programmer.rating = round(new_average, 2)
     programmer.save()
 
-    # 🔥 IMPORTANT: Reload the programmer to recalc values
-    programmer.refresh_from_db()
-
-    # Serialize with updated average + count
-    serializer = ProgrammerSerializer(programmer)
-    return Response(serializer.data)
+    return Response(ProgrammerSerializer(programmer).data)
 
 
 # Personal Profile (DASHBOARD SAVE FIX)
@@ -122,7 +109,7 @@ def my_profile(request):
     try:
         profile = Programmer.objects.get(user=user)
     except Programmer.DoesNotExist:
-        return Response({'error': 'Profile not found'}, status=404)
+        return Response({'error': 'Profile not found for this user'}, status=404)
 
     if request.method == 'GET':
         return Response(ProgrammerSerializer(profile).data)
@@ -172,9 +159,6 @@ def increment_profile_views(request, id):
     except Programmer.DoesNotExist:
         return Response({'error': 'Not found'}, status=404)
 
-
-
-# 6. INCREASE CONTACT CLICKS
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def increment_contact_clicks(request, id):
@@ -196,16 +180,16 @@ def contact_us(request):
     message = request.data.get('message')
 
     if not name or not message:
-        return Response({'error': 'Name and Message required'}, status=400)
+        return Response({'error': 'Name and Message are required'}, status=400)
 
-    subject = f"New message from {name}"
+    subject = f"New Contact Message from {name}"
     full_message = f"""
     New message from SoftwJob:
 
-    Name: {name}
-    Email: {email}
-
-    Message:
+    👤 Name: {name}
+    📧 Email: {email}
+    
+    📝 Message:
     {message}
     """
 

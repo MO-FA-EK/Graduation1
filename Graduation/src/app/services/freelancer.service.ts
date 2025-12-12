@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 export interface Freelancer {
@@ -7,7 +7,7 @@ export interface Freelancer {
   username: string;
   email: string;
   category: string;
-  bio?: string;
+  description: string;
   skills: string[];
   portfolio?: string;
   imageUrl?: string;
@@ -21,73 +21,86 @@ export interface Freelancer {
   providedIn: 'root'
 })
 export class FreelancerService {
-
-  private apiUrl = 'http://localhost:8000/api/programmers';
+  private apiUrl = 'http://localhost:8000/api/programmers/';
 
   constructor(private http: HttpClient) {}
 
-  private getAuthHeaders() {
-    const token = localStorage.getItem('access_token');
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  }
 
+  //Fetch the list and search
   getFreelancers(search?: string): Observable<Freelancer[]> {
-    let url = `${this.apiUrl}/`;
-
+    let url = this.apiUrl;
     if (search && search.trim() !== "") {
-      url += `?search=${encodeURIComponent(search)}`;
+      url = `${this.apiUrl}?search=${encodeURIComponent(search)}`;
     }
 
     return this.http.get<any>(url).pipe(
       map(response => {
         const results = response.results || response;
-        return results.map((f: any) => this.mapFreelancer(f));
+        return results.map((f: any) => ({
+          id: f.id,
+          username: f.username || f.name,
+          email: f.email,
+          category: f.category,
+          description: f.bio || f.description || '',
+          skills: typeof f.skills === 'string' ? f.skills.split(',') : (f.skills || []),
+          portfolio: f.portfolio,
+          imageUrl: f.image || f.imageUrl,
+          rating: f.rating,
+          totalRatings: f.review_count || f.totalRatings || 0,
+          profileViews: f.profile_views ?? 0,
+          contactClicks: f.contact_clicks ?? 0
+        }));
       })
     );
   }
 
+
+  // 2. Retrieve details of one programmer
   getFreelancerById(id: number): Observable<Freelancer> {
-    return this.http.get<any>(`${this.apiUrl}/${id}/`).pipe(
-      map((f: any) => this.mapFreelancer(f))
+    return this.http.get<any>(`${this.apiUrl}${id}/`).pipe(
+      map((f: any) => ({
+        id: f.id,
+        username: f.username || f.name,
+        email: f.email,
+        category: f.category,
+        description: f.bio || f.description || '',
+        skills: typeof f.skills === 'string' ? f.skills.split(',') : (f.skills || []),
+        portfolio: f.portfolio || '',
+        imageUrl: f.image || f.imageUrl || '',
+        rating: f.rating || 0,
+        totalRatings: f.review_count || 0,
+        profileViews: f.profile_views || 0,
+        contactClicks: f.contact_clicks || 0
+      }))
     );
   }
-
+  //Increase views
   incrementProfileViews(id: number): Observable<number> {
-    return this.http.post<any>(`${this.apiUrl}/${id}/view/`, {}).pipe(
+    return this.http.post<any>(`${this.apiUrl}${id}/view/`, {}).pipe(
       map(res => res.profileViews)
     );
   }
 
+
+  //Increase clicks
   incrementContactClicks(id: number): Observable<number> {
-    return this.http.post<any>(`${this.apiUrl}/${id}/contact/`, {}).pipe(
+    return this.http.post<any>(`${this.apiUrl}${id}/contact/`, {}).pipe(
       map(res => res.contactClicks)
     );
   }
 
-  rateFreelancer(id: number, stars: number): Observable<any> {
-    return this.http.post<any>(
-      `${this.apiUrl}/${id}/rate/`,
-      { rating: stars },
-      { headers: this.getAuthHeaders() }
-    );
-  }
 
-  private mapFreelancer(f: any): Freelancer {
-    return {
-      id: f.id,
-      username: f.username || f.name,
-      email: f.email,
-      category: f.category,
-      bio: f.bio || '',
-      skills: typeof f.skills === 'string' ? f.skills.split(',') : (f.skills || []),
-      portfolio: f.portfolio || '',
-      imageUrl: f.imageUrl || f.image || '',
-      rating: f.rating || 0,
-      totalRatings: f.totalRatings || 0,
-      profileViews: f.profileViews || 0,
-      contactClicks: f.contactClicks || 0
-    };
+   //Evaluation
+  rateFreelancer(id: number, rating: number): Observable<any> {
+    // Fetch tokens from local storage
+    const token = localStorage.getItem('access_token');
+
+
+   // Add it to the header
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.post<any>(`${this.apiUrl}${id}/rate/`, { rating }, { headers });
   }
 }
