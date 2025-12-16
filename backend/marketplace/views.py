@@ -1,207 +1,201 @@
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
-from rest_framework import status
-from rest_framework.pagination import LimitOffsetPagination
-from django.db.models import Q
-from django.core.mail import send_mail
+import stripe
 from django.conf import settings
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
+from rest_framework import status
+from django.shortcuts import get_object_or_404
+from .models import Programmer, Project
+from .serializers import ProgrammerSerializer, ProjectSerializer
 
-from .models import Programmer
-from .serializers import ProgrammerSerializer
+if hasattr(settings, 'STRIPE_SECRET_KEY'):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
 
-#View list + Search
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticatedOrReadOnly])
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def programmer_list(request):
-    if request.method == 'GET':
-        programmers = Programmer.objects.all()
-        search_query = request.GET.get('search')
+    programmers = Programmer.objects.all()
+
+    category = request.GET.get('category')
+    search = request.GET.get('search')
+    if category:
+        programmers = programmers.filter(category__icontains=category)
+    if search:
+        programmers = programmers.filter(name__icontains=search)
         
-        if search_query:
-            programmers = programmers.filter(
-                Q(name__icontains=search_query) |       
-                Q(skills__icontains=search_query) |     
-                Q(category__icontains=search_query) |   
-                Q(bio__icontains=search_query)          
-            )
+    serializer = ProgrammerSerializer(programmers, many=True)
+    return Response(serializer.data)
 
-        paginator = LimitOffsetPagination()
-        paginated_programmers = paginator.paginate_queryset(programmers, request)
-        serializer = ProgrammerSerializer(paginated_programmers, many=True)
-        return paginator.get_paginated_response(serializer.data)
-
-    serializer = ProgrammerSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
-@permission_classes([IsAuthenticatedOrReadOnly])
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def programmer_detail(request, id):
-    try:
-        programmer = Programmer.objects.get(id=id)
-    except Programmer.DoesNotExist:
-        return Response({'error': 'Not found'}, status=404)
+    programmer = get_object_or_404(Programmer, id=id)
+    serializer = ProgrammerSerializer(programmer)
+    return Response(serializer.data)
 
-    if request.method == 'GET':
-        return Response(ProgrammerSerializer(programmer).data)
-
-    if request.method in ['PUT', 'PATCH']:
-        serializer = ProgrammerSerializer(programmer, data=request.data, partial=True)
-        if serializer.is_valid():
-
-
-            if 'skills' in request.data:
-                skills_data = request.data['skills']
-                if isinstance(skills_data, list):
-                    programmer.skills = ",".join(skills_data)
-                else:
-                    programmer.skills = str(skills_data)
-                programmer.save()
-                
-            serializer.save()
-            return Response(ProgrammerSerializer(programmer).data)
-        return Response(serializer.errors, status=400)
-
-    if request.method == 'DELETE':
-        programmer.delete()
-        return Response(status=204)
-
-
-#Rating Logic (Average)
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def rate_programmer(request, id):
-    try:
-        programmer = Programmer.objects.get(id=id)
-    except Programmer.DoesNotExist:
-        return Response({'error': 'Not found'}, status=404)
-
+    programmer = get_object_or_404(Programmer, id=id)
     new_rating = request.data.get('rating')
-    if new_rating is None:
-        return Response({'error': 'Rating required'}, status=400)
+    if new_rating:
+        total_score = programmer.rating * programmer.review_count
+        programmer.review_count += 1
+        programmer.rating = (total_score + float(new_rating)) / programmer.review_count
+        programmer.save()
+        return Response({'message': 'Rating added', 'new_rating': programmer.rating})
+    return Response({'error': 'Rating not provided'}, status=400)
 
-    try:
-        new_star_value = float(new_rating)
-    except ValueError:
-        return Response({'error': 'Invalid rating'}, status=400)
-
-
-
-    current_total_score = programmer.rating * programmer.review_count
-    programmer.review_count += 1
-    new_average = (current_total_score + new_star_value) / programmer.review_count
-    
-    programmer.rating = round(new_average, 2)
-    programmer.save()
-
-    return Response(ProgrammerSerializer(programmer).data)
-
-
-# Personal Profile (DASHBOARD SAVE FIX)
-@api_view(['GET', 'PUT', 'PATCH'])
-@permission_classes([IsAuthenticated])
-def my_profile(request):
-    user = request.user
-    try:
-        profile = Programmer.objects.get(user=user)
-    except Programmer.DoesNotExist:
-        return Response({'error': 'Profile not found for this user'}, status=404)
-
-    if request.method == 'GET':
-        return Response(ProgrammerSerializer(profile).data)
-
-    if request.method in ['PUT', 'PATCH']:
-
-        data = request.data.copy()
-
-        if 'skills' in data:
-            skills_data = data['skills']
-            if isinstance(skills_data, list):
-                
-
-                profile.skills = ",".join(skills_data)
-            else:
-                profile.skills = str(skills_data)
-            
-            profile.save() 
-            
-            
-            if isinstance(data, dict):
-                del data['skills']
-            else:
-                data._mutable = True
-                data.pop('skills', None)
-                data._mutable = False
-
-
-
-        serializer = ProgrammerSerializer(profile, data=data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(ProgrammerSerializer(profile).data)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# Counters
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def increment_profile_views(request, id):
     try:
-        p = Programmer.objects.get(id=id)
-        p.profile_views += 1
-        p.save()
-        return Response({'profileViews': p.profile_views})
+        programmer = Programmer.objects.get(id=id)
+        programmer.profile_views += 1
+        programmer.save()
+        return Response({'views': programmer.profile_views})
     except Programmer.DoesNotExist:
         return Response({'error': 'Not found'}, status=404)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def increment_contact_clicks(request, id):
+    return Response({'message': 'Click recorded'})
+
+@api_view(['GET', 'PATCH'])
+@permission_classes([IsAuthenticated])
+def my_profile(request):
+    user = request.user
+    
+    if request.method == 'PATCH':
+        data = request.data
+        user.username = data.get('username', user.username)
+        user.save()
+        
+        try:
+            programmer = Programmer.objects.get(user=user)
+            programmer.name = user.username # Sync name
+            if 'category' in data: programmer.category = data['category']
+            if 'bio' in data: programmer.bio = data['bio']
+            if 'skills' in data: programmer.skills = data['skills']
+            if 'portfolio' in data: programmer.portfolio_url = data['portfolio']
+            if 'imageUrl' in data: programmer.image_url = data['imageUrl']
+            programmer.save()
+            
+            serializer = ProgrammerSerializer(programmer)
+            resp_data = dict(serializer.data)
+            resp_data['user_type'] = 'freelancer'
+            return Response(resp_data)
+        except Programmer.DoesNotExist:
+            return Response({'message': 'Profile updated', 'username': user.username})
+
+
+
     try:
-        p = Programmer.objects.get(id=id)
-        p.contact_clicks += 1
-        p.save()
-        return Response({'contactClicks': p.contact_clicks})
+        programmer = Programmer.objects.get(user=user)
+        serializer = ProgrammerSerializer(programmer)
+        
+    
+        data = dict(serializer.data)
+        data['user_type'] = 'freelancer' 
+        return Response(data)
+        
     except Programmer.DoesNotExist:
-        return Response({'error': 'Not found'}, status=404)
-
-
-# Contact Us
-@api_view(['POST'])
+        client_data = {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'user_type': 'client', 
+            'category': None,
+            'bio': '',
+            'skills': [],          
+            'portfolio': '',
+            'imageUrl': '',
+            'rating': 0,
+            'totalRatings': 0,
+            'profileViews': 0,
+            'contactClicks': 0
+        }
+        return Response(client_data)
 @permission_classes([AllowAny])
 def contact_us(request):
-    name = request.data.get('name')
-    email = request.data.get('email')
-    message = request.data.get('message')
+    return Response({'message': 'Message sent successfully'})
 
-    if not name or not message:
-        return Response({'error': 'Name and Message are required'}, status=400)
-
-    subject = f"New Contact Message from {name}"
-    full_message = f"""
-    New message from SoftwJob:
-
-    👤 Name: {name}
-    📧 Email: {email}
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def my_projects(request):
+    user = request.user
     
-    📝 Message:
-    {message}
-    """
-
+    hired = Project.objects.filter(client=user)
+    
     try:
-        send_mail(
-            subject=subject,
-            message=full_message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.COMPANY_EMAIL],
-            fail_silently=False,
+        programmer_profile = Programmer.objects.get(user=user)
+        work = Project.objects.filter(freelancer=programmer_profile)
+    except Programmer.DoesNotExist:
+        work = Project.objects.none()
+
+    return Response({
+        "hired_projects": ProjectSerializer(hired, many=True).data,
+        "work_projects": ProjectSerializer(work, many=True).data
+    })
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_project(request, freelancer_id):
+    try:
+        freelancer = Programmer.objects.get(id=freelancer_id)
+    except Programmer.DoesNotExist:
+        return Response({'error': 'Freelancer not found'}, status=404)
+
+    data = request.data
+    project = Project.objects.create(
+        client=request.user,
+        freelancer=freelancer,
+        title=data.get('title', 'New Project'),
+        description=data.get('description', 'Project Request'),
+        amount=50.00 
+    )
+    return Response(ProjectSerializer(project).data, status=201)
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+        
+    serializer = ProjectSerializer(project, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_payment_intent(request, project_id):
+    try:
+        project = Project.objects.get(id=project_id)
+        amount_cents = int(project.amount * 100)
+        
+        intent = stripe.PaymentIntent.create(
+            amount=amount_cents,
+            currency='usd',
+            metadata={'project_id': project.id}
         )
-        return Response({'message': 'Email sent successfully!'})
+        
+        return Response({'clientSecret': intent['client_secret']})
     except Exception as e:
-        print("Email Error:", e)
-        return Response({'error': 'Failed to send email'}, status=500)
+        return Response({'error': str(e)}, status=400)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def confirm_payment(request, payment_id):
+    return Response({'status': 'payment confirmed'})
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def confirm_project_payment_status(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    project.is_paid = True
+    project.status = 'active' 
+    project.save()
+    return Response({'status': 'Project is now active'})

@@ -28,11 +28,14 @@ class CustomLoginSerializer(TokenObtainPairSerializer):
         data['username'] = self.user.username
         data['email'] = self.user.email
         
-        try:
-            Programmer.objects.get(user=self.user)
-            data['user_type'] = 'freelancer'
-        except Programmer.DoesNotExist:
-            data['user_type'] = 'client'
+        if self.user.is_superuser:
+            data['user_type'] = 'admin'
+        else:
+            try:
+                Programmer.objects.get(user=self.user)
+                data['user_type'] = 'freelancer'
+            except Programmer.DoesNotExist:
+                data['user_type'] = 'client'
             
         return data
 

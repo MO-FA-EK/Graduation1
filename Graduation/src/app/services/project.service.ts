@@ -24,7 +24,7 @@ export interface Project {
 export class ProjectService {
   private apiUrl = 'http://localhost:8000/api/projects/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private getHeaders() {
     const token = localStorage.getItem('access_token');
@@ -46,19 +46,17 @@ export class ProjectService {
   }
 
   createPaymentIntent(projectId: number): Observable<any> {
-    const baseUrl = this.apiUrl.replace('projects/', 'payment/');
     return this.http.post<any>(
-      `${baseUrl}create/${projectId}/`,
+      `${this.apiUrl}payment-intent/${projectId}/`,
       {},
       { headers: this.getHeaders() }
     );
   }
 
-  confirmPaymentOnServer(paymentIntentId: string): Observable<any> {
-    const baseUrl = this.apiUrl.replace('projects/', 'payment/');
+  markProjectAsPaid(projectId: number): Observable<any> {
     return this.http.post<any>(
-      `${baseUrl}confirm/`,
-      { paymentIntentId },
+      `${this.apiUrl}${projectId}/confirm-payment/`,
+      {},
       { headers: this.getHeaders() }
     );
   }

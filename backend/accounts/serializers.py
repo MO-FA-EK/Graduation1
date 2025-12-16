@@ -14,6 +14,16 @@ class RegisterSerializer(serializers.Serializer):
     portfolio = serializers.CharField(required=False, allow_blank=True)
     imageUrl = serializers.CharField(required=False, allow_blank=True)
 
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("A user with that username already exists.")
+        return value
+
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("A user with that email already exists.")
+        return value
+
     def create(self, validated_data):
         user_type = validated_data.pop("user_type")
         username = validated_data.pop("username")
@@ -32,12 +42,13 @@ class RegisterSerializer(serializers.Serializer):
             Programmer.objects.create(
                 user=user,
                 name=username,
-                email=email,
                 category=validated_data.get("category", ""),
                 bio=validated_data.get("description", ""),
                 skills=validated_data.get("skills", ""),
-                portfolio=validated_data.get("portfolio", ""),
-                image=validated_data.get("imageUrl", "")
+                experience_level="Junior", 
+                hourly_rate=20.00, 
+                portfolio_url=validated_data.get("portfolio", ""),
+                image_url=validated_data.get("imageUrl", "")
             )
 
         return {

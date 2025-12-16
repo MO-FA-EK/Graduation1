@@ -65,6 +65,11 @@ export class DashboardComponent implements OnInit {
         if (user) {
           this.profile = user;
 
+          if (this.profile.user_type === 'admin') {
+            this.router.navigate(['/admin']);
+            return;
+          }
+
           this.isClient = (this.profile.user_type?.toLowerCase() === 'client');
           this.loadProjects();
         } else {
@@ -126,12 +131,14 @@ export class DashboardComponent implements OnInit {
             this.isProcessingPayment = false;
           } else {
             if (result.paymentIntent.status === 'succeeded') {
-              this.projectService.confirmPaymentOnServer(result.paymentIntent.id).subscribe(() => {
-                alert('✅ Payment Successful! Project Started.');
-                this.closePaymentModal();
-                this.isProcessingPayment = false;
-                this.loadProjects();
-              });
+              if (this.selectedProjectForPayment) {
+                this.projectService.markProjectAsPaid(this.selectedProjectForPayment.id).subscribe(() => {
+                  alert('✅ Payment Successful! Project Started.');
+                  this.closePaymentModal();
+                  this.isProcessingPayment = false;
+                  this.loadProjects();
+                });
+              }
             }
           }
         });
@@ -171,19 +178,19 @@ export class DashboardComponent implements OnInit {
     this.passMessage = '';
     this.isPassError = false;
     if (this.passData.new_password !== this.passData.confirm_password) {
-        this.passMessage = "Passwords do not match"; this.isPassError = true; return;
+      this.passMessage = "Passwords do not match"; this.isPassError = true; return;
     }
     this.isSaving = true;
     this.authService.changePassword({
-        old_password: this.passData.old_password,
-        new_password: this.passData.new_password
+      old_password: this.passData.old_password,
+      new_password: this.passData.new_password
     }).subscribe({
-        next: () => { this.isSaving = false; this.passMessage = "Changed!"; },
-        error: () => { this.isSaving = false; this.passMessage = "Error changing password"; }
+      next: () => { this.isSaving = false; this.passMessage = "Changed!"; },
+      error: () => { this.isSaving = false; this.passMessage = "Error changing password"; }
     });
   }
 
   setTab(tab: string) { this.activeTab = tab; this.isSidebarOpen = false; }
   toggleSidebar() { this.isSidebarOpen = !this.isSidebarOpen; }
-  logout() { if(confirm('Logout?')) this.authService.logout(); }
+  logout() { if (confirm('Logout?')) this.authService.logout(); }
 }

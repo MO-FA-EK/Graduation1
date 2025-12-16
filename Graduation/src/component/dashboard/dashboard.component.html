@@ -14,7 +14,10 @@
   </aside>
 
   <section class="content">
-    <div *ngIf="isLoading" class="loading-state"><div class="spinner"></div></div>
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading Dashboard...</p>
+    </div>
 
     <div *ngIf="!isLoading && profile; else noProfile">
 
@@ -41,7 +44,13 @@
               </div>
             </div>
           </div>
-          <ng-template #noHired><div class="empty-state"><p>No projects yet.</p><button routerLink="/services">Find Talent</button></div></ng-template>
+          <ng-template #noHired>
+            <div class="empty-state">
+              <span class="empty-icon">📂</span>
+              <p>No projects yet.</p>
+              <button routerLink="/services" class="cta-btn">Find Talent</button>
+            </div>
+          </ng-template>
         </div>
 
         <div *ngIf="!isClient">
@@ -71,6 +80,7 @@
             <div class="form-group"><label>Category</label><input [(ngModel)]="profile.category"></div>
             <div class="form-group full-width"><label>Bio</label><textarea [(ngModel)]="profile.description"></textarea></div>
             <div class="form-group full-width"><label>Skills</label><input [(ngModel)]="profile.skills"></div>
+            <div class="form-group full-width"><label>Portfolio URL</label><input [(ngModel)]="profile.portfolio" placeholder="https://github.com/my-profile"></div>
             <div class="form-group full-width"><label>Image</label><input [(ngModel)]="profile.imageUrl"></div>
           </ng-container>
         </div>

@@ -92,15 +92,16 @@ export const routes: Routes = [
 
   // أهم شيء هنا
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  // canActivate: [AuthGuard]
+
+  { path: 'admin', loadComponent: () => import('../component/admin/admin.component').then(m => m.AdminComponent), canActivate: [AuthGuard] },
 
   { path: 'freelancer/:id', loadComponent: () => import('../component/freelancer-profile/freelancer-profile.component').then(m => m.FreelancerProfileComponent) },
 
   { path: '**', redirectTo: 'homepage', pathMatch: 'full' },
 
   {
-  path: 'services',
-  component: ServicesComponent
-}
+    path: 'services',
+    component: ServicesComponent
+  }
 
 ];
