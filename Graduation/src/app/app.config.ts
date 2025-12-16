@@ -1,12 +1,14 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
+import { NgxStripeModule } from 'ngx-stripe';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient() // ✅ أضفه هنا لتفعيل طلبات API مثل register/login
-    ]
+    provideHttpClient(),
+
+    importProvidersFrom(NgxStripeModule.forRoot('pk_test_TYooMQauvdEDq54NiTphI7jx'))
+  ]
 };

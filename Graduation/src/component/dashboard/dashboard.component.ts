@@ -1,119 +1,189 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService, User } from '../../app/services/auth.service';
+import { ProjectService, Project } from '../../app/services/project.service';
+import { StripeService, StripeCardComponent } from 'ngx-stripe';
+import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule, StripeCardComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  activeTab: string = 'profile';
+  activeTab: string = 'projects';
   isLoading: boolean = true;
   isSaving: boolean = false;
   isSidebarOpen: boolean = false;
 
   profile: User | null = null;
+  isClient: boolean = false;
 
-//Password change variables
-  passData = {
-    old_password: '',
-    new_password: '',
-    confirm_password: ''
-  };
+
+  hiredProjects: Project[] = [];
+  workProjects: Project[] = [];
+
+  passData = { old_password: '', new_password: '', confirm_password: '' };
   passMessage = '';
   isPassError = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  showPaymentModal = false;
+  selectedProjectForPayment: Project | null = null;
+  isProcessingPayment = false;
 
-  ngOnInit() {
-    this.profile = this.authService.getUser();
+  @ViewChild(StripeCardComponent) card!: StripeCardComponent;
 
+  cardOptions: StripeCardElementOptions = {
+    style: {
+      base: {
+        iconColor: '#666EE8',
+        color: '#31325F',
+        fontWeight: '300',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: '18px',
+        '::placeholder': { color: '#CFD7E0' }
+      }
+    }
+  };
+  elementsOptions: StripeElementsOptions = { locale: 'en' };
+
+  constructor(
+    private authService: AuthService,
+    private projectService: ProjectService,
+    private router: Router,
+    private stripeService: StripeService
+  ) { }
+
+  ngOnInit() { this.loadProfile(); }
+
+  loadProfile() {
     this.authService.getUserProfile().subscribe({
       next: (user) => {
         if (user) {
           this.profile = user;
+
+          this.isClient = (this.profile.user_type?.toLowerCase() === 'client');
+          this.loadProjects();
+        } else {
+          this.isLoading = false;
         }
-        this.isLoading = false;
       },
       error: () => {
         this.isLoading = false;
-        if (!this.profile) this.router.navigate(['/login']);
+        this.router.navigate(['/login']);
       }
+    });
+  }
+
+  loadProjects() {
+    this.projectService.getMyProjects().subscribe({
+      next: (res: any) => {
+        console.log('Projects Data:', res);
+
+        this.hiredProjects = res.hired_projects || [];
+        this.workProjects = res.work_projects || [];
+
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Failed to load projects:', err);
+
+        this.hiredProjects = [];
+        this.workProjects = [];
+        this.isLoading = false;
+      }
+    });
+  }
+
+  openPaymentModal(project: Project) {
+    this.selectedProjectForPayment = project;
+    this.showPaymentModal = true;
+  }
+
+  closePaymentModal() {
+    this.showPaymentModal = false;
+    this.selectedProjectForPayment = null;
+  }
+
+  payNow() {
+    if (!this.selectedProjectForPayment) return;
+    this.isProcessingPayment = true;
+
+    this.projectService.createPaymentIntent(this.selectedProjectForPayment.id).subscribe({
+      next: (res) => {
+        const clientSecret = res.clientSecret;
+        this.stripeService.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: this.card.element,
+            billing_details: { name: this.profile?.username }
+          }
+        }).subscribe((result) => {
+          if (result.error) {
+            alert('Payment Failed: ' + result.error.message);
+            this.isProcessingPayment = false;
+          } else {
+            if (result.paymentIntent.status === 'succeeded') {
+              this.projectService.confirmPaymentOnServer(result.paymentIntent.id).subscribe(() => {
+                alert('✅ Payment Successful! Project Started.');
+                this.closePaymentModal();
+                this.isProcessingPayment = false;
+                this.loadProjects();
+              });
+            }
+          }
+        });
+      },
+      error: (err) => {
+        alert('Error: ' + (err.error?.error || 'Payment Init Failed'));
+        this.isProcessingPayment = false;
+      }
+    });
+  }
+
+  updateProject(project: Project) {
+    const updateData = { github_link: project.github_link, status: project.status };
+    this.projectService.updateProject(project.id, updateData).subscribe({
+      next: () => alert('Updated successfully!'),
+      error: () => alert('Update failed.')
     });
   }
 
   saveProfile() {
     if (!this.profile) return;
     this.isSaving = true;
-
     this.authService.updateUser(this.profile).subscribe({
-      next: (updatedUser: User) => {
+      next: (user) => {
         this.isSaving = false;
-        this.profile = updatedUser;
-        alert('✅ Profile updated successfully!');
+        this.profile = user;
+        alert('Profile saved!');
       },
-      error: (err: any) => {
+      error: () => {
         this.isSaving = false;
-        console.error(err);
-        alert('❌ Failed to update profile.');
+        alert('Save failed.');
       }
     });
   }
 
-
-//Password change function
   changePasswordSubmit() {
     this.passMessage = '';
     this.isPassError = false;
-
     if (this.passData.new_password !== this.passData.confirm_password) {
-      this.passMessage = "New passwords do not match!";
-      this.isPassError = true;
-      return;
+        this.passMessage = "Passwords do not match"; this.isPassError = true; return;
     }
-
-    if (this.passData.new_password.length < 6) {
-      this.passMessage = "Password must be at least 6 characters.";
-      this.isPassError = true;
-      return;
-    }
-
     this.isSaving = true;
-
     this.authService.changePassword({
-      old_password: this.passData.old_password,
-      new_password: this.passData.new_password
+        old_password: this.passData.old_password,
+        new_password: this.passData.new_password
     }).subscribe({
-      next: (res) => {
-        this.isSaving = false;
-        this.passMessage = res.message || "Password Changed Successfully!";
-        this.isPassError = false;
-        this.passData = { old_password: '', new_password: '', confirm_password: '' };
-      },
-      error: (err) => {
-        this.isSaving = false;
-        this.isPassError = true;
-        this.passMessage = err.error?.old_password?.[0] || "Failed to update password.";
-      }
+        next: () => { this.isSaving = false; this.passMessage = "Changed!"; },
+        error: () => { this.isSaving = false; this.passMessage = "Error changing password"; }
     });
   }
 
-  setTab(tab: string) {
-    this.activeTab = tab;
-    if (window.innerWidth <= 768) this.isSidebarOpen = false;
-  }
-
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
-
-  logout() {
-    if (confirm('Are you sure you want to logout?')) {
-      this.authService.logout();
-    }
-  }
+  setTab(tab: string) { this.activeTab = tab; this.isSidebarOpen = false; }
+  toggleSidebar() { this.isSidebarOpen = !this.isSidebarOpen; }
+  logout() { if(confirm('Logout?')) this.authService.logout(); }
 }

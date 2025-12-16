@@ -1,8 +1,5 @@
 <div class="page-cover">
-
-  <button class="nav-back-btn" (click)="goBack()">
-    ← Back
-  </button>
+  <button class="nav-back-btn" (click)="goBack()">← Back</button>
 
   <div *ngIf="isLoading" class="loading-state">
     <div class="spinner"></div>
@@ -10,84 +7,72 @@
   </div>
 
   <div class="profile-container fade-in" *ngIf="!isLoading && freelancer; else notFound">
-
     <div class="profile-header">
       <div class="img-wrapper">
-        <img [src]="freelancer.imageUrl || 'assets/img/user.png'" alt="{{ freelancer.username }}" class="profile-img">
+        <img [src]="freelancer.imageUrl || 'assets/img/user.png'" class="profile-img">
       </div>
-
       <div class="profile-info">
         <h1>{{ freelancer.username }}</h1>
         <p class="category">{{ freelancer.category }}</p>
-
         <div class="stats-row">
-          <div class="stat-item">
-            <span class="icon">⭐</span>
-            <span class="val">{{ freelancer.rating }}</span>
-            <span class="lbl">Rating</span>
-          </div>
-          <div class="stat-item">
-            <span class="icon">👁️</span>
-            <span class="val">{{ freelancer.profileViews }}</span>
-            <span class="lbl">Views</span>
-          </div>
+          <div class="stat-item"><span class="icon">⭐</span><span class="val">{{ freelancer.rating }}</span></div>
+          <div class="stat-item"><span class="icon">👁️</span><span class="val">{{ freelancer.profileViews }}</span></div>
         </div>
       </div>
     </div>
 
     <div class="profile-body">
-
       <section class="about">
         <h2>About Me</h2>
         <p>{{ freelancer.description || 'No description provided.' }}</p>
-
         <div *ngIf="freelancer.portfolio" class="portfolio-section">
-          <a [href]="freelancer.portfolio" target="_blank" class="portfolio-link">
-            🔗 Visit My Portfolio
-          </a>
+          <a [href]="freelancer.portfolio" target="_blank" class="portfolio-link">🔗 Visit My Portfolio</a>
         </div>
       </section>
 
       <section class="skills">
         <h2>Skills</h2>
         <div class="skills-list">
-          <span *ngFor="let skill of freelancer.skills" class="skill-tag">
-            {{ skill }}
-          </span>
-          <span *ngIf="!freelancer.skills || freelancer.skills.length === 0" class="no-skills">
-            No specific skills listed.
-          </span>
+          <span *ngFor="let skill of freelancer.skills" class="skill-tag">{{ skill }}</span>
         </div>
-      </section>
-
-      <section class="rating-section">
-        <h2>Rate this Freelancer</h2>
-        <div class="stars-container">
-          <span
-            *ngFor="let star of [1, 2, 3, 4, 5]"
-            class="star-btn"
-            [class.active]="star <= userRating"
-            (click)="rateFreelancer(star)">
-            ★
-          </span>
-        </div>
-        <p class="rating-hint" *ngIf="userRating > 0">You rated: {{ userRating }} stars</p>
       </section>
 
       <div class="actions">
-        <button class="contact-btn" (click)="contactFreelancer()">
-          📩 Contact via Email
-        </button>
+        <button class="hire-btn" (click)="openHireModal()">🚀 Hire Me</button>
+        <button class="contact-btn" (click)="contactFreelancer()">📩 Email Me</button>
       </div>
 
+      <section class="rating-section">
+        <h3>Rate this Freelancer</h3>
+        <div class="stars-container">
+          <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star-btn" [class.active]="star <= userRating" (click)="rateFreelancer(star)">★</span>
+        </div>
+      </section>
     </div>
   </div>
 
   <ng-template #notFound>
-    <div class="not-found">
-      <h2>⚠️ Profile Not Found</h2>
-      <button class="back-link" routerLink="/services">Back to List</button>
-    </div>
+    <div class="not-found"><h2>⚠️ Profile Not Found</h2><button class="back-link" routerLink="/services">Back</button></div>
   </ng-template>
 
+  <div class="modal-overlay" *ngIf="showHireModal">
+    <div class="modal-content fade-in">
+      <h3>Hire {{ freelancer?.username }}</h3>
+      <p>Describe your project briefly.</p>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" [(ngModel)]="hireData.title" placeholder="e.g. Build Website">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea [(ngModel)]="hireData.description" rows="4"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="cancel-btn" (click)="closeHireModal()">Cancel</button>
+        <button class="confirm-btn" [disabled]="isHiring" (click)="submitHireRequest()">
+          {{ isHiring ? 'Sending...' : 'Send Request' }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

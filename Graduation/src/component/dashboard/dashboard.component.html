@@ -1,140 +1,131 @@
 <div class="dashboard-container">
-
-  <button class="mobile-menu-btn" (click)="toggleSidebar()">
-    ☰ Menu
-  </button>
+  <button class="mobile-menu-btn" (click)="toggleSidebar()">☰ Menu</button>
 
   <aside class="sidebar" [class.open]="isSidebarOpen">
-    <h3>My Panel</h3>
+    <h3>{{ isClient ? 'Client Area' : 'Freelancer Panel' }}</h3>
     <nav>
+      <button [class.active]="activeTab === 'projects'" (click)="setTab('projects')">🚀 {{ isClient ? 'Hired Projects' : 'My Jobs' }}</button>
       <button [class.active]="activeTab === 'profile'" (click)="setTab('profile')">👤 Profile</button>
-      <button [class.active]="activeTab === 'stats'" (click)="setTab('stats')">📊 Stats</button>
-      <button [class.active]="activeTab === 'ratings'" (click)="setTab('ratings')">⭐ Ratings</button>
+      <button *ngIf="!isClient" [class.active]="activeTab === 'stats'" (click)="setTab('stats')">📊 Stats</button>
+      <button *ngIf="!isClient" [class.active]="activeTab === 'ratings'" (click)="setTab('ratings')">⭐ Ratings</button>
       <button [class.active]="activeTab === 'security'" (click)="setTab('security')">🔒 Security</button>
-
       <button class="logout-btn" (click)="logout()">🚪 Logout</button>
     </nav>
   </aside>
 
   <section class="content">
+    <div *ngIf="isLoading" class="loading-state"><div class="spinner"></div></div>
 
-    <div *ngIf="isLoading" class="loading-state">
-      <div class="spinner"></div>
-      <p>Loading your dashboard...</p>
-    </div>
+    <div *ngIf="!isLoading && profile; else noProfile">
 
-    <div *ngIf="!isLoading">
+      <div *ngIf="activeTab === 'projects'" class="tab-content fade-in">
+        <h2>{{ isClient ? 'Projects You Hired' : 'Active Jobs' }}</h2>
 
-      <div *ngIf="profile; else noProfile">
+        <div *ngIf="isClient">
+          <div *ngIf="hiredProjects && hiredProjects.length > 0; else noHired">
+            <div *ngFor="let p of hiredProjects" class="project-card">
+              <div class="card-header">
+                <h4>{{ p.title }}</h4> <span class="status-badge" [class]="p.status">{{ p.status }}</span>
+              </div>
 
-        <div *ngIf="activeTab === 'profile'" class="tab-content fade-in">
-          <h2>Edit Profile</h2>
-          <div class="profile-header-edit">
-            <img [src]="profile.imageUrl || 'assets/img/user.png'" alt="Profile" class="img-preview">
-            <div class="upload-hint">Profile Image</div>
-          </div>
+              <div *ngIf="!p.is_paid && p.status !== 'cancelled'" class="payment-alert">
+                <span>⚠️ Payment Pending ($50.00)</span>
+                <button class="pay-btn" (click)="openPaymentModal(p)">💳 Pay Now</button>
+              </div>
 
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Username</label>
-              <input [(ngModel)]="profile.username" placeholder="Enter username" />
-            </div>
-            <div class="form-group">
-              <label>Category</label>
-              <input [(ngModel)]="profile.category" placeholder="e.g. Web Developer" />
-            </div>
-            <div class="form-group full-width">
-              <label>Description</label>
-              <textarea [(ngModel)]="profile.description" rows="4"></textarea>
-            </div>
-            <div class="form-group full-width">
-              <label>Skills</label>
-              <input [(ngModel)]="profile.skills" placeholder="Angular, Python..." />
-            </div>
-            <div class="form-group full-width">
-              <label>Portfolio Link</label>
-              <input [(ngModel)]="profile.portfolio" />
-            </div>
-            <div class="form-group full-width">
-              <label>Image URL</label>
-              <input [(ngModel)]="profile.imageUrl" />
+              <p>Freelancer: {{ p.freelancer_name }}</p>
+              <p>{{ p.description }}</p>
+              <div class="github-box">
+                <a *ngIf="p.github_link" [href]="p.github_link" target="_blank">{{ p.github_link }}</a>
+                <span *ngIf="!p.github_link">Waiting for link...</span>
+              </div>
             </div>
           </div>
-
-          <button class="save-btn" [disabled]="isSaving" (click)="saveProfile()">
-            {{ isSaving ? 'Saving...' : 'Save Changes' }}
-          </button>
+          <ng-template #noHired><div class="empty-state"><p>No projects yet.</p><button routerLink="/services">Find Talent</button></div></ng-template>
         </div>
 
-        <div *ngIf="activeTab === 'stats'" class="tab-content fade-in">
-          <h2>Your Statistics</h2>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <h3>👁️ Profile Views</h3>
-              <p class="stat-value">{{ profile.profileViews || 0 }}</p>
-            </div>
-            <div class="stat-card">
-              <h3>📩 Contact Clicks</h3>
-              <p class="stat-value">{{ profile.contactClicks || 0 }}</p>
-            </div>
-            <div class="stat-card">
-              <h3>⭐ Average Rating</h3>
-              <p class="stat-value">{{ profile.rating || 0 }} / 5</p>
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="activeTab === 'ratings'" class="tab-content fade-in">
-          <h2>Reviews & Ratings</h2>
-          <div class="rating-summary">
-            <span class="big-star">⭐</span>
-            <span class="rating-number">{{ profile.rating || 0 }}</span>
-            <span class="rating-count">({{ profile.totalRatings || 0 }} reviews)</span>
-          </div>
-          <p class="mock-note">(Review list will appear here later)</p>
-        </div>
-
-        <div *ngIf="activeTab === 'security'" class="tab-content fade-in">
-          <h2>Change Password</h2>
-
-          <div class="form-grid">
-            <div class="form-group full-width">
-              <label>Old Password</label>
-              <input type="password" [(ngModel)]="passData.old_password" placeholder="Current Password">
-            </div>
-
-            <div class="form-group full-width">
-              <label>New Password</label>
-              <input type="password" [(ngModel)]="passData.new_password" placeholder="New Password">
-            </div>
-
-            <div class="form-group full-width">
-              <label>Confirm New Password</label>
-              <input type="password" [(ngModel)]="passData.confirm_password" placeholder="Repeat New Password">
+        <div *ngIf="!isClient">
+          <div *ngIf="workProjects && workProjects.length > 0; else noWork">
+            <div *ngFor="let p of workProjects" class="project-card">
+              <div class="card-header">
+                <h4>{{ p.title }}</h4>
+                <select [(ngModel)]="p.status"><option value="pending">Pending</option><option value="active">Active</option><option value="completed">Done</option></select>
+              </div>
+              <div *ngIf="!p.is_paid" class="unpaid-badge">💰 Client hasn't paid yet</div>
+              <p>Client: {{ p.client_name }}</p>
+              <div class="github-box">
+                <input [(ngModel)]="p.github_link" placeholder="GitHub Link">
+                <button (click)="updateProject(p)">Save</button>
+              </div>
             </div>
           </div>
-
-          <p *ngIf="passMessage" [class.error-msg]="isPassError" [class.success-msg]="!isPassError" style="margin-top: 15px; font-weight: bold;">
-            {{ passMessage }}
-          </p>
-
-          <button class="save-btn" [disabled]="isSaving" (click)="changePasswordSubmit()">
-            {{ isSaving ? 'Updating...' : 'Update Password' }}
-          </button>
+          <ng-template #noWork><p>No active jobs.</p></ng-template>
         </div>
-
       </div>
 
-      <ng-template #noProfile>
-        <div class="error-state">
-          <h2>⚠️ User Data Not Found</h2>
-          <p>Please try logging in again.</p>
-          <button (click)="logout()">Go to Login</button>
+      <div *ngIf="activeTab === 'profile'" class="tab-content fade-in">
+        <h2>Edit Profile</h2>
+        <div class="form-grid">
+          <div class="form-group"><label>Username</label><input [(ngModel)]="profile.username"></div>
+          <ng-container *ngIf="!isClient">
+            <div class="form-group"><label>Category</label><input [(ngModel)]="profile.category"></div>
+            <div class="form-group full-width"><label>Bio</label><textarea [(ngModel)]="profile.description"></textarea></div>
+            <div class="form-group full-width"><label>Skills</label><input [(ngModel)]="profile.skills"></div>
+            <div class="form-group full-width"><label>Image</label><input [(ngModel)]="profile.imageUrl"></div>
+          </ng-container>
         </div>
-      </ng-template>
+        <button class="save-btn" (click)="saveProfile()">Save</button>
+      </div>
+
+      <div *ngIf="activeTab === 'security'" class="tab-content fade-in">
+         <h2>Security</h2>
+         <div class="form-grid">
+            <input type="password" [(ngModel)]="passData.old_password" placeholder="Old Password">
+            <input type="password" [(ngModel)]="passData.new_password" placeholder="New Password">
+            <input type="password" [(ngModel)]="passData.confirm_password" placeholder="Confirm">
+         </div>
+         <button class="save-btn" (click)="changePasswordSubmit()">Update</button>
+      </div>
+
+      <div *ngIf="activeTab === 'stats' && !isClient" class="tab-content fade-in">
+        <h2>Your Statistics</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><h3>👁️ Views</h3><p class="stat-value">{{ profile.profileViews || 0 }}</p></div>
+          <div class="stat-card"><h3>📩 Clicks</h3><p class="stat-value">{{ profile.contactClicks || 0 }}</p></div>
+          <div class="stat-card"><h3>⭐ Rating</h3><p class="stat-value">{{ profile.rating || 0 }}</p></div>
+        </div>
+      </div>
+
+      <div *ngIf="activeTab === 'ratings' && !isClient" class="tab-content fade-in">
+        <h2>Reviews</h2>
+        <div class="rating-summary">
+          <span class="big-star">⭐</span>
+          <span class="rating-number">{{ profile.rating || 0 }}</span>
+          <span class="rating-count">({{ profile.totalRatings || 0 }} reviews)</span>
+        </div>
+      </div>
 
     </div>
+    <ng-template #noProfile><button (click)="logout()">Login Again</button></ng-template>
   </section>
 
   <div class="overlay" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
+
+  <div class="overlay" *ngIf="showPaymentModal" style="display:flex;">
+    <div class="payment-modal fade-in">
+      <h3>Secure Payment</h3>
+      <p>Pay <strong>$50.00</strong> for project "{{ selectedProjectForPayment?.title }}"</p>
+
+      <div class="stripe-box">
+        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+      </div>
+
+      <div class="modal-actions">
+        <button class="cancel-btn" (click)="closePaymentModal()">Cancel</button>
+        <button class="confirm-btn" [disabled]="isProcessingPayment" (click)="payNow()">
+          {{ isProcessingPayment ? 'Processing...' : 'Pay Now' }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

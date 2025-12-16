@@ -1,4 +1,3 @@
-/* تغليف الصفحة لتوسيط المحتوى */
 .page-cover {
   min-height: 85vh;
   display: flex;
@@ -6,8 +5,6 @@
   align-items: center;
   padding: 40px 20px;
 }
-
-/* زر العودة العلوي */
 .nav-back-btn {
   align-self: flex-start;
   margin-bottom: 20px;
@@ -19,7 +16,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
-  /* محاذاة تقريبية مع الكارت */
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
@@ -32,7 +28,6 @@
   color: #090979;
 }
 
-/* الكارت الرئيسي (اسمك القديم) */
 .profile-container {
   background: #fff;
   width: 100%;
@@ -44,7 +39,6 @@
   flex-direction: column;
 }
 
-/* الهيدر (اسمك القديم) */
 .profile-header {
   background: linear-gradient(135deg, #090979 0%, #00d4ff 100%);
   padding: 40px;
@@ -74,10 +68,9 @@
   opacity: 0.9;
   margin: 5px 0 15px;
   font-weight: 300;
-  color: #e0f7fa; /* لون فاتح ليظهر فوق الخلفية الزرقاء */
+  color: #e0f7fa;
 }
 
-/* الإحصائيات (Rating) */
 .stats-row {
   display: flex;
   gap: 25px;
@@ -98,7 +91,6 @@
   font-size: 1.1rem;
 }
 
-/* جسم الصفحة */
 .profile-body {
   padding: 40px;
 }
@@ -121,7 +113,6 @@
   font-size: 1.05rem;
 }
 
-/* المهارات (اسمك القديم) */
 .skills-list {
   display: flex;
   flex-wrap: wrap;
@@ -138,7 +129,6 @@
   border: 1px solid #dce4ff;
 }
 
-/* رابط البورتفوليو (اسمك القديم) */
 .portfolio-link {
   display: inline-block;
   text-decoration: none;
@@ -155,7 +145,6 @@
   border-style: solid;
 }
 
-/* منطقة الأزرار (اسمك القديم) */
 .actions {
   text-align: center;
   margin-top: 40px;
@@ -179,7 +168,6 @@
   transform: scale(1.05);
 }
 
-/* حالات التحميل والخطأ */
 .not-found, .loading-state {
   text-align: center;
   background: white;
@@ -224,7 +212,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* التجاوب */
 @media (max-width: 768px) {
   .profile-header {
     flex-direction: column;
@@ -242,7 +229,6 @@
 }
 
 
-/* قسم التقييم */
 .rating-section {
   text-align: center;
   background: #f9f9f9;
@@ -253,7 +239,7 @@
 }
 
 .rating-section h2 {
-  border: none; /* إزالة الخط الجانبي الافتراضي */
+  border: none;
   margin-bottom: 10px;
   font-size: 1.2rem;
 }
@@ -273,11 +259,11 @@
 
 .star-btn:hover {
   transform: scale(1.2);
-  color: #ffd700; /* ذهبي عند التحويم */
+  color: #ffd700;
 }
 
 .star-btn.active {
-  color: #f39c12; /* برتقالي عند التقييم */
+  color: #f39c12;
 }
 
 .rating-hint {
@@ -286,3 +272,28 @@
   color: #2ecc71;
   font-weight: bold;
 }
+
+
+
+
+
+.hire-btn {
+  background: linear-gradient(90deg, #2ecc71, #27ae60);
+  color: white; border: none; padding: 15px 40px; font-size: 1.2rem;
+  border-radius: 50px; cursor: pointer; margin-right: 15px; font-weight: bold;
+}
+.hire-btn:hover { transform: scale(1.05); }
+
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 1000;
+}
+.modal-content {
+  background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 500px;
+}
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+.form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.confirm-btn { background: #090979; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer; }
+.cancel-btn { background: transparent; color: red; border: 1px solid red; padding: 10px 20px; border-radius: 5px; cursor: pointer; }

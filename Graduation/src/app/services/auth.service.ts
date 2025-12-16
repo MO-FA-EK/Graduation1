@@ -7,7 +7,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  user_type?: string;
+  user_type?: string; // ✅
   imageUrl?: string;
   category?: string;
   description?: string;
@@ -17,16 +17,6 @@ export interface User {
   contactClicks?: number;
   rating?: number;
   totalRatings?: number;
-}
-
-export interface LoginResponse {
-  access: string;
-  refresh: string;
-  user: User;
-  user_id?: number;
-  username?: string;
-  email?: string;
-  user_type?: string;
 }
 
 @Injectable({
@@ -40,7 +30,6 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  // Login
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(this.loginUrl, { username, password }).pipe(
       tap(res => {
@@ -71,8 +60,6 @@ export class AuthService {
   isLoggedIn(): boolean { return !!this.getToken(); }
   isAuthenticated(): boolean { return this.isLoggedIn(); }
 
-
-// ✅ Helper Functions
   getUser(): User | null {
     const raw = localStorage.getItem('user');
     return raw ? JSON.parse(raw) : null;
@@ -82,7 +69,7 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-// ✅ Retrieve the complete profile
+
 
   getUserProfile(): Observable<User | null> {
     const token = this.getToken();
@@ -96,6 +83,7 @@ export class AuthService {
           id: data.id,
           username: data.username,
           email: data.email,
+          user_type: data.user_type,
           category: data.category,
           description: data.bio,
           skills: data.skills || [],
@@ -111,8 +99,6 @@ export class AuthService {
       catchError(() => of(null))
     );
   }
-
-//✅ Update profile
 
   updateUser(profileData: Partial<User>): Observable<User> {
     const token = this.getToken();
@@ -141,7 +127,7 @@ export class AuthService {
       })
     );
   }
-// Change password
+
   changePassword(data: any): Observable<any> {
     const token = this.getToken();
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
