@@ -680,3 +680,8 @@
 [API LOG] POST /api/auth/login/ → 401 | 1191.63 ms | User: Anonymous
 [API LOG] POST /api/auth/login/ → 401 | 1303.53 ms | User: Anonymous
 [API LOG] POST /api/auth/login/ → 401 | 1218.81 ms | User: Anonymous
+[API LOG] GET / → 404 | 132.25 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 401 | 45.97 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 401 | 1.41 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 401 | 38.13 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 170.6 ms | User: Anonymous
