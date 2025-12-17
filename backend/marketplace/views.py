@@ -53,7 +53,7 @@ def increment_profile_views(request, id):
         programmer = Programmer.objects.get(id=id)
         programmer.profile_views += 1
         programmer.save()
-        return Response({'views': programmer.profile_views})
+        return Response({'profileViews': programmer.profile_views})
     except Programmer.DoesNotExist:
         return Response({'error': 'Not found'}, status=404)
 
@@ -117,6 +117,11 @@ def my_profile(request):
             'contactClicks': 0
         }
         return Response(client_data)
+
+from django.views.decorators.csrf import csrf_exempt
+
+@api_view(['POST'])
+@csrf_exempt
 @permission_classes([AllowAny])
 def contact_us(request):
     return Response({'message': 'Message sent successfully'})
@@ -153,9 +158,28 @@ def create_project(request, freelancer_id):
         freelancer=freelancer,
         title=data.get('title', 'New Project'),
         description=data.get('description', 'Project Request'),
-        amount=50.00 
+        amount=data.get('amount', 50.00) 
     )
     return Response(ProjectSerializer(project).data, status=201)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def accept_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    
+    try:
+        programmer = Programmer.objects.get(user=request.user)
+        if project.freelancer != programmer:
+             return Response({'error': 'Not authorized'}, status=403)
+    except Programmer.DoesNotExist:
+        return Response({'error': 'Not a freelancer'}, status=403)
+
+    if project.status == 'pending':
+        project.status = 'active'
+        project.save()
+        return Response({'status': 'Project accepted and active'})
+    
+    return Response({'error': 'Project already active or processed'}, status=400)
 
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
@@ -198,4 +222,19 @@ def confirm_project_payment_status(request, project_id):
     project.is_paid = True
     project.status = 'active' 
     project.save()
+    project.save()
     return Response({'status': 'Project is now active'})
+
+# ADMIN PROJECT VIEWS
+from rest_framework import generics
+from accounts.permissions import IsSuperUser
+
+class AdminProjectListView(generics.ListAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsSuperUser]
+
+class AdminDeleteProjectView(generics.DestroyAPIView):
+    queryset = Project.objects.all()
+    permission_classes = [IsSuperUser]
+    lookup_field = 'id'

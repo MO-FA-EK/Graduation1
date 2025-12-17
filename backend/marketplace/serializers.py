@@ -33,7 +33,9 @@ class ProgrammerSerializer(serializers.ModelSerializer):
             'totalRatings',
             'profileViews',
             'hourly_rate',  
-            'experience_level'
+            'experience_level',
+            'bank_name',
+            'iban'
         ]
 
 class ProjectSerializer(serializers.ModelSerializer):

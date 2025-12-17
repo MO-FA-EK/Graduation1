@@ -18,7 +18,7 @@ export class FreelancerProfileComponent implements OnInit {
     isRating: boolean = false;
 
     showHireModal: boolean = false;
-    hireData = { title: '', description: '' };
+    hireData = { title: '', description: '', amount: 50 };
     isHiring: boolean = false;
 
     constructor(
@@ -43,7 +43,13 @@ export class FreelancerProfileComponent implements OnInit {
             next: (data) => {
                 this.freelancer = data;
                 this.isLoading = false;
-                this.freelancerService.incrementProfileViews(id).subscribe();
+                this.freelancerService.incrementProfileViews(id).subscribe({
+                    next: (newViewCount) => {
+                        if (this.freelancer) {
+                            this.freelancer.profileViews = newViewCount;
+                        }
+                    }
+                });
             },
             error: () => this.isLoading = false
         });
@@ -52,7 +58,7 @@ export class FreelancerProfileComponent implements OnInit {
     openHireModal() {
         const token = localStorage.getItem('access_token');
         if (!token) {
-            if(confirm('Please login to hire. Go to login?')) {
+            if (confirm('Please login to hire. Go to login?')) {
                 this.router.navigate(['/login']);
             }
             return;

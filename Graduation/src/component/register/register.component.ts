@@ -7,7 +7,6 @@ import { RegisterService } from '../../app/services/register.service';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
   imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
@@ -30,11 +29,7 @@ export class RegisterComponent {
   isError = false;
   isLoading = false;
 
-  categoryOptions = [
-    'Frontend Developer', 'Backend Developer', 'Full Stack Developer',
-    'DevOps Engineer', 'UI/UX Designer', 'Data Scientist',
-    'Mobile Developer', 'Game Developer'
-  ];
+
 
   constructor(private registerService: RegisterService, private router: Router) { }
 

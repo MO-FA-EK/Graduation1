@@ -15,8 +15,8 @@
         <h1>{{ freelancer.username }}</h1>
         <p class="category">{{ freelancer.category }}</p>
         <div class="stats-row">
-          <div class="stat-item"><span class="icon">⭐</span><span class="val">{{ freelancer.rating }}</span></div>
-          <div class="stat-item"><span class="icon">👁️</span><span class="val">{{ freelancer.profileViews }}</span></div>
+          <div class="stat-item"><span class="icon">⭐</span><span class="val">{{ freelancer.rating | number:'1.1-1' }}</span></div>
+          <div class="stat-item"><span class="icon">👁️</span><span class="val">{{ freelancer.profileViews }} Views</span></div>
         </div>
       </div>
     </div>
@@ -62,6 +62,10 @@
       <div class="form-group">
         <label>Title</label>
         <input type="text" [(ngModel)]="hireData.title" placeholder="e.g. Build Website">
+      </div>
+      <div class="form-group">
+        <label>Budget / Price ($)</label>
+        <input type="number" [(ngModel)]="hireData.amount" placeholder="e.g. 50">
       </div>
       <div class="form-group">
         <label>Description</label>

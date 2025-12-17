@@ -1,7 +1,3 @@
-"""
-Django settings for programmer_marketplace project.
-"""
-
 from pathlib import Path
 from datetime import timedelta
 import os
@@ -10,16 +6,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-qgebbtcnvy6x$(l!)9y3td6m2cf912q9dv4!6zbjo-!gl1nisg'
 
-# PayPal / Stripe Settings
-STRIPE_PUBLIC_KEY = 'pk_test_51MyTestKey...' # Replace with actual key
-STRIPE_SECRET_KEY = 'sk_test_51MyTestSecret...' # Replace with actual key
+STRIPE_PUBLIC_KEY = 'pk_test_51MyTestKey...' 
+STRIPE_SECRET_KEY = 'sk_test_51MyTestSecret...'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -66,7 +59,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'programmer_marketplace.wsgi.application'
 
-# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -74,7 +66,6 @@ DATABASES = {
     }
 }
 
-# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
     { 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
@@ -82,17 +73,14 @@ AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Django REST Framework settings
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -121,6 +109,11 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+    "http://127.0.0.1:4200",
+]
+
+CSRF_TRUSTED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
 ]

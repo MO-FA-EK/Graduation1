@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService, User } from '../../app/services/auth.service';
 import { ProjectService, Project } from '../../app/services/project.service';
+import { FilterStatusPipe } from '../../app/pipes/filter-status.pipe';
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [FormsModule, CommonModule, RouterModule, StripeCardComponent],
+  imports: [FormsModule, CommonModule, RouterModule, StripeCardComponent, FilterStatusPipe],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -155,6 +156,16 @@ export class DashboardComponent implements OnInit {
     this.projectService.updateProject(project.id, updateData).subscribe({
       next: () => alert('Updated successfully!'),
       error: () => alert('Update failed.')
+    });
+  }
+
+  acceptProject(project: Project) {
+    this.projectService.acceptProject(project.id).subscribe({
+      next: () => {
+        alert('Project Accepted! It is now active.');
+        this.loadProjects();
+      },
+      error: (err) => alert('Error accepting project: ' + (err.error?.error || 'Unknown error'))
     });
   }
 

@@ -6,7 +6,7 @@
     <input type="text" [(ngModel)]="name" name="name" placeholder="Your Name" required>
     <input type="email" [(ngModel)]="email" name="email" placeholder="Your Email">
     <textarea [(ngModel)]="message" name="message" placeholder="Your Message" required></textarea>
-    <button type="button" [disabled]="sending" (click)="sendMessage()">
+    <button type="submit" [disabled]="sending">
       {{ sending ? 'Sending...' : 'Send Message' }}
     </button>
   </form>

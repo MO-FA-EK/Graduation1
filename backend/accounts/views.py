@@ -7,7 +7,6 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .serializers import RegisterSerializer, ChangePasswordSerializer
 from marketplace.models import Programmer 
 
-#  REGISTER 
 class RegisterView(generics.GenericAPIView):
     serializer_class = RegisterSerializer
     permission_classes = [AllowAny]
@@ -19,7 +18,6 @@ class RegisterView(generics.GenericAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#  LOGIN 
 class CustomLoginSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
@@ -42,7 +40,6 @@ class CustomLoginSerializer(TokenObtainPairSerializer):
 class LoginView(TokenObtainPairView):
     serializer_class = CustomLoginSerializer
 
-# CHANGE PASSWORD 
 class ChangePasswordView(generics.GenericAPIView):
     serializer_class = ChangePasswordSerializer
     permission_classes = [IsAuthenticated]
@@ -57,3 +54,18 @@ class ChangePasswordView(generics.GenericAPIView):
             return Response({"message": "Password updated successfully"}, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# ADMIN VIEWS
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
+from .permissions import IsSuperUser
+
+class AdminUserListView(generics.ListAPIView):
+    queryset = User.objects.all().select_related('programmer')
+    serializer_class = UserSerializer
+    permission_classes = [IsSuperUser]
+
+class AdminDeleteUserView(generics.DestroyAPIView):
+    queryset = User.objects.all()
+    permission_classes = [IsSuperUser]
+    lookup_field = 'id'

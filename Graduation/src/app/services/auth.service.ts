@@ -7,7 +7,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  user_type?: string; // ✅
+  user_type?: string; 
   imageUrl?: string;
   category?: string;
   description?: string;
@@ -17,6 +17,8 @@ export interface User {
   contactClicks?: number;
   rating?: number;
   totalRatings?: number;
+  bank_name?: string;
+  iban?: string;
 }
 
 @Injectable({
@@ -36,12 +38,12 @@ export class AuthService {
         if (res.access) {
           this.saveToken(res.access);
           if (res.user_id) {
-             this.saveUser({
-                 id: res.user_id,
-                 username: res.username,
-                 email: res.email,
-                 user_type: res.user_type
-             });
+            this.saveUser({
+              id: res.user_id,
+              username: res.username,
+              email: res.email,
+              user_type: res.user_type
+            });
           }
         }
       })
@@ -92,7 +94,9 @@ export class AuthService {
           rating: data.rating,
           totalRatings: data.totalRatings,
           profileViews: data.profileViews,
-          contactClicks: data.contactClicks
+          contactClicks: data.contactClicks,
+          bank_name: data.bank_name,
+          iban: data.iban
         } as User;
       }),
       tap(user => this.saveUser(user)),
@@ -110,7 +114,9 @@ export class AuthService {
       category: profileData.category,
       skills: profileData.skills,
       portfolio: profileData.portfolio,
-      imageUrl: profileData.imageUrl
+      imageUrl: profileData.imageUrl,
+      bank_name: profileData.bank_name,
+      iban: profileData.iban
     };
 
     return this.http.patch<any>(this.profileUrl, payload, { headers }).pipe(

@@ -33,7 +33,7 @@ export class ProjectService {
     });
   }
 
-  createProject(freelancerId: number, data: { title: string, description: string }): Observable<Project> {
+  createProject(freelancerId: number, data: { title: string, description: string, amount: number }): Observable<Project> {
     return this.http.post<Project>(`${this.apiUrl}create/${freelancerId}/`, data, { headers: this.getHeaders() });
   }
 
@@ -43,6 +43,10 @@ export class ProjectService {
 
   updateProject(projectId: number, data: any): Observable<Project> {
     return this.http.patch<Project>(`${this.apiUrl}${projectId}/update/`, data, { headers: this.getHeaders() });
+  }
+
+  acceptProject(projectId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}${projectId}/accept/`, {}, { headers: this.getHeaders() });
   }
 
   createPaymentIntent(projectId: number): Observable<any> {

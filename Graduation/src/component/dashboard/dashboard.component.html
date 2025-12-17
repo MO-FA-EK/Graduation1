@@ -37,6 +37,7 @@
               </div>
 
               <p>Freelancer: {{ p.freelancer_name }}</p>
+              <p><strong>Price:</strong> ${{ p.amount }}</p>
               <p>{{ p.description }}</p>
               <div class="github-box">
                 <a *ngIf="p.github_link" [href]="p.github_link" target="_blank">{{ p.github_link }}</a>
@@ -54,21 +55,48 @@
         </div>
 
         <div *ngIf="!isClient">
-          <div *ngIf="workProjects && workProjects.length > 0; else noWork">
-            <div *ngFor="let p of workProjects" class="project-card">
-              <div class="card-header">
-                <h4>{{ p.title }}</h4>
-                <select [(ngModel)]="p.status"><option value="pending">Pending</option><option value="active">Active</option><option value="completed">Done</option></select>
-              </div>
-              <div *ngIf="!p.is_paid" class="unpaid-badge">💰 Client hasn't paid yet</div>
-              <p>Client: {{ p.client_name }}</p>
-              <div class="github-box">
-                <input [(ngModel)]="p.github_link" placeholder="GitHub Link">
-                <button (click)="updateProject(p)">Save</button>
+          
+          <!-- Pending Requests -->
+          <h3>Pending Requests</h3>
+          <div *ngIf="workProjects | filterStatus:'pending' as pendingList">
+            <div *ngIf="pendingList.length > 0; else noPending">
+              <div *ngFor="let p of pendingList" class="project-card pending-card">
+                 <div class="card-header">
+                    <h4>{{ p.title }}</h4> <span class="badge pending">Pending Approval</span>
+                 </div>
+                 <p><strong>Client:</strong> {{ p.client_name }}</p>
+                 <p><strong>Offer:</strong> ${{ p.amount }}</p>
+                 <p class="desc">{{ p.description }}</p>
+                 <button class="accept-btn" (click)="acceptProject(p)">✅ Accept Project</button>
               </div>
             </div>
+            <ng-template #noPending><p>No pending requests.</p></ng-template>
           </div>
-          <ng-template #noWork><p>No active jobs.</p></ng-template>
+
+          <hr class="divider">
+
+          <!-- Active Jobs -->
+          <h3>Active Jobs</h3>
+          <div *ngIf="workProjects | filterStatus:'active' as activeList">
+             <div *ngIf="activeList.length > 0; else noActive">
+                <div *ngFor="let p of activeList" class="project-card">
+                   <div class="card-header">
+                      <h4>{{ p.title }}</h4> <span class="badge active">In Progress</span>
+                   </div>
+                   <div *ngIf="!p.is_paid" class="unpaid-badge">💰 Waitting for Payment</div>
+                   <div *ngIf="p.is_paid" class="paid-badge">✅ Paid</div>
+                   
+                   <p><strong>Client:</strong> {{ p.client_name }}</p>
+                   <p><strong>Price:</strong> ${{ p.amount }}</p>
+                   <div class="github-box">
+                      <input [(ngModel)]="p.github_link" placeholder="GitHub Link">
+                      <button (click)="updateProject(p)">Save Link</button>
+                   </div>
+                </div>
+             </div>
+             <ng-template #noActive><p>No active jobs.</p></ng-template>
+          </div>
+
         </div>
       </div>
 
@@ -82,6 +110,8 @@
             <div class="form-group full-width"><label>Skills</label><input [(ngModel)]="profile.skills"></div>
             <div class="form-group full-width"><label>Portfolio URL</label><input [(ngModel)]="profile.portfolio" placeholder="https://github.com/my-profile"></div>
             <div class="form-group full-width"><label>Image</label><input [(ngModel)]="profile.imageUrl"></div>
+            <div class="form-group"><label>Bank Name</label><input [(ngModel)]="profile.bank_name" placeholder="Bank Name"></div>
+            <div class="form-group"><label>IBAN / Account No</label><input [(ngModel)]="profile.iban" placeholder="IBAN"></div>
           </ng-container>
         </div>
         <button class="save-btn" (click)="saveProfile()">Save</button>

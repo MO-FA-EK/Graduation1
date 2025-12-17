@@ -20,7 +20,9 @@ class Programmer(models.Model):
     image_url = models.URLField(max_length=500, blank=True)
     portfolio_url = models.URLField(max_length=500, blank=True)
     
-    # Statistics
+    bank_name = models.CharField(max_length=100, blank=True, default='')
+    iban = models.CharField(max_length=50, blank=True, default='')
+    
     rating = models.FloatField(default=0.0)
     review_count = models.IntegerField(default=0)
     profile_views = models.IntegerField(default=0)
@@ -44,7 +46,6 @@ class Project(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     github_link = models.URLField(blank=True, null=True)
     
-    # Stripe Payment Fields
     is_paid = models.BooleanField(default=False)
     amount = models.DecimalField(max_digits=10, decimal_places=2, default=50.00)
     created_at = models.DateTimeField(auto_now_add=True)

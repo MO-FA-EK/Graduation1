@@ -3,7 +3,7 @@
     <h3>Admin Panel</h3>
     <nav>
       <button [class.active]="activeTab === 'users'" (click)="setTab('users')">👥 Users</button>
-      <button [class.active]="activeTab === 'reports'" (click)="setTab('reports')">📊 Reports</button>
+      <button [class.active]="activeTab === 'projects'" (click)="setTab('projects')">🚀 Projects</button>
       <button [class.active]="activeTab === 'settings'" (click)="setTab('settings')">⚙️ Settings</button>
       <button class="logout-btn" (click)="logout()">🚪 Logout</button>
     </nav>
@@ -20,7 +20,7 @@
         <div class="stats-row">
         <div class="stat-card">
             <h3>Freelancers</h3>
-            <p>{{ stats.freelancers }}+</p>
+            <p>{{ stats.freelancers }}</p>
         </div>
         <div class="stat-card">
             <h3>Clients</h3>
@@ -32,28 +32,59 @@
         </div>
         </div>
 
-        <section class="user-list">
-        <h3>Recent Users</h3>
+        <div class="tabs-nav">
+           <button [class.active]="activeTab === 'users'" (click)="setTab('users')">Manage Users</button>
+           <button [class.active]="activeTab === 'projects'" (click)="setTab('projects')">Manage Projects</button>
+        </div>
+
+        <section *ngIf="activeTab === 'users'" class="user-list fade-in">
+        <h3>All Users</h3>
         <table>
             <thead>
             <tr>
                 <th>ID</th>
                 <th>Username</th>
                 <th>Type</th>
-                <th>Status</th>
+                <th>Date Joined</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let user of users">
                 <td>#{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td><span class="badge" [class]="user.type.toLowerCase()">{{ user.type }}</span></td>
-                <td>{{ user.status }}</td>
-                <td><button class="delete-btn">Remove</button></td>
+                <td>{{ user.username }} <small>{{ user.email }}</small></td>
+                <td><span class="badge" [class]="user.user_type">{{ user.user_type }}</span></td>
+                <td>{{ user.date_joined | date:'shortDate' }}</td>
+                <td><button class="delete-btn" (click)="deleteUser(user.id)">Remove</button></td>
             </tr>
             </tbody>
         </table>
+        </section>
+
+        <section *ngIf="activeTab === 'projects'" class="user-list fade-in">
+            <h3>All Projects</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Client</th>
+                    <th>Freelancer</th>
+                    <th>Status</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let p of projects">
+                    <td>{{ p.title }}</td>
+                    <td>{{ p.client_name }}</td>
+                    <td>{{ p.freelancer_name }}</td>
+                    <td><span class="badge" [class]="p.status">{{ p.status }}</span></td>
+                    <td>${{ p.amount }}</td>
+                    <td><button class="delete-btn" (click)="deleteProject(p.id)">Delete</button></td>
+                </tr>
+                </tbody>
+            </table>
         </section>
     </div>
 

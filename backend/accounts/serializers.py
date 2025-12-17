@@ -1,7 +1,24 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from marketplace.models import Programmer
+class UserSerializer(serializers.ModelSerializer):
+    user_type = serializers.SerializerMethodField()
+    
+    def get_user_type(self, obj):
+        if obj.is_superuser:
+            return 'admin'
+        
 
+        try:
+            if hasattr(obj, 'programmer') and obj.programmer:
+                return 'freelancer'
+        except Programmer.DoesNotExist:
+            pass
+        return 'client'
+    
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'user_type', 'is_active', 'date_joined']
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField()
     email = serializers.EmailField()
@@ -30,14 +47,12 @@ class RegisterSerializer(serializers.Serializer):
         email = validated_data.pop("email")
         password = validated_data.pop("password")
 
-        # Create Django User
         user = User.objects.create_user(
             username=username,
             email=email,
             password=password,
         )
 
-        # Create freelancer profile
         if user_type == "freelancer":
             Programmer.objects.create(
                 user=user,
@@ -58,7 +73,6 @@ class RegisterSerializer(serializers.Serializer):
             "user_type": user_type,
         }
 
-# Serializer Password Change
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)

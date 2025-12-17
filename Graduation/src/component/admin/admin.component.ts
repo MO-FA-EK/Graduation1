@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../app/services/auth.service';
+import { AdminService } from '../../app/services/admin.service';
 
 @Component({
   selector: 'app-admin',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
@@ -15,6 +14,7 @@ import { AuthService } from '../../app/services/auth.service';
 export class AdminComponent implements OnInit {
   stats = { freelancers: 0, clients: 0, projects: 0 };
   users: any[] = [];
+  projects: any[] = [];
   isLoading = true;
   activeTab: string = 'users';
 
@@ -23,22 +23,59 @@ export class AdminComponent implements OnInit {
   isPassError = false;
   isSaving = false;
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
+  constructor(private adminService: AdminService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    this.loadAdminData();
+    this.loadUsers();
+    this.loadProjects();
   }
 
-  loadAdminData() {
-    // Simulated data fetch
-    setTimeout(() => {
-      this.stats = { freelancers: 15, clients: 5, projects: 8 };
-      this.users = [
-        { id: 1, username: 'mock_freelancer_1', type: 'Freelancer', status: 'Active' },
-        { id: 2, username: 'mock_client_1', type: 'Client', status: 'Active' },
-      ];
-      this.isLoading = false;
-    }, 1000);
+  loadUsers() {
+    this.adminService.getUsers().subscribe({
+      next: (data) => {
+        console.log('Users data received:', data);
+        this.users = data;
+        this.stats.freelancers = data.filter(u => u.user_type === 'freelancer').length;
+        this.stats.clients = data.filter(u => u.user_type === 'client').length;
+        console.log('Stats updated:', this.stats);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error loading users:', err);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  loadProjects() {
+    this.adminService.getProjects().subscribe({
+      next: (data) => {
+        console.log('Projects data received:', data);
+        this.projects = data;
+        this.stats.projects = data.length;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error loading projects:', err);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  deleteUser(id: number) {
+    if (!confirm('Are you sure you want to delete this user?')) return;
+    this.adminService.deleteUser(id).subscribe(() => {
+      alert('User deleted');
+      this.loadUsers();
+    });
+  }
+
+  deleteProject(id: number) {
+    if (!confirm('Delete this project?')) return;
+    this.adminService.deleteProject(id).subscribe(() => {
+      alert('Project deleted');
+      this.loadProjects();
+    });
   }
 
   setTab(tab: string) {
