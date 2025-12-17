@@ -5,11 +5,10 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [
-    CommonModule,   // ← REQUIRED
-    RouterLink,     // ← For routerLink
-    FormsModule     // ← For ngModel
+    CommonModule,   
+    RouterLink,     
+    FormsModule     
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']

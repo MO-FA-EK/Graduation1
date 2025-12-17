@@ -21,35 +21,39 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   login() {
-  this.isLoading = true;
-  this.errorMessage = '';
+    this.isLoading = true;
+    this.errorMessage = '';
 
- this.authService.login(this.username, this.password).subscribe({
-  next: (res) => {
-    this.isLoading = false;
+    this.authService.login(this.username, this.password).subscribe({
+      next: (res) => {
+        this.isLoading = false;
 
-    if (res.access) {
-      this.authService.saveToken(res.access);
+        if (res.access) {
+          this.authService.saveToken(res.access);
 
-      this.authService.saveUser({
-        id: res.user_id,
-        username: res.username,
-        email: res.email,
-        user_type: res.user_type
-      });
+          this.authService.saveUser({
+            id: res.user_id,
+            username: res.username,
+            email: res.email,
+            user_type: res.user_type
+          });
 
-      this.router.navigate(['/dashboard']);
-    }
-  },
-  error: () => {
-    this.isLoading = false;
-    this.errorMessage = 'Invalid username or password';
+          if (res.user_type === 'admin') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
+        }
+      },
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = 'Invalid username or password';
+      }
+    });
+
   }
-});
-
-}
 
 }

@@ -2,56 +2,88 @@
   <aside class="sidebar">
     <h3>Admin Panel</h3>
     <nav>
-      <button class="active">👥 Users</button>
-      <button>📊 Reports</button>
-      <button>⚙️ Settings</button>
+      <button [class.active]="activeTab === 'users'" (click)="setTab('users')">👥 Users</button>
+      <button [class.active]="activeTab === 'reports'" (click)="setTab('reports')">📊 Reports</button>
+      <button [class.active]="activeTab === 'settings'" (click)="setTab('settings')">⚙️ Settings</button>
       <button class="logout-btn" (click)="logout()">🚪 Logout</button>
     </nav>
   </aside>
 
   <main class="content">
-    <header>
-      <h2>Dashboard Overview</h2>
-      <p>Welcome back, Administrator.</p>
-    </header>
+    
+    <div *ngIf="activeTab !== 'settings'">
+        <header>
+            <h2>Dashboard Overview</h2>
+            <p>Welcome back, Administrator.</p>
+        </header>
 
-    <div class="stats-row">
-      <div class="stat-card">
-        <h3>Freelancers</h3>
-        <p>{{ stats.freelancers }}+</p>
-      </div>
-      <div class="stat-card">
-        <h3>Clients</h3>
-        <p>{{ stats.clients }}</p>
-      </div>
-      <div class="stat-card">
-        <h3>Projects</h3>
-        <p>{{ stats.projects }}</p>
-      </div>
+        <div class="stats-row">
+        <div class="stat-card">
+            <h3>Freelancers</h3>
+            <p>{{ stats.freelancers }}+</p>
+        </div>
+        <div class="stat-card">
+            <h3>Clients</h3>
+            <p>{{ stats.clients }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Projects</h3>
+            <p>{{ stats.projects }}</p>
+        </div>
+        </div>
+
+        <section class="user-list">
+        <h3>Recent Users</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users">
+                <td>#{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td><span class="badge" [class]="user.type.toLowerCase()">{{ user.type }}</span></td>
+                <td>{{ user.status }}</td>
+                <td><button class="delete-btn">Remove</button></td>
+            </tr>
+            </tbody>
+        </table>
+        </section>
     </div>
 
-    <section class="user-list">
-      <h3>Recent Users</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>#{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td><span class="badge" [class]="user.type.toLowerCase()">{{ user.type }}</span></td>
-            <td>{{ user.status }}</td>
-            <td><button class="delete-btn">Remove</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    <div *ngIf="activeTab === 'settings'" class="settings-panel fade-in">
+        <h2>Admin Settings</h2>
+        
+        <div class="setting-card">
+            <h3>Change Password</h3>
+            <form (ngSubmit)="changePasswordSubmit()" class="pass-form">
+                <div class="form-group">
+                    <label>Old Password</label>
+                    <input type="password" [(ngModel)]="passData.old_password" name="oldPass" required>
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" [(ngModel)]="passData.new_password" name="newPass" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" [(ngModel)]="passData.confirm_password" name="confirmPass" required>
+                </div>
+                
+                <p class="msg" [class.error]="isPassError" *ngIf="passMessage">{{ passMessage }}</p>
+                
+                <button type="submit" class="save-btn" [disabled]="isSaving">
+                    {{ isSaving ? 'Updating...' : 'Update Password' }}
+                </button>
+            </form>
+        </div>
+    </div>
+
   </main>
 </div>
