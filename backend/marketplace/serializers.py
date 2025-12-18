@@ -35,7 +35,8 @@ class ProgrammerSerializer(serializers.ModelSerializer):
             'hourly_rate',  
             'experience_level',
             'bank_name',
-            'iban'
+            'iban',
+            'balance'
         ]
 
 class ProjectSerializer(serializers.ModelSerializer):

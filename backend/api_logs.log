@@ -974,3 +974,63 @@
 [API LOG] GET /api/admin/projects/ → 403 | 5.49 ms | User: ssss
 [API LOG] GET /api/admin/projects/ → 403 | 4.75 ms | User: ssss
 [API LOG] GET /api/auth/admin/users/ → 403 | 8.98 ms | User: ssss
+[API LOG] GET /api/auth/admin/users/ → 401 | 162.67 ms | User: Anonymous
+[API LOG] GET /api/admin/projects/ → 401 | 180.93 ms | User: Anonymous
+[API LOG] GET /api/auth/admin/users/ → 401 | 0.67 ms | User: Anonymous
+[API LOG] GET /api/admin/projects/ → 401 | 0.59 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 958.05 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 798.0 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 39.43 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 745.67 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 788.3 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 11.83 ms | User: ssss
+[API LOG] GET /api/projects/my/ → 200 | 41.58 ms | User: ssss
+[API LOG] PATCH /api/profile/ → 200 | 32.11 ms | User: Youssef Ibrahim
+[API LOG] PUT /api/auth/change-password/ → 400 | 788.11 ms | User: Youssef Ibrahim
+[API LOG] PUT /api/auth/change-password/ → 400 | 730.0 ms | User: Youssef Ibrahim
+[API LOG] PUT /api/auth/change-password/ → 400 | 820.9 ms | User: Youssef Ibrahim
+[API LOG] PUT /api/auth/change-password/ → 400 | 808.07 ms | User: Youssef Ibrahim
+[API LOG] PUT /api/auth/change-password/ → 400 | 732.09 ms | User: Youssef Ibrahim
+[API LOG] PUT /api/auth/change-password/ → 400 | 763.24 ms | User: Youssef Ibrahim
+[API LOG] PUT /api/auth/change-password/ → 400 | 762.17 ms | User: Youssef Ibrahim
+[API LOG] POST /api/auth/login/ → 401 | 752.81 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 753.81 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 886.83 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 25.79 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 815.0 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 761.8 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 20.87 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 21.71 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 22.95 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 815.3 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 27.77 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 800.56 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 804.39 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 32.18 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 823.45 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 30.72 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 837.06 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 14.14 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 10.82 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 338.46 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 13.07 ms | User: Anonymous
+[API LOG] GET /api/programmers/12/ → 200 | 5.07 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/view/ → 200 | 6.68 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 393.14 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.35 ms | User: MahmoudSaeed
+[API LOG] GET /api/projects/my/ → 200 | 6.81 ms | User: MahmoudSaeed
+[API LOG] POST /api/auth/login/ → 200 | 779.61 ms | User: Anonymous
+[API LOG] GET /api/auth/admin/users/ → 200 | 23.42 ms | User: admin
+[API LOG] GET /api/admin/projects/ → 200 | 29.03 ms | User: admin
+[API LOG] GET /api/auth/admin/users/ → 200 | 13.14 ms | User: admin
+[API LOG] GET /api/admin/projects/ → 200 | 24.03 ms | User: admin
+[API LOG] GET /api/profile/ → 200 | 6.14 ms | User: admin
+[API LOG] GET /api/projects/my/ → 200 | 13.12 ms | User: admin
+[API LOG] GET /api/auth/admin/users/ → 200 | 13.32 ms | User: admin
+[API LOG] GET /api/admin/projects/ → 200 | 22.48 ms | User: admin
+[API LOG] GET /api/auth/admin/users/ → 200 | 6.89 ms | User: admin
+[API LOG] GET /api/admin/projects/ → 200 | 11.06 ms | User: admin
+[API LOG] GET /api/auth/admin/users/ → 200 | 115.27 ms | User: admin
+[API LOG] GET /api/admin/projects/ → 200 | 132.05 ms | User: admin
+[API LOG] GET /api/auth/admin/users/ → 200 | 33.78 ms | User: admin
+[API LOG] GET /api/admin/projects/ → 200 | 36.26 ms | User: admin

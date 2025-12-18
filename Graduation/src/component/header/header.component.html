@@ -11,7 +11,7 @@
       <div><a routerLink="/services">Services</a></div>
       <div><a routerLink="/contact">Contact</a></div>
       <div><a routerLink="/dashboard">Dashboard</a></div>
-      <div><a routerLink="/admin">admin</a></div>
+      <div *ngIf="isAdmin"><a routerLink="/admin">admin</a></div>
 
       <div><a routerLink="/login">Login</a></div>
       <div><a routerLink="/register">Register</a></div>

@@ -85,6 +85,7 @@ def my_profile(request):
             serializer = ProgrammerSerializer(programmer)
             resp_data = dict(serializer.data)
             resp_data['user_type'] = 'freelancer'
+            resp_data['is_superuser'] = user.is_superuser
             return Response(resp_data)
         except Programmer.DoesNotExist:
             return Response({'message': 'Profile updated', 'username': user.username})
@@ -97,7 +98,8 @@ def my_profile(request):
         
     
         data = dict(serializer.data)
-        data['user_type'] = 'freelancer' 
+        data['user_type'] = 'freelancer'
+        data['is_superuser'] = user.is_superuser
         return Response(data)
         
     except Programmer.DoesNotExist:
@@ -114,7 +116,8 @@ def my_profile(request):
             'rating': 0,
             'totalRatings': 0,
             'profileViews': 0,
-            'contactClicks': 0
+            'contactClicks': 0,
+            'is_superuser': user.is_superuser
         }
         return Response(client_data)
 
@@ -220,12 +223,15 @@ def confirm_payment(request, payment_id):
 def confirm_project_payment_status(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     project.is_paid = True
-    project.status = 'active' 
+    project.status = 'active'
+    
+    freelancer = project.freelancer
+    freelancer.balance += project.amount
+    freelancer.save()
+    
     project.save()
-    project.save()
-    return Response({'status': 'Project is now active'})
+    return Response({'status': 'Project is now active and freelancer credited'})
 
-# ADMIN PROJECT VIEWS
 from rest_framework import generics
 from accounts.permissions import IsSuperUser
 

@@ -7,7 +7,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  user_type?: string; 
+  user_type?: string;
   imageUrl?: string;
   category?: string;
   description?: string;
@@ -19,6 +19,7 @@ export interface User {
   totalRatings?: number;
   bank_name?: string;
   iban?: string;
+  is_superuser?: boolean;
 }
 
 @Injectable({
@@ -96,7 +97,8 @@ export class AuthService {
           profileViews: data.profileViews,
           contactClicks: data.contactClicks,
           bank_name: data.bank_name,
-          iban: data.iban
+          iban: data.iban,
+          is_superuser: data.is_superuser
         } as User;
       }),
       tap(user => this.saveUser(user)),

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +17,14 @@ export class AdminService {
     }
 
     getUsers(): Observable<any[]> {
-        return this.http.get<any[]>(this.userUrl, { headers: this.getHeaders() });
+        return this.http.get<any>(this.userUrl, { headers: this.getHeaders() }).pipe(
+            map(response => {
+                if (response && response.results) {
+                    return response.results;
+                }
+                return Array.isArray(response) ? response : [];
+            })
+        );
     }
 
     deleteUser(id: number): Observable<any> {
@@ -25,7 +32,14 @@ export class AdminService {
     }
 
     getProjects(): Observable<any[]> {
-        return this.http.get<any[]>(this.projectUrl, { headers: this.getHeaders() });
+        return this.http.get<any>(this.projectUrl, { headers: this.getHeaders() }).pipe(
+            map(response => {
+                if (response && response.results) {
+                    return response.results;
+                }
+                return Array.isArray(response) ? response : [];
+            })
+        );
     }
 
     deleteProject(id: number): Observable<any> {

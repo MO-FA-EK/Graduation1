@@ -19,6 +19,8 @@ class Programmer(models.Model):
     hourly_rate = models.DecimalField(max_digits=6, decimal_places=2)
     image_url = models.URLField(max_length=500, blank=True)
     portfolio_url = models.URLField(max_length=500, blank=True)
+
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     
     bank_name = models.CharField(max_length=100, blank=True, default='')
     iban = models.CharField(max_length=50, blank=True, default='')
@@ -29,6 +31,9 @@ class Programmer(models.Model):
     
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return f"/freelancer/{self.id}"
 
 
 class Project(models.Model):
@@ -52,3 +57,6 @@ class Project(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.status})"
+        
+    def get_absolute_url(self):
+        return f"/admin/marketplace/project/{self.id}/change/"
