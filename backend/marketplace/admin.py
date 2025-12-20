@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Programmer, Project
-
+from .models import Programmer, Project, ContactMessage
 
 @admin.register(Programmer)
 class ProgrammerAdmin(admin.ModelAdmin):
@@ -16,3 +15,10 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter = ('status', 'is_paid', 'created_at')
     search_fields = ('title', 'description', 'client__username', 'freelancer__name')
     ordering = ('-created_at',)
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'created_at', 'is_read')
+    list_filter = ('is_read', 'created_at')
+    search_fields = ('name', 'email', 'message')
+    readonly_fields = ('name', 'email', 'message', 'created_at')

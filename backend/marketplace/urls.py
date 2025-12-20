@@ -15,13 +15,24 @@ urlpatterns = [
     path("projects/create/<int:freelancer_id>/", views.create_project, name="create_project"),
     path("projects/<int:project_id>/update/", views.update_project, name="update_project"),
     path("projects/<int:project_id>/accept/", views.accept_project, name="accept_project"),
+    path("projects/<int:project_id>/reject/", views.reject_project, name="reject_project"),
+    path("projects/<int:project_id>/complete/", views.complete_project, name="complete_project"),
 
-    path("projects/payment-intent/<int:project_id>/", views.create_payment_intent, name="create_payment_intent"),
+    path("projects/<int:project_id>/link-github/", views.link_github_repo, name="link_github_repo"),
+    path("projects/<int:project_id>/commits/", views.get_project_commits, name="get_project_commits"),
+
+
+    path("projects/create-checkout-session/<int:project_id>/", views.create_checkout_session, name="create_checkout_session"),
     
-    path("projects/confirm-payment/<str:payment_id>/", views.confirm_payment, name="confirm_payment_stripe"), 
+    path("projects/payment-intent/<int:project_id>/", views.create_payment_intent, name="create_payment_intent"),
+
+    path("stripe_webhook/", views.stripe_webhook, name="stripe_webhook"), 
 
     path("projects/<int:project_id>/confirm-payment/", views.confirm_project_payment_status, name="confirm_project_payment"),
     
     path("admin/projects/", views.AdminProjectListView.as_view(), name="admin_project_list"),
     path("admin/projects/<int:id>/delete/", views.AdminDeleteProjectView.as_view(), name="admin_project_delete"),
+
+    path("admin/users/", views.get_all_users, name="admin_users_list"),
+    path("admin/messages/", views.get_all_messages, name="admin_messages_list"),
 ]

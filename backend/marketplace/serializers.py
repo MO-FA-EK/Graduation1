@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Programmer, Project
-
+from .models import Programmer, Project, ContactMessage
 class ProgrammerSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='name')
     imageUrl = serializers.CharField(source='image_url', required=False, allow_blank=True)
@@ -59,5 +58,13 @@ class ProjectSerializer(serializers.ModelSerializer):
             'github_link', 
             'is_paid', 
             'amount', 
-            'created_at'
+            'created_at',
+            'document'
         ]
+
+
+
+class ContactMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactMessage
+        fields = ['id', 'name', 'email', 'message', 'created_at', 'is_read']

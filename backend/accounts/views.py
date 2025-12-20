@@ -25,6 +25,7 @@ class CustomLoginSerializer(TokenObtainPairSerializer):
         data['user_id'] = self.user.id
         data['username'] = self.user.username
         data['email'] = self.user.email
+        data['is_superuser'] = self.user.is_superuser
         
         if self.user.is_superuser:
             data['user_type'] = 'admin'
@@ -55,7 +56,6 @@ class ChangePasswordView(generics.GenericAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ADMIN VIEWS
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
 from .permissions import IsSuperUser

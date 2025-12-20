@@ -42,6 +42,7 @@ class Project(models.Model):
         ('active', 'Active'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
+        ('rejected', 'Rejected'),
     )
 
     client = models.ForeignKey(User, related_name='hired_projects', on_delete=models.CASCADE)
@@ -50,6 +51,7 @@ class Project(models.Model):
     description = models.TextField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     github_link = models.URLField(blank=True, null=True)
+    document = models.FileField(upload_to='project_docs/', blank=True, null=True)
     
     is_paid = models.BooleanField(default=False)
     amount = models.DecimalField(max_digits=10, decimal_places=2, default=50.00)
@@ -60,3 +62,13 @@ class Project(models.Model):
         
     def get_absolute_url(self):
         return f"/admin/marketplace/project/{self.id}/change/"
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Message from {self.name}"
