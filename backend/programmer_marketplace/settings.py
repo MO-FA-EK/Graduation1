@@ -6,12 +6,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-qgebbtcnvy6x$(l!)9y3td6m2cf912q9dv4!6zbjo-!gl1nisg'
 
-STRIPE_PUBLIC_KEY = 'pk_test_51MyTestKey...' 
-STRIPE_SECRET_KEY = 'sk_test_51MyTestSecret...'
-
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
+STRIPE_PUBLIC_KEY = 'pk_test_51SgB6a1hQYy14ilucp6IZek1k8gYBNCNyFOErJZovenNIB1R8frpVCDS7ogcMlTif6d6Z5MHSPpozF2d9ZjiD9dH009aBufCeh'
+
+STRIPE_SECRET_KEY = 'sk_test_51SgB6a1hQYy14iluSKXrZj2ANamX0wpWc43tU6tBXfomPTicCoRR1nFVfgDnRSYTg6lGmJbagUPVR6RQNiwL0yWd00qBejHjB9'
+
+
+STRIPE_WEBHOOK_SECRET = 'whsec_f6614d7b937b58886336b9e6f416cff9f8852a0fe42b267b2f8dce26e44ce9f6' 
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -22,15 +28,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    'marketplace',
-    'accounts',
     "corsheaders",
     'rest_framework.authtoken',
+    'marketplace',
+    'accounts',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
+    "corsheaders.middleware.CorsMiddleware", 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,6 +86,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
@@ -142,6 +151,11 @@ LOGGING = {
     },
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'no-reply@softwjob.com'
-COMPANY_EMAIL = 'admin@softwjob.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'softwjob@gmail.com'  
+EMAIL_HOST_PASSWORD = 'Mi968353'  
+DEFAULT_FROM_EMAIL = 'softwjob@gmail.com'
