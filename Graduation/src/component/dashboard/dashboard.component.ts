@@ -1,16 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { AuthService, User } from '../../app/services/auth.service';
 import { ProjectService, Project } from '../../app/services/project.service';
+import { GithubService } from '../../app/services/github.service';
 import { FilterStatusPipe } from '../../app/pipes/filter-status.pipe';
-import { StripeService, StripeCardComponent } from 'ngx-stripe';
-import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+
+import { StripeService, StripePaymentElementComponent, NgxStripeModule } from 'ngx-stripe';
+import { StripeElementsOptions, StripePaymentElementOptions } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [FormsModule, CommonModule, RouterModule, StripeCardComponent, FilterStatusPipe],
+  imports: [
+    FormsModule,
+    CommonModule,
+    RouterModule,
+    FilterStatusPipe,
+    NgxStripeModule,
+    StripePaymentElementComponent 
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -23,9 +32,9 @@ export class DashboardComponent implements OnInit {
   profile: User | null = null;
   isClient: boolean = false;
 
-
   hiredProjects: Project[] = [];
   workProjects: Project[] = [];
+  completedProjects: Project[] = []; 
 
   passData = { old_password: '', new_password: '', confirm_password: '' };
   passMessage = '';
@@ -35,70 +44,67 @@ export class DashboardComponent implements OnInit {
   selectedProjectForPayment: Project | null = null;
   isProcessingPayment = false;
 
-  @ViewChild(StripeCardComponent) card!: StripeCardComponent;
+  showCommitsModal = false;
+  commits: any[] = [];
+  selectedProjectForCommits: Project | null = null;
+  isLoadingCommits = false;
 
-  cardOptions: StripeCardElementOptions = {
-    style: {
-      base: {
-        iconColor: '#666EE8',
-        color: '#31325F',
-        fontWeight: '300',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '18px',
-        '::placeholder': { color: '#CFD7E0' }
-      }
-    }
+  elementsOptions: StripeElementsOptions = {
+    locale: 'en',
+    appearance: { theme: 'stripe' }
   };
-  elementsOptions: StripeElementsOptions = { locale: 'en' };
+
+  paymentElementOptions: StripePaymentElementOptions = {
+    layout: { type: 'tabs' }
+  };
+
+  @ViewChild(StripePaymentElementComponent) paymentElement!: StripePaymentElementComponent;
 
   constructor(
     private authService: AuthService,
     private projectService: ProjectService,
     private router: Router,
-    private stripeService: StripeService
+    private stripeService: StripeService,
+    private githubService: GithubService
   ) { }
 
-  ngOnInit() { this.loadProfile(); }
+  ngOnInit() {
+    this.loadProfile();
+  }
 
   loadProfile() {
     this.authService.getUserProfile().subscribe({
-      next: (user) => {
-        if (user) {
-          this.profile = user;
-
-          if (this.profile.user_type === 'admin') {
-            this.router.navigate(['/admin']);
-            return;
-          }
-
-          this.isClient = (this.profile.user_type?.toLowerCase() === 'client');
+      next: (res: User | null) => {
+        if (res) {
+          this.profile = res;
+          this.isClient = !res.category;
           this.loadProjects();
         } else {
-          this.isLoading = false;
+          this.router.navigate(['/login']);
         }
       },
       error: () => {
-        this.isLoading = false;
         this.router.navigate(['/login']);
       }
     });
   }
 
   loadProjects() {
+    this.isLoading = true;
     this.projectService.getMyProjects().subscribe({
       next: (res: any) => {
-        console.log('Projects Data:', res);
-
         this.hiredProjects = res.hired_projects || [];
-        this.workProjects = res.work_projects || [];
+
+        const allWork = res.work_projects || [];
+        this.workProjects = allWork.filter((p: Project) => p.status !== 'completed' && p.status !== 'rejected');
+        this.completedProjects = allWork.filter((p: Project) => p.status === 'completed');
 
         this.isLoading = false;
       },
-      error: (err) => {
-        console.error('Failed to load projects:', err);
-
+      error: () => {
         this.hiredProjects = [];
         this.workProjects = [];
+        this.completedProjects = [];
         this.isLoading = false;
       }
     });
@@ -106,7 +112,22 @@ export class DashboardComponent implements OnInit {
 
   openPaymentModal(project: Project) {
     this.selectedProjectForPayment = project;
-    this.showPaymentModal = true;
+    this.isProcessingPayment = true;
+
+    this.projectService.createPaymentIntent(project.id).subscribe({
+      next: (res) => {
+        this.elementsOptions = {
+          clientSecret: res.clientSecret,
+          appearance: { theme: 'stripe' }
+        };
+        this.showPaymentModal = true;
+        this.isProcessingPayment = false;
+      },
+      error: (err) => {
+        alert('Failed to initialize payment');
+        this.isProcessingPayment = false;
+      }
+    });
   }
 
   closePaymentModal() {
@@ -115,37 +136,41 @@ export class DashboardComponent implements OnInit {
   }
 
   payNow() {
-    if (!this.selectedProjectForPayment) return;
+    if (this.isProcessingPayment) return;
     this.isProcessingPayment = true;
 
-    this.projectService.createPaymentIntent(this.selectedProjectForPayment.id).subscribe({
-      next: (res) => {
-        const clientSecret = res.clientSecret;
-        this.stripeService.confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: this.card.element,
-            billing_details: { name: this.profile?.username }
+    const billingDetails: any = {};
+    if (this.profile?.username) billingDetails.name = this.profile.username;
+    if (this.profile?.email) billingDetails.email = this.profile.email;
+
+    this.stripeService.confirmPayment({
+      elements: this.paymentElement.elements,
+      confirmParams: {
+        return_url: window.location.href,
+        payment_method_data: {
+          billing_details: billingDetails
+        }
+      },
+      redirect: 'if_required'
+    }).subscribe({
+      next: (result) => {
+        this.isProcessingPayment = false;
+        if (result.error) {
+          alert('Payment Validation Failed: ' + result.error.message);
+        } else if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
+          alert('✅ Payment Successful!');
+          this.closePaymentModal();
+
+          if (this.selectedProjectForPayment) {
+            this.projectService.markProjectAsPaid(this.selectedProjectForPayment.id).subscribe(() => {
+              this.loadProjects();
+            });
           }
-        }).subscribe((result) => {
-          if (result.error) {
-            alert('Payment Failed: ' + result.error.message);
-            this.isProcessingPayment = false;
-          } else {
-            if (result.paymentIntent.status === 'succeeded') {
-              if (this.selectedProjectForPayment) {
-                this.projectService.markProjectAsPaid(this.selectedProjectForPayment.id).subscribe(() => {
-                  alert('✅ Payment Successful! Project Started.');
-                  this.closePaymentModal();
-                  this.isProcessingPayment = false;
-                  this.loadProjects();
-                });
-              }
-            }
-          }
-        });
+        }
       },
       error: (err) => {
-        alert('Error: ' + (err.error?.error || 'Payment Init Failed'));
+        console.error('Payment Error:', err);
+        alert('Error processing payment: ' + (err.message || JSON.stringify(err)));
         this.isProcessingPayment = false;
       }
     });
@@ -160,12 +185,35 @@ export class DashboardComponent implements OnInit {
   }
 
   acceptProject(project: Project) {
+    if (!confirm('Accept this project?')) return;
     this.projectService.acceptProject(project.id).subscribe({
       next: () => {
-        alert('Project Accepted! It is now active.');
+        alert('Project Accepted!');
         this.loadProjects();
       },
-      error: (err) => alert('Error accepting project: ' + (err.error?.error || 'Unknown error'))
+      error: (err: any) => alert(err.error?.error || 'Error accepting project')
+    });
+  }
+
+  rejectProject(project: Project) {
+    if (!confirm('Reject this project?')) return;
+    this.projectService.rejectProject(project.id).subscribe({
+      next: () => {
+        alert('Project Rejected');
+        this.loadProjects();
+      },
+      error: (err: any) => alert(err.error?.error || 'Error rejecting project')
+    });
+  }
+
+  completeProject(project: Project) {
+    if (!confirm('Mark this project as COMPLETED?')) return;
+    this.projectService.completeProject(project.id).subscribe({
+      next: () => {
+        alert('Project Completed! Great job!');
+        this.loadProjects();
+      },
+      error: (err: any) => alert(err.error?.error || 'Error completing project')
     });
   }
 
@@ -199,6 +247,33 @@ export class DashboardComponent implements OnInit {
       next: () => { this.isSaving = false; this.passMessage = "Changed!"; },
       error: () => { this.isSaving = false; this.passMessage = "Error changing password"; }
     });
+  }
+
+  viewCommits(project: Project) {
+    if (!project.github_link) {
+      alert('No GitHub link provided for this project.');
+      return;
+    }
+    this.selectedProjectForCommits = project;
+    this.showCommitsModal = true;
+    this.isLoadingCommits = true;
+    this.commits = [];
+
+    this.githubService.getCommits(project.github_link).subscribe({
+      next: (data: any[]) => {
+        this.commits = data;
+        this.isLoadingCommits = false;
+      },
+      error: () => {
+        this.isLoadingCommits = false;
+        alert('Failed to load commits. Make sure the repo is public.');
+      }
+    });
+  }
+
+  closeCommitsModal() {
+    this.showCommitsModal = false;
+    this.selectedProjectForCommits = null;
   }
 
   setTab(tab: string) { this.activeTab = tab; this.isSidebarOpen = false; }

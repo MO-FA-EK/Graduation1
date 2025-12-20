@@ -8,7 +8,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
-
-    importProvidersFrom(NgxStripeModule.forRoot('pk_test_TYooMQauvdEDq54NiTphI7jx'))
+    
+    importProvidersFrom(NgxStripeModule.forRoot('pk_test_51SgB6a1hQYy14ilucp6IZek1k8gYBNCNyFOErJZovenNIB1R8frpVCDS7ogcMlTif6d6Z5MHSPpozF2d9ZjiD9dH009aBufCeh'))
   ]
 };

@@ -12,9 +12,10 @@ import { AdminService } from '../../app/services/admin.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  stats = { freelancers: 0, clients: 0, projects: 0 };
+  stats = { freelancers: 0, clients: 0, projects: 0, messages: 0 };
   users: any[] = [];
   projects: any[] = [];
+  messages: any[] = [];
   isLoading = true;
   activeTab: string = 'users';
 
@@ -28,35 +29,38 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.loadUsers();
     this.loadProjects();
+    this.loadMessages();
   }
 
   loadUsers() {
     this.adminService.getUsers().subscribe({
-      next: (data) => {
-        console.log('Users data received:', data);
+      next: (data: any[]) => { 
         this.users = data;
         this.stats.freelancers = data.filter(u => u.user_type === 'freelancer').length;
         this.stats.clients = data.filter(u => u.user_type === 'client').length;
-        console.log('Stats updated:', this.stats);
-        this.isLoading = false;
       },
-      error: (err) => {
-        console.error('Error loading users:', err);
-        this.isLoading = false;
-      }
+      error: (err: any) => console.error('Error loading users:', err)
     });
   }
 
   loadProjects() {
     this.adminService.getProjects().subscribe({
-      next: (data) => {
-        console.log('Projects data received:', data);
-        this.projects = data;
+      next: (data: any[]) => { 
         this.stats.projects = data.length;
+      },
+      error: (err: any) => console.error('Error loading projects:', err)
+    });
+  }
+
+  loadMessages() {
+    this.adminService.getMessages().subscribe({
+      next: (data: any[]) => { 
+        this.messages = data;
+        this.stats.messages = data.length;
         this.isLoading = false;
       },
-      error: (err) => {
-        console.error('Error loading projects:', err);
+      error: (err: any) => { 
+        console.error('Error loading messages:', err);
         this.isLoading = false;
       }
     });
@@ -108,7 +112,7 @@ export class AdminComponent implements OnInit {
         this.passMessage = "Password changed successfully!";
         this.passData = { old_password: '', new_password: '', confirm_password: '' };
       },
-      error: (err) => {
+      error: (err: any) => {
         this.isSaving = false;
         this.passMessage = err.error?.old_password?.[0] || "Error changing password";
         this.isPassError = true;
@@ -117,8 +121,7 @@ export class AdminComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
+    this.authService.logout();
+    this.router.navigate(['/admin-login']);
   }
 }

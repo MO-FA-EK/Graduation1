@@ -43,7 +43,8 @@ export class AuthService {
               id: res.user_id,
               username: res.username,
               email: res.email,
-              user_type: res.user_type
+              user_type: res.user_type,
+              is_superuser: res.is_superuser
             });
           }
         }
@@ -82,7 +83,7 @@ export class AuthService {
 
     return this.http.get<any>(this.profileUrl, { headers }).pipe(
       map(data => {
-        return {
+        const mappedUser: User = {
           id: data.id,
           username: data.username,
           email: data.email,
@@ -99,7 +100,8 @@ export class AuthService {
           bank_name: data.bank_name,
           iban: data.iban,
           is_superuser: data.is_superuser
-        } as User;
+        };
+        return mappedUser;
       }),
       tap(user => this.saveUser(user)),
       catchError(() => of(null))

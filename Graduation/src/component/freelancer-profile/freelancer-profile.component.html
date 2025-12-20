@@ -68,8 +68,11 @@
         <input type="number" [(ngModel)]="hireData.amount" placeholder="e.g. 50">
       </div>
       <div class="form-group">
-        <label>Description</label>
         <textarea [(ngModel)]="hireData.description" rows="4"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Project Document (Optional)</label>
+        <input type="file" (change)="onFileSelected($event)">
       </div>
       <div class="modal-actions">
         <button class="cancel-btn" (click)="closeHireModal()">Cancel</button>

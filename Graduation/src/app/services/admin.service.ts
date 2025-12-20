@@ -1,48 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AdminService {
-    private userUrl = 'http://localhost:8000/api/auth/admin/users/';
-    private projectUrl = 'http://localhost:8000/api/admin/projects/';
+  private apiUrl = 'http://localhost:8000/api/admin/';
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    private getHeaders() {
-        const token = localStorage.getItem('access_token');
-        return new HttpHeaders({ Authorization: `Bearer ${token}` });
-    }
+  private getHeaders() {
+    const token = localStorage.getItem('access_token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
 
-    getUsers(): Observable<any[]> {
-        return this.http.get<any>(this.userUrl, { headers: this.getHeaders() }).pipe(
-            map(response => {
-                if (response && response.results) {
-                    return response.results;
-                }
-                return Array.isArray(response) ? response : [];
-            })
-        );
-    }
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}users/`, { headers: this.getHeaders() });
+  }
 
-    deleteUser(id: number): Observable<any> {
-        return this.http.delete(`${this.userUrl}${id}/delete/`, { headers: this.getHeaders() });
-    }
+  getProjects(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}projects/`, { headers: this.getHeaders() });
+  }
 
-    getProjects(): Observable<any[]> {
-        return this.http.get<any>(this.projectUrl, { headers: this.getHeaders() }).pipe(
-            map(response => {
-                if (response && response.results) {
-                    return response.results;
-                }
-                return Array.isArray(response) ? response : [];
-            })
-        );
-    }
+  // 👇 هذه الدالة كانت مفقودة وتسبب الخطأ
+  getMessages(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}messages/`, { headers: this.getHeaders() });
+  }
 
-    deleteProject(id: number): Observable<any> {
-        return this.http.delete(`${this.projectUrl}${id}/delete/`, { headers: this.getHeaders() });
-    }
+  deleteUser(userId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}users/${userId}/`, { headers: this.getHeaders() });
+  }
+
+  deleteProject(projectId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}projects/${projectId}/`, { headers: this.getHeaders() });
+  }
 }

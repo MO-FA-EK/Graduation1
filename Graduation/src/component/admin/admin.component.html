@@ -4,116 +4,114 @@
     <nav>
       <button [class.active]="activeTab === 'users'" (click)="setTab('users')">👥 Users</button>
       <button [class.active]="activeTab === 'projects'" (click)="setTab('projects')">🚀 Projects</button>
-      <button [class.active]="activeTab === 'settings'" (click)="setTab('settings')">⚙️ Settings</button>
+      <button [class.active]="activeTab === 'messages'" (click)="setTab('messages')">📩 Messages <span class="badge" *ngIf="messages.length">{{ messages.length }}</span></button>
+      <button [class.active]="activeTab === 'security'" (click)="setTab('security')">🔒 Security</button>
       <button class="logout-btn" (click)="logout()">🚪 Logout</button>
     </nav>
   </aside>
 
   <main class="content">
-    
-    <div *ngIf="activeTab !== 'settings'">
-        <header>
-            <h2>Dashboard Overview</h2>
-            <p>Welcome back, Administrator.</p>
-        </header>
-
-        <div class="stats-row">
-        <div class="stat-card">
-            <h3>Freelancers</h3>
-            <p>{{ stats.freelancers }}</p>
-        </div>
-        <div class="stat-card">
-            <h3>Clients</h3>
-            <p>{{ stats.clients }}</p>
-        </div>
-        <div class="stat-card">
-            <h3>Projects</h3>
-            <p>{{ stats.projects }}</p>
-        </div>
-        </div>
-
-        <div class="tabs-nav">
-           <button [class.active]="activeTab === 'users'" (click)="setTab('users')">Manage Users</button>
-           <button [class.active]="activeTab === 'projects'" (click)="setTab('projects')">Manage Projects</button>
-        </div>
-
-        <section *ngIf="activeTab === 'users'" class="user-list fade-in">
-        <h3>All Users</h3>
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Type</th>
-                <th>Date Joined</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let user of users">
-                <td>#{{ user.id }}</td>
-                <td>{{ user.username }} <small>{{ user.email }}</small></td>
-                <td><span class="badge" [class]="user.user_type">{{ user.user_type }}</span></td>
-                <td>{{ user.date_joined | date:'shortDate' }}</td>
-                <td><button class="delete-btn" (click)="deleteUser(user.id)">Remove</button></td>
-            </tr>
-            </tbody>
-        </table>
-        </section>
-
-        <section *ngIf="activeTab === 'projects'" class="user-list fade-in">
-            <h3>All Projects</h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Client</th>
-                    <th>Freelancer</th>
-                    <th>Status</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let p of projects">
-                    <td>{{ p.title }}</td>
-                    <td>{{ p.client_name }}</td>
-                    <td>{{ p.freelancer_name }}</td>
-                    <td><span class="badge" [class]="p.status">{{ p.status }}</span></td>
-                    <td>${{ p.amount }}</td>
-                    <td><button class="delete-btn" (click)="deleteProject(p.id)">Delete</button></td>
-                </tr>
-                </tbody>
-            </table>
-        </section>
+    <div class="stats-row">
+      <div class="stat-card">
+        <h3>Freelancers</h3>
+        <p>{{ stats.freelancers }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Clients</h3>
+        <p>{{ stats.clients }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Projects</h3>
+        <p>{{ stats.projects }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Messages</h3>
+        <p>{{ stats.messages }}</p>
+      </div>
     </div>
 
-    <div *ngIf="activeTab === 'settings'" class="settings-panel fade-in">
-        <h2>Admin Settings</h2>
-        
-        <div class="setting-card">
-            <h3>Change Password</h3>
-            <form (ngSubmit)="changePasswordSubmit()" class="pass-form">
-                <div class="form-group">
-                    <label>Old Password</label>
-                    <input type="password" [(ngModel)]="passData.old_password" name="oldPass" required>
-                </div>
-                <div class="form-group">
-                    <label>New Password</label>
-                    <input type="password" [(ngModel)]="passData.new_password" name="newPass" required>
-                </div>
-                <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" [(ngModel)]="passData.confirm_password" name="confirmPass" required>
-                </div>
-                
-                <p class="msg" [class.error]="isPassError" *ngIf="passMessage">{{ passMessage }}</p>
-                
-                <button type="submit" class="save-btn" [disabled]="isSaving">
-                    {{ isSaving ? 'Updating...' : 'Update Password' }}
-                </button>
-            </form>
+    <div *ngIf="activeTab === 'users'" class="tab-content fade-in">
+      <h2>Manage Users</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Type</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of users">
+            <td>{{ u.id }}</td>
+            <td>{{ u.username }}</td>
+            <td>{{ u.user_type }}</td>
+            <td>{{ u.email }}</td>
+            <td>
+              <button class="delete-btn" (click)="deleteUser(u.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="activeTab === 'projects'" class="tab-content fade-in">
+      <h2>Manage Projects</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of projects">
+            <td>{{ p.id }}</td>
+            <td>{{ p.title }}</td>
+            <td>{{ p.status }}</td>
+            <td>${{ p.amount }}</td>
+            <td>
+              <button class="delete-btn" (click)="deleteProject(p.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="activeTab === 'messages'" class="tab-content fade-in">
+      <h2>User Messages</h2>
+      
+      <div *ngIf="messages.length === 0" class="empty-state">
+        <p>No messages available.</p>
+      </div>
+
+      <div class="messages-list">
+        <div *ngFor="let msg of messages" class="message-card">
+          <div class="msg-header">
+            <span class="sender-name">👤 {{ msg.name }}</span>
+            <span class="msg-date">🕒 {{ msg.created_at | date:'short' }}</span>
+          </div>
+          <div class="msg-email">✉️ {{ msg.email }}</div>
+          <div class="msg-body">
+            {{ msg.message }}
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'security'" class="tab-content fade-in">
+      <h2>Change Admin Password</h2>
+      <div class="form-group">
+        <input type="password" [(ngModel)]="passData.old_password" placeholder="Old Password">
+        <input type="password" [(ngModel)]="passData.new_password" placeholder="New Password">
+        <input type="password" [(ngModel)]="passData.confirm_password" placeholder="Confirm Password">
+        <button (click)="changePasswordSubmit()">Update Password</button>
+      </div>
+      <p [class.error]="isPassError" [class.success]="!isPassError">{{ passMessage }}</p>
     </div>
 
   </main>

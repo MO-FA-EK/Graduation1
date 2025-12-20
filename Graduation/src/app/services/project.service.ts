@@ -12,10 +12,11 @@ export interface Project {
   title: string;
   description: string;
   github_link?: string;
-  status: 'pending' | 'active' | 'completed' | 'cancelled';
+  status: 'pending' | 'active' | 'completed' | 'cancelled' | 'rejected';
   is_paid: boolean;
   amount: number;
   created_at: string;
+  document?: string;
 }
 
 @Injectable({
@@ -33,7 +34,7 @@ export class ProjectService {
     });
   }
 
-  createProject(freelancerId: number, data: { title: string, description: string, amount: number }): Observable<Project> {
+  createProject(freelancerId: number, data: FormData): Observable<Project> {
     return this.http.post<Project>(`${this.apiUrl}create/${freelancerId}/`, data, { headers: this.getHeaders() });
   }
 
@@ -49,9 +50,17 @@ export class ProjectService {
     return this.http.post(`${this.apiUrl}${projectId}/accept/`, {}, { headers: this.getHeaders() });
   }
 
-  createPaymentIntent(projectId: number): Observable<any> {
-    return this.http.post<any>(
-      `${this.apiUrl}payment-intent/${projectId}/`,
+  rejectProject(projectId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}${projectId}/reject/`, {}, { headers: this.getHeaders() });
+  }
+
+  completeProject(projectId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}${projectId}/complete/`, {}, { headers: this.getHeaders() });
+  }
+
+  createPaymentIntent(projectId: number): Observable<{ clientSecret: string }> {
+    return this.http.post<{ clientSecret: string }>(
+      `${this.apiUrl}payment-intent/${projectId}/`, 
       {},
       { headers: this.getHeaders() }
     );

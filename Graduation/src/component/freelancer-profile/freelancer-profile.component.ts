@@ -19,6 +19,7 @@ export class FreelancerProfileComponent implements OnInit {
 
     showHireModal: boolean = false;
     hireData = { title: '', description: '', amount: 50 };
+    selectedFile: File | null = null;
     isHiring: boolean = false;
 
     constructor(
@@ -68,14 +69,33 @@ export class FreelancerProfileComponent implements OnInit {
 
     closeHireModal() { this.showHireModal = false; }
 
+    onFileSelected(event: any) {
+        if (event.target.files && event.target.files.length > 0) {
+            this.selectedFile = event.target.files[0];
+        }
+    }
+
     submitHireRequest() {
         if (!this.freelancer) return;
         if (!this.hireData.title || !this.hireData.description) {
             alert('Please fill in all fields.');
             return;
         }
+        if (isNaN(Number(this.hireData.amount)) || Number(this.hireData.amount) <= 0) {
+            alert('Please enter a valid amount.');
+            return;
+        }
         this.isHiring = true;
-        this.projectService.createProject(this.freelancer.id, this.hireData).subscribe({
+
+        const formData = new FormData();
+        formData.append('title', this.hireData.title);
+        formData.append('description', this.hireData.description);
+        formData.append('amount', this.hireData.amount.toString());
+        if (this.selectedFile) {
+            formData.append('document', this.selectedFile);
+        }
+
+        this.projectService.createProject(this.freelancer.id, formData).subscribe({
             next: () => {
                 alert('✅ Request sent! Check Dashboard.');
                 this.isHiring = false;

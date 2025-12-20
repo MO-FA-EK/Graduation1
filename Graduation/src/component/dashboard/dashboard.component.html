@@ -32,16 +32,20 @@
               </div>
 
               <div *ngIf="!p.is_paid && p.status !== 'cancelled'" class="payment-alert">
-                <span>⚠️ Payment Pending ($50.00)</span>
+                <span>⚠️ Payment Pending (${{ p.amount }})</span>
                 <button class="pay-btn" (click)="openPaymentModal(p)">💳 Pay Now</button>
               </div>
 
               <p>Freelancer: {{ p.freelancer_name }}</p>
               <p><strong>Price:</strong> ${{ p.amount }}</p>
               <p>{{ p.description }}</p>
+              <p *ngIf="p.document" class="doc-link">
+                <a [href]="p.document" target="_blank" download>📄 Download Project Document</a>
+              </p>
               <div class="github-box">
                 <a *ngIf="p.github_link" [href]="p.github_link" target="_blank">{{ p.github_link }}</a>
                 <span *ngIf="!p.github_link">Waiting for link...</span>
+                <button *ngIf="p.github_link" class="track-btn" (click)="viewCommits(p)">🔍 Track Progress</button>
               </div>
             </div>
           </div>
@@ -56,7 +60,6 @@
 
         <div *ngIf="!isClient">
           
-          <!-- Pending Requests -->
           <h3>Pending Requests</h3>
           <div *ngIf="workProjects | filterStatus:'pending' as pendingList">
             <div *ngIf="pendingList.length > 0; else noPending">
@@ -66,8 +69,14 @@
                  </div>
                  <p><strong>Client:</strong> {{ p.client_name }}</p>
                  <p><strong>Offer:</strong> ${{ p.amount }}</p>
-                 <p class="desc">{{ p.description }}</p>
-                 <button class="accept-btn" (click)="acceptProject(p)">✅ Accept Project</button>
+                 <p *ngIf="p.document" class="doc-link">
+                    <a [href]="p.document" target="_blank" download>📄 Project Document</a>
+                 </p>
+                  <p class="desc">{{ p.description }}</p>
+                 <div class="actions">
+                     <button class="accept-btn" (click)="acceptProject(p)">✅ Accept</button>
+                     <button class="reject-btn" (click)="rejectProject(p)">❌ Reject</button>
+                 </div>
               </div>
             </div>
             <ng-template #noPending><p>No pending requests.</p></ng-template>
@@ -75,7 +84,6 @@
 
           <hr class="divider">
 
-          <!-- Active Jobs -->
           <h3>Active Jobs</h3>
           <div *ngIf="workProjects | filterStatus:'active' as activeList">
              <div *ngIf="activeList.length > 0; else noActive">
@@ -83,19 +91,42 @@
                    <div class="card-header">
                       <h4>{{ p.title }}</h4> <span class="badge active">In Progress</span>
                    </div>
-                   <div *ngIf="!p.is_paid" class="unpaid-badge">💰 Waitting for Payment</div>
+                   <div *ngIf="!p.is_paid" class="unpaid-badge">💰 Waiting for Payment</div>
                    <div *ngIf="p.is_paid" class="paid-badge">✅ Paid</div>
                    
                    <p><strong>Client:</strong> {{ p.client_name }}</p>
                    <p><strong>Price:</strong> ${{ p.amount }}</p>
+                   <p *ngIf="p.document" class="doc-link">
+                      <a [href]="p.document" target="_blank" download>📄 Download Project Document</a>
+                   </p>
                    <div class="github-box">
                       <input [(ngModel)]="p.github_link" placeholder="GitHub Link">
                       <button (click)="updateProject(p)">Save Link</button>
                    </div>
+                   
+                    <div style="margin-top: 15px;">
+                       <button class="complete-btn" (click)="completeProject(p)">🎉 Mark as Completed</button>
+                    </div>
+
                 </div>
              </div>
              <ng-template #noActive><p>No active jobs.</p></ng-template>
           </div>
+
+          <hr class="divider">
+
+          <h3>Completed Projects</h3>
+          <div *ngIf="completedProjects && completedProjects.length > 0; else noCompleted">
+            <div *ngFor="let p of completedProjects" class="project-card completed-card">
+                 <div class="card-header">
+                    <h4>{{ p.title }}</h4> <span class="badge completed">Completed</span>
+                 </div>
+                 <p><strong>Client:</strong> {{ p.client_name }}</p>
+                 <p><strong>Price:</strong> ${{ p.amount }}</p>
+                 <p>✅ Provide amazing work!</p>
+            </div>
+          </div>
+          <ng-template #noCompleted><p>No completed projects yet.</p></ng-template>
 
         </div>
       </div>
@@ -152,20 +183,53 @@
   <div class="overlay" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
 
   <div class="overlay" *ngIf="showPaymentModal" style="display:flex;">
-    <div class="payment-modal fade-in">
-      <h3>Secure Payment</h3>
-      <p>Pay <strong>$50.00</strong> for project "{{ selectedProjectForPayment?.title }}"</p>
-
-      <div class="stripe-box">
-        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+    <div class="payment-modal fade-in" style="width: 100%; max-width: 500px;">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="margin: 0;">Complete Payment</h3>
+        <button (click)="closePaymentModal()" style="background:none; border:none; font-size: 1.5rem; color: #666; cursor: pointer;">&times;</button>
       </div>
 
-      <div class="modal-actions">
-        <button class="cancel-btn" (click)="closePaymentModal()">Cancel</button>
-        <button class="confirm-btn" [disabled]="isProcessingPayment" (click)="payNow()">
+      <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <p style="margin: 0; color: #555;">Project: <strong>{{ selectedProjectForPayment?.title }}</strong></p>
+        <p style="margin: 5px 0 0; font-size: 1.2rem; color: #090979; font-weight: bold;">
+          ${{ selectedProjectForPayment?.amount }}
+        </p>
+      </div>
+
+      <div *ngIf="elementsOptions.clientSecret">
+        <ngx-stripe-payment [options]="paymentElementOptions" [elementsOptions]="elementsOptions"></ngx-stripe-payment>
+      </div>
+
+      <div class="modal-actions" style="margin-top: 20px;">
+        <button class="confirm-btn" [disabled]="isProcessingPayment" (click)="payNow()" style="width: 100%; padding: 12px; font-size: 1rem;">
           {{ isProcessingPayment ? 'Processing...' : 'Pay Now' }}
         </button>
       </div>
+
+    </div>
+  </div>
+
+  <div class="overlay" *ngIf="showCommitsModal" style="display:flex;">
+    <div class="commits-modal fade-in">
+      <h3>Project Activity: {{ selectedProjectForCommits?.title }}</h3>
+      <div *ngIf="isLoadingCommits" class="spinner-small"></div>
+      
+      <div *ngIf="!isLoadingCommits && commits.length === 0">
+        <p>No commits found or private repository.</p>
+      </div>
+
+      <ul *ngIf="!isLoadingCommits && commits.length > 0" class="commit-list">
+        <li *ngFor="let c of commits">
+          <div class="commit-msg">{{ c.commit.message }}</div>
+          <div class="commit-meta">
+            <span>👤 {{ c.commit.author.name }}</span>
+            <span>🕒 {{ c.commit.author.date | date:'short' }}</span>
+          </div>
+        </li>
+      </ul>
+
+      <button class="close-btn" (click)="closeCommitsModal()">Close</button>
     </div>
   </div>
 </div>

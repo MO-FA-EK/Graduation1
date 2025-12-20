@@ -168,6 +168,88 @@ textarea:focus {
 
 .overlay {
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.commits-modal {
+  background: #1a1a2e;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  color: #fff;
+  z-index: 1001;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: left;
+  max-height: 80vh;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.commits-modal h3 {
+  color: #00d4ff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+  margin-top: 0;
+}
+
+.commit-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.commit-list li {
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid #00d4ff;
+}
+
+.commit-msg {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #e0e0e0;
+}
+
+.commit-meta {
+  font-size: 0.85rem;
+  color: #aaa;
+  display: flex;
+  gap: 15px;
+}
+
+.spinner-small {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 3px solid #00d4ff;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+.close-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+}
+
+.close-btn:hover {
+  background: #c0392b;
 }
 
 @media (max-width: 768px) {
@@ -279,15 +361,33 @@ textarea:focus {
   width: 90%;
   max-width: 450px;
   color: #333;
-  z-index: 1000;
+  z-index: 2000;
   margin: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   text-align: center;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
 }
 
 .payment-modal h3 {
   color: #090979;
   margin-bottom: 15px;
+  padding-top: 10px;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1999;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .stripe-box {
@@ -483,6 +583,26 @@ textarea:focus {
   background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
   color: #aaa;
+}
+
+.doc-link {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.doc-link a {
+  color: #00d4ff;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.doc-link a:hover {
+  text-decoration: underline;
+  color: #fff;
 }
 
 .empty-state button {

@@ -25,6 +25,10 @@ export class HeaderComponent {
     return user?.is_superuser === true;
   }
 
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
   onSearch() {
     if (this.searchTerm.trim()) {
       this.router.navigate(['/services'], {

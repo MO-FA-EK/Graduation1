@@ -40,9 +40,12 @@ export class LoginComponent {
             user_type: res.user_type
           });
 
-          if (res.user_type === 'admin') {
-            this.router.navigate(['/admin']);
+          if (res.is_superuser || res.user_type === 'admin') {
+            this.errorMessage = 'Admins must use the Admin Portal';
+            this.authService.logout();
+            this.isLoading = false;
           } else {
+            console.log('Login: Redirecting to Dashboard');
             this.router.navigate(['/dashboard']);
           }
         }
