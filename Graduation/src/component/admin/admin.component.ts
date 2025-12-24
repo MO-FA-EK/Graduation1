@@ -24,7 +24,11 @@ export class AdminComponent implements OnInit {
   isPassError = false;
   isSaving = false;
 
-  constructor(private adminService: AdminService, private router: Router, private authService: AuthService) { }
+  constructor(
+    private adminService: AdminService,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.loadUsers();
@@ -34,7 +38,7 @@ export class AdminComponent implements OnInit {
 
   loadUsers() {
     this.adminService.getUsers().subscribe({
-      next: (data: any[]) => { 
+      next: (data: any[]) => {
         this.users = data;
         this.stats.freelancers = data.filter(u => u.user_type === 'freelancer').length;
         this.stats.clients = data.filter(u => u.user_type === 'client').length;
@@ -45,7 +49,8 @@ export class AdminComponent implements OnInit {
 
   loadProjects() {
     this.adminService.getProjects().subscribe({
-      next: (data: any[]) => { 
+      next: (data: any[]) => {
+        this.projects = data;
         this.stats.projects = data.length;
       },
       error: (err: any) => console.error('Error loading projects:', err)
@@ -54,12 +59,12 @@ export class AdminComponent implements OnInit {
 
   loadMessages() {
     this.adminService.getMessages().subscribe({
-      next: (data: any[]) => { 
+      next: (data: any[]) => {
         this.messages = data;
         this.stats.messages = data.length;
         this.isLoading = false;
       },
-      error: (err: any) => { 
+      error: (err: any) => {
         console.error('Error loading messages:', err);
         this.isLoading = false;
       }

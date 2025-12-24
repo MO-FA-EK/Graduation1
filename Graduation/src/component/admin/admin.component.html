@@ -62,8 +62,11 @@
         <thead>
           <tr>
             <th>ID</th>
+            <th>Client</th>
             <th>Title</th>
+            <th>Freelancer</th>
             <th>Status</th>
+            <th>Payment</th>
             <th>Amount</th>
             <th>Action</th>
           </tr>
@@ -71,8 +74,14 @@
         <tbody>
           <tr *ngFor="let p of projects">
             <td>{{ p.id }}</td>
+            <td>{{ p.client_name }}</td>
             <td>{{ p.title }}</td>
+            <td>{{ p.freelancer_name || 'N/A' }}</td>
             <td>{{ p.status }}</td>
+            <td>
+              <span *ngIf="p.is_paid" class="badge success">Paid</span>
+              <span *ngIf="!p.is_paid" class="badge warning">Unpaid</span>
+            </td>
             <td>${{ p.amount }}</td>
             <td>
               <button class="delete-btn" (click)="deleteProject(p.id)">Delete</button>

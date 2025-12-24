@@ -50,6 +50,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s ease;
+  border: 1px solid white;
 }
 
 .contact-container button:disabled {
@@ -58,5 +59,23 @@
 }
 
 .contact-container button:hover:not(:disabled) {
-  background-color: #005fcc;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.feedback-message {
+  margin-top: 15px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.error {
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+}
+
+.success {
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
 }

@@ -18,7 +18,7 @@ import { StripeElementsOptions, StripePaymentElementOptions } from '@stripe/stri
     RouterModule,
     FilterStatusPipe,
     NgxStripeModule,
-    StripePaymentElementComponent 
+    StripePaymentElementComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
 
   hiredProjects: Project[] = [];
   workProjects: Project[] = [];
-  completedProjects: Project[] = []; 
+  completedProjects: Project[] = [];
 
   passData = { old_password: '', new_password: '', confirm_password: '' };
   passMessage = '';
@@ -76,6 +76,10 @@ export class DashboardComponent implements OnInit {
     this.authService.getUserProfile().subscribe({
       next: (res: User | null) => {
         if (res) {
+          if (res.is_superuser || res.user_type === 'admin') {
+            this.router.navigate(['/admin']);
+            return;
+          }
           this.profile = res;
           this.isClient = !res.category;
           this.loadProjects();
@@ -245,7 +249,18 @@ export class DashboardComponent implements OnInit {
       new_password: this.passData.new_password
     }).subscribe({
       next: () => { this.isSaving = false; this.passMessage = "Changed!"; },
-      error: () => { this.isSaving = false; this.passMessage = "Error changing password"; }
+      error: (err) => {
+        this.isSaving = false;
+        console.error(err);
+        if (err.error?.old_password) {
+          this.passMessage = err.error.old_password[0];
+        } else if (err.error?.new_password) {
+          this.passMessage = err.error.new_password[0];
+        } else {
+          this.passMessage = err.error?.detail || "Error changing password";
+        }
+        this.isPassError = true;
+      }
     });
   }
 

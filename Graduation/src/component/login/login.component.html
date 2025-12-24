@@ -6,6 +6,8 @@
     <label>Username</label>
     <input
       type="text"
+      name="username"
+      autocomplete="username"
       [(ngModel)]="username"
       placeholder="Enter username"
       class="input-box"
@@ -16,6 +18,8 @@
     <label>Password</label>
     <input
       type="password"
+      name="password"
+      autocomplete="current-password"
       [(ngModel)]="password"
       placeholder="Enter password"
       class="input-box"
@@ -26,7 +30,7 @@
     Login
   </button>
 
-  <div *ngIf="errorMessage" class="error-message">
+  <div *ngIf="errorMessage" class="error">
     {{ errorMessage }}
   </div>
 

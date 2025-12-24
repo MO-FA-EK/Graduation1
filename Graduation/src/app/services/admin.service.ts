@@ -25,16 +25,15 @@ export class AdminService {
     return this.http.get<any[]>(`${this.apiUrl}projects/`, { headers: this.getHeaders() });
   }
 
-  // 👇 هذه الدالة كانت مفقودة وتسبب الخطأ
   getMessages(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}messages/`, { headers: this.getHeaders() });
   }
 
   deleteUser(userId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}users/${userId}/`, { headers: this.getHeaders() });
+    return this.http.delete(`http://localhost:8000/api/auth/admin/users/${userId}/delete/`, { headers: this.getHeaders() });
   }
 
   deleteProject(projectId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}projects/${projectId}/`, { headers: this.getHeaders() });
+    return this.http.delete(`${this.apiUrl}projects/${projectId}/delete/`, { headers: this.getHeaders() });
   }
 }

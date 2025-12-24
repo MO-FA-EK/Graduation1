@@ -4,10 +4,14 @@
 
   <form (ngSubmit)="sendMessage()">
     <input type="text" [(ngModel)]="name" name="name" placeholder="Your Name" required>
-    <input type="email" [(ngModel)]="email" name="email" placeholder="Your Email">
+    <input type="email" [(ngModel)]="email" name="email" placeholder="Your Email" required>
     <textarea [(ngModel)]="message" name="message" placeholder="Your Message" required></textarea>
     <button type="submit" [disabled]="sending">
       {{ sending ? 'Sending...' : 'Send Message' }}
     </button>
   </form>
+
+  <p *ngIf="feedbackMessage" [class.error]="isError" [class.success]="!isError" class="feedback-message">
+    {{ feedbackMessage }}
+  </p>
 </div>

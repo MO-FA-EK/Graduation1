@@ -14,16 +14,19 @@ export class ContactComponent {
   email = '';
   message = '';
 
-  // The real link to the backend
+  feedbackMessage = '';
+  isError = false;
+
   apiUrl = 'http://localhost:8000/api/contact/';
 
   sending = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   sendMessage() {
-    if (!this.name.trim() || !this.message.trim()) {
-      alert('Name and message are required!');
+    if (!this.name.trim() || !this.message.trim() || !this.email.trim()) {
+      this.feedbackMessage = 'Name, email, and message are required!';
+      this.isError = true;
       return;
     }
 
@@ -34,19 +37,21 @@ export class ContactComponent {
       email: this.email,
       message: this.message
     })
-    .subscribe({
-      next: (res: any) => {
-        alert('✅ Message sent successfully to Support Team!');
-        this.name = '';
-        this.email = '';
-        this.message = '';
-        this.sending = false;
-      },
-      error: (err) => {
-        console.error(err);
-        alert('❌ Failed to send message. Please try again later.');
-        this.sending = false;
-      }
-    });
+      .subscribe({
+        next: (res: any) => {
+          this.feedbackMessage = '✅ Message sent successfully to Support Team!';
+          this.isError = false;
+          this.name = '';
+          this.email = '';
+          this.message = '';
+          this.sending = false;
+        },
+        error: (err) => {
+          console.error(err);
+          this.feedbackMessage = '❌ Failed to send message. Please try again later.';
+          this.isError = true;
+          this.sending = false;
+        }
+      });
   }
 }
