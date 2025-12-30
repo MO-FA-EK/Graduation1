@@ -1869,3 +1869,26 @@
 [API LOG] GET /api/admin/messages/ → 200 | 15.03 ms | User: new_admin
 [API LOG] GET /api/admin/projects/ → 200 | 23.05 ms | User: new_admin
 [API LOG] GET /api/admin/users/ → 200 | 69.33 ms | User: new_admin
+[API LOG] DELETE /api/auth/admin/users/16/delete/ → 204 | 51.22 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 49.28 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 401 | 81.33 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 401 | 71.32 ms | User: Anonymous
+[API LOG] GET /api/admin/users/ → 401 | 59.68 ms | User: Anonymous
+[API LOG] GET /api/admin/users/ → 401 | 0.87 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 401 | 1.13 ms | User: Anonymous
+[API LOG] GET /api/admin/projects/ → 401 | 0.75 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 442.98 ms | User: Anonymous
+[API LOG] GET /api/admin/users/ → 200 | 45.59 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 46.16 ms | User: new_admin
+[API LOG] GET /api/admin/messages/ → 200 | 4.24 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 200 | 351.33 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 8.82 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 13.86 ms | User: Faisal
+[API LOG] POST /api/auth/login/ → 200 | 332.97 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 10.63 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 7.33 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 94.53 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 20.06 ms | User: Mahmoud Saeed
+[API LOG] GET /api/programmers/ → 200 | 52.62 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 20.46 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 35.46 ms | User: Anonymous

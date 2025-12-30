@@ -1,36 +1,43 @@
 <div class="nav-bar-div">
   <div class="logo">
     <div class="logo-text">
-      <a routerLink="/">SoftwJob</a>
+      <a routerLink="/" (click)="closeMenu()">SoftwJob</a>
     </div>
   </div>
 
-  <div class="nav-bar">
-    <div class="ul-bar">
-      <div><a routerLink="/">Homepage</a></div>
-      <div><a routerLink="/services">Services</a></div>
-      <div><a routerLink="/contact">Contact</a></div>
-      
-      <div *ngIf="isLoggedIn && !isAdmin"><a routerLink="/dashboard">Dashboard</a></div>
-      <div *ngIf="isLoggedIn && isAdmin"><a routerLink="/admin">Admin Panel</a></div>
-
-      <div *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></div>
-      <div *ngIf="!isLoggedIn"><a routerLink="/register">Register</a></div>
-    </div>
+  <div class="search-bar-wrapper">
+    <input 
+      type="text" 
+      class="search-bar-input"
+      placeholder="Search..."
+      [(ngModel)]="searchTerm"
+      (keyup.enter)="onSearch()" />
+    <button class="search-bar-button" (click)="onSearch()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+      </svg>
+    </button>
   </div>
-</div>
 
-<div class="search-bar-wrapper">
-  <input 
-    type="text" 
-    class="search-bar-input"
-    placeholder="Search for service, skill, or category..."
-    [(ngModel)]="searchTerm"
-    (keyup.enter)="onSearch()" />
-
-  <button class="search-bar-button" (click)="onSearch()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-    </svg>
+  <button class="menu-toggle" (click)="toggleMenu()">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
   </button>
+
+  <div class="nav-bar" [class.open]="isMenuOpen">
+    <div class="ul-bar">
+      <div><a routerLink="/" (click)="closeMenu()">Homepage</a></div>
+      <div><a routerLink="/services" (click)="closeMenu()">Services</a></div>
+      <div><a routerLink="/contact" (click)="closeMenu()">Contact</a></div>
+      
+      <div *ngIf="isLoggedIn && !isAdmin"><a routerLink="/dashboard" (click)="closeMenu()">Dashboard</a></div>
+      <div *ngIf="isLoggedIn && isAdmin"><a routerLink="/admin" (click)="closeMenu()">Admin Panel</a></div>
+
+      <div *ngIf="!isLoggedIn" class="auth-links">
+        <a routerLink="/login" class="login-btn" (click)="closeMenu()">Login</a>
+        <a routerLink="/register" class="register-btn" (click)="closeMenu()">Register</a>
+      </div>
+    </div>
+  </div>
 </div>

@@ -166,7 +166,7 @@ textarea:focus {
   display: none;
 }
 
-.overlay {
+.sidebar-overlay {
   display: none;
   position: fixed;
   top: 0;
@@ -283,7 +283,7 @@ textarea:focus {
     transform: translateX(0);
   }
 
-  .overlay {
+  .sidebar-overlay {
     display: block;
     position: fixed;
     top: 0;
@@ -376,7 +376,7 @@ textarea:focus {
   padding-top: 10px;
 }
 
-.overlay {
+.modal-overlay {
   display: none;
   position: fixed;
   top: 0;

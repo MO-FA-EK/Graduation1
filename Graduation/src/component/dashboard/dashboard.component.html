@@ -180,9 +180,9 @@
     <ng-template #noProfile><button (click)="logout()">Login Again</button></ng-template>
   </section>
 
-  <div class="overlay" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
+  <div class="sidebar-overlay" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
 
-  <div class="overlay" *ngIf="showPaymentModal" style="display:flex;">
+  <div class="modal-overlay" *ngIf="showPaymentModal" style="display:flex;">
     <div class="payment-modal fade-in" style="width: 100%; max-width: 500px;">
       
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
@@ -210,7 +210,7 @@
     </div>
   </div>
 
-  <div class="overlay" *ngIf="showCommitsModal" style="display:flex;">
+  <div class="modal-overlay" *ngIf="showCommitsModal" style="display:flex;">
     <div class="commits-modal fade-in">
       <h3>Project Activity: {{ selectedProjectForCommits?.title }}</h3>
       <div *ngIf="isLoadingCommits" class="spinner-small"></div>

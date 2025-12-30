@@ -15,6 +15,15 @@ import { AuthService } from '../../app/services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  isMenuOpen: boolean = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
+  }
 
   searchTerm: string = '';
 

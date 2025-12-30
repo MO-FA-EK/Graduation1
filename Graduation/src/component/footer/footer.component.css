@@ -8,10 +8,22 @@
   align-items: center;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .footer {
     flex-direction: column;
     gap: 15px;
   }
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.5);
+  transition: all 0.2s;
+}
+
+.footer a:hover {
+  text-decoration: none;
+  color: #00d4ff;
+  border-bottom-color: #00d4ff;
 }
