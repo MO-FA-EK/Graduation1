@@ -20,6 +20,7 @@ urlpatterns = [
 
     path("projects/<int:project_id>/link-github/", views.link_github_repo, name="link_github_repo"),
     path("projects/<int:project_id>/commits/", views.get_project_commits, name="get_project_commits"),
+    path("projects/<int:project_id>/stats/", views.get_project_stats, name="get_project_stats"),
 
 
     path("projects/create-checkout-session/<int:project_id>/", views.create_checkout_session, name="create_checkout_session"),
@@ -34,5 +35,8 @@ urlpatterns = [
     path("admin/projects/<int:id>/delete/", views.AdminDeleteProjectView.as_view(), name="admin_project_delete"),
 
     path("admin/users/", views.get_all_users, name="admin_users_list"),
+    path("admin/users/<int:user_id>/block/", views.admin_block_user, name="admin_block_user"),
+    path("admin/users/<int:user_id>/unblock/", views.admin_unblock_user, name="admin_unblock_user"),
+    path("admin/users/<int:user_id>/reset-password/", views.admin_reset_password, name="admin_reset_password"),
     path("admin/messages/", views.get_all_messages, name="admin_messages_list"),
 ]

@@ -36,4 +36,16 @@ export class AdminService {
   deleteProject(projectId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}projects/${projectId}/delete/`, { headers: this.getHeaders() });
   }
+
+  blockUser(userId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}users/${userId}/block/`, {}, { headers: this.getHeaders() });
+  }
+
+  unblockUser(userId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}users/${userId}/unblock/`, {}, { headers: this.getHeaders() });
+  }
+
+  resetUserPassword(userId: number, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}users/${userId}/reset-password/`, { new_password: password }, { headers: this.getHeaders() });
+  }
 }

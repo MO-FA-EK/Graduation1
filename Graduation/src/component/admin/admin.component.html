@@ -39,7 +39,8 @@
             <th>Username</th>
             <th>Type</th>
             <th>Email</th>
-            <th>Action</th>
+            <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -49,11 +50,31 @@
             <td>{{ u.user_type }}</td>
             <td>{{ u.email }}</td>
             <td>
+              <span *ngIf="u.is_active" class="badge success">Active</span>
+              <span *ngIf="!u.is_active" class="badge warning">Blocked</span>
+            </td>
+            <td>
+              <button class="action-btn" [class.danger]="u.is_active" [class.success]="!u.is_active" (click)="toggleBlockUser(u)">
+                {{ u.is_active ? 'Block' : 'Unblock' }}
+              </button>
+              <button class="action-btn info" (click)="openResetModal(u)">Reset Pass</button>
               <button class="delete-btn" (click)="deleteUser(u.id)">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Password Reset Modal -->
+    <div class="modal-overlay" *ngIf="showResetModal">
+      <div class="modal-content">
+        <h3>Reset Password for {{ resetUsername }}</h3>
+        <input type="password" [(ngModel)]="newResetPassword" placeholder="Enter new password" class="modal-input">
+        <div class="modal-actions">
+          <button (click)="submitResetPassword()" class="btn-primary">Save</button>
+          <button (click)="closeResetModal()" class="btn-secondary">Cancel</button>
+        </div>
+      </div>
     </div>
 
     <div *ngIf="activeTab === 'projects'" class="tab-content fade-in">

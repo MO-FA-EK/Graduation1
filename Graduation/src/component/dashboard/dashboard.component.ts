@@ -49,6 +49,11 @@ export class DashboardComponent implements OnInit {
   selectedProjectForCommits: Project | null = null;
   isLoadingCommits = false;
 
+  showStatsModal = false;
+  statsData: any = null;
+  selectedProjectForStats: any = null;
+  isLoadingStats = false;
+
   elementsOptions: StripeElementsOptions = {
     locale: 'en',
     appearance: { theme: 'stripe' }
@@ -163,10 +168,11 @@ export class DashboardComponent implements OnInit {
           alert('Payment Validation Failed: ' + result.error.message);
         } else if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
           alert('✅ Payment Successful!');
+          const projectToUpdate = this.selectedProjectForPayment;
           this.closePaymentModal();
 
-          if (this.selectedProjectForPayment) {
-            this.projectService.markProjectAsPaid(this.selectedProjectForPayment.id).subscribe(() => {
+          if (projectToUpdate) {
+            this.projectService.markProjectAsPaid(projectToUpdate.id).subscribe(() => {
               this.loadProjects();
             });
           }
@@ -289,6 +295,32 @@ export class DashboardComponent implements OnInit {
   closeCommitsModal() {
     this.showCommitsModal = false;
     this.selectedProjectForCommits = null;
+  }
+
+  viewStats(project: any) {
+    this.selectedProjectForStats = project;
+    this.showStatsModal = true;
+    this.isLoadingStats = true;
+    this.statsData = null;
+
+    this.projectService.getProjectStats(project.id).subscribe({
+      next: (data) => {
+        this.statsData = data;
+        this.isLoadingStats = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.isLoadingStats = false;
+        alert('Could not fetch stats. Make sure a GitHub repo is linked.');
+        this.showStatsModal = false;
+      }
+    });
+  }
+
+  closeStatsModal() {
+    this.showStatsModal = false;
+    this.statsData = null;
+    this.selectedProjectForStats = null;
   }
 
   setTab(tab: string) { this.activeTab = tab; this.isSidebarOpen = false; }

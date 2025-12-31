@@ -72,3 +72,15 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"Message from {self.name}"
+
+class Review(models.Model):
+    client = models.ForeignKey(User, on_delete=models.CASCADE)
+    programmer = models.ForeignKey(Programmer, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('client', 'programmer')
+
+    def __str__(self):
+        return f"{self.client.username} -> {self.programmer.name} ({self.rating})"

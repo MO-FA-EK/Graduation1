@@ -46,6 +46,7 @@
                 <a *ngIf="p.github_link" [href]="p.github_link" target="_blank">{{ p.github_link }}</a>
                 <span *ngIf="!p.github_link">Waiting for link...</span>
                 <button *ngIf="p.github_link" class="track-btn" (click)="viewCommits(p)">🔍 Track Progress</button>
+                <button *ngIf="p.github_link" class="stats-btn" (click)="viewStats(p)" style="margin-left:5px; background:#6f42c1; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">📊 Stats</button>
               </div>
             </div>
           </div>
@@ -230,6 +231,24 @@
       </ul>
 
       <button class="close-btn" (click)="closeCommitsModal()">Close</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showStatsModal" style="display:flex;">
+    <div class="commits-modal fade-in" style="text-align:center;">
+      <h3>Project Details: {{ selectedProjectForStats?.title }}</h3>
+      <div *ngIf="isLoadingStats" class="spinner-small"></div>
+      
+      <div *ngIf="!isLoadingStats && statsData" class="stats-display">
+         <div style="font-size: 3rem; font-weight: bold; color: #28a745;">{{ statsData.total_commits }}</div>
+         <p>Total Commits</p>
+         
+         <div *ngIf="statsData.last_active" style="margin-top: 15px; color: #666;">
+            Last Active: {{ statsData.last_active | date:'medium' }}
+         </div>
+      </div>
+
+      <button class="close-btn" (click)="closeStatsModal()" style="margin-top:20px;">Close</button>
     </div>
   </div>
 </div>

@@ -95,18 +95,7 @@
   margin-left: 10px;
 }
 
-.register-btn {
-  background: #00b4ff;
-  color: white !important;
-  padding: 8px 18px !important;
-  border-radius: 20px;
-  transition: transform 0.2s;
-}
 
-.register-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 180, 255, 0.3);
-}
 
 .menu-toggle {
   display: none;

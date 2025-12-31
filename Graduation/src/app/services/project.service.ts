@@ -60,7 +60,7 @@ export class ProjectService {
 
   createPaymentIntent(projectId: number): Observable<{ clientSecret: string }> {
     return this.http.post<{ clientSecret: string }>(
-      `${this.apiUrl}payment-intent/${projectId}/`, 
+      `${this.apiUrl}payment-intent/${projectId}/`,
       {},
       { headers: this.getHeaders() }
     );
@@ -70,6 +70,13 @@ export class ProjectService {
     return this.http.post<any>(
       `${this.apiUrl}${projectId}/confirm-payment/`,
       {},
+      { headers: this.getHeaders() }
+    );
+  }
+
+  getProjectStats(projectId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}${projectId}/stats/`,
       { headers: this.getHeaders() }
     );
   }

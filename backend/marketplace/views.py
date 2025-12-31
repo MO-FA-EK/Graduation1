@@ -12,13 +12,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from rest_framework import generics
-from .models import Programmer, Project, ContactMessage
+from .models import Programmer, Project, ContactMessage, Review
+from django.db.models import Avg
 from .serializers import ProgrammerSerializer, ProjectSerializer, ContactMessageSerializer
 
 if hasattr(settings, 'STRIPE_SECRET_KEY'):
     stripe.api_key = settings.STRIPE_SECRET_KEY
-
-
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -47,18 +46,27 @@ def programmer_detail(request, id):
     programmer = get_object_or_404(Programmer, id=id)
     serializer = ProgrammerSerializer(programmer)
     return Response(serializer.data)
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def rate_programmer(request, id):
     programmer = get_object_or_404(Programmer, id=id)
     new_rating = request.data.get('rating')
+    
     if new_rating:
-        total_score = programmer.rating * programmer.review_count
-        programmer.review_count += 1
-        programmer.rating = (total_score + float(new_rating)) / programmer.review_count
+        Review.objects.update_or_create(
+            client=request.user,
+            programmer=programmer,
+            defaults={'rating': new_rating}
+        )
+        
+        avg_rating = Review.objects.filter(programmer=programmer).aggregate(Avg('rating'))['rating__avg'] or 0.0
+        count = Review.objects.filter(programmer=programmer).count()
+        
+        programmer.rating = round(avg_rating, 1)
+        programmer.review_count = count
         programmer.save()
-        return Response({'message': 'Rating added', 'new_rating': programmer.rating})
+        
+        return Response({'message': 'Rating updated', 'new_rating': programmer.rating})
     return Response({'error': 'Rating not provided'}, status=400)
 
 @api_view(['POST'])
@@ -272,7 +280,7 @@ def link_github_repo(request, project_id):
 
     github_url = request.data.get('github_url')
     if github_url:
-        project.github_repo_link = github_url 
+        project.github_link = github_url 
         project.save()
         return Response({'message': 'GitHub repository linked successfully'})
     return Response({'error': 'No URL provided'}, status=400)
@@ -284,11 +292,11 @@ def get_project_commits(request, project_id):
     if project.client != request.user and project.freelancer.user != request.user:
         return Response({'error': 'Not authorized'}, status=403)
 
-    if not project.github_repo_link:
+    if not project.github_link:
         return Response({'error': 'No GitHub repo linked'}, status=404)
 
     try:
-        parts = project.github_repo_link.strip('/').split('/')
+        parts = project.github_link.strip('/').split('/')
         owner = parts[-2]
         repo = parts[-1]
         
@@ -304,6 +312,46 @@ def get_project_commits(request, project_id):
                 'url': c['html_url']
             } for c in commits]
             return Response({'commits': formatted_commits})
+        else:
+            return Response({'error': 'Could not fetch from GitHub'}, status=response.status_code)
+            
+    except Exception as e:
+            return Response({'error': str(e)}, status=500)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_project_stats(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if project.client != request.user and project.freelancer.user != request.user:
+        return Response({'error': 'Not authorized'}, status=403)
+
+    if not project.github_link:
+        return Response({'error': 'No GitHub repo linked'}, status=404)
+
+    try:
+        parts = project.github_link.strip('/').split('/')
+        owner = parts[-2]
+        repo = parts[-1]
+        
+        api_url = f"https://api.github.com/repos/{owner}/{repo}/commits?per_page=100"
+        response = requests.get(api_url)
+        
+        if response.status_code == 200:
+            commits = response.json()
+            total_commits = len(commits)
+            
+            display_count = f"{total_commits}+" if total_commits == 100 else str(total_commits)
+            
+            last_commit_date = None
+            if total_commits > 0:
+                last_commit_date = commits[0]['commit']['author']['date']
+                
+            return Response({
+                'total_commits': display_count,
+                'last_active': last_commit_date,
+                'repo_name': repo
+            })
         else:
             return Response({'error': 'Could not fetch from GitHub'}, status=response.status_code)
             
@@ -447,18 +495,49 @@ def get_all_users(request):
     
     for u in users:
         role = 'client'
-
-        if hasattr(u, 'programmer'): 
+        if hasattr(u, 'programmer'):
             role = 'freelancer'
         
-        if u.is_superuser or u.is_staff:
-            role = 'admin'
-
         data.append({
             'id': u.id,
             'username': u.username,
             'email': u.email,
             'user_type': role,
-            'date_joined': u.date_joined
+            'is_active': u.is_active  # Added status
         })
     return Response(data)
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def admin_block_user(request, user_id):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    user = get_object_or_404(User, id=user_id)
+    user.is_active = False
+    user.save()
+    return Response({'message': f'User {user.username} has been blocked.'})
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def admin_unblock_user(request, user_id):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    user = get_object_or_404(User, id=user_id)
+    user.is_active = True
+    user.save()
+    return Response({'message': f'User {user.username} has been unblocked.'})
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def admin_reset_password(request, user_id):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    user = get_object_or_404(User, id=user_id)
+    
+    new_password = request.data.get('new_password')
+    if not new_password:
+        return Response({'error': 'New password is required'}, status=400)
+        
+    user.set_password(new_password)
+    user.save()
+    return Response({'message': f'Password for {user.username} has been reset successfully.'})

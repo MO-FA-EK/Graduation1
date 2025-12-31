@@ -79,6 +79,54 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  toggleBlockUser(user: any) {
+    if (user.is_active) {
+      if (!confirm(`Block user ${user.username}?`)) return;
+      this.adminService.blockUser(user.id).subscribe(() => {
+        alert(`User ${user.username} blocked.`);
+        this.loadUsers();
+      });
+    } else {
+      if (!confirm(`Unblock user ${user.username}?`)) return;
+      this.adminService.unblockUser(user.id).subscribe(() => {
+        alert(`User ${user.username} unblocked.`);
+        this.loadUsers();
+      });
+    }
+  }
+
+  showResetModal = false;
+  resetUserId: number | null = null;
+  resetUsername = '';
+  newResetPassword = '';
+
+  openResetModal(user: any) {
+    this.resetUserId = user.id;
+    this.resetUsername = user.username;
+    this.newResetPassword = '';
+    this.showResetModal = true;
+  }
+
+  closeResetModal() {
+    this.showResetModal = false;
+    this.resetUserId = null;
+    this.resetUsername = '';
+  }
+
+  submitResetPassword() {
+    if (!this.resetUserId || !this.newResetPassword) return;
+    this.adminService.resetUserPassword(this.resetUserId, this.newResetPassword).subscribe({
+      next: () => {
+        alert('Password reset successfully.');
+        this.closeResetModal();
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Error resetting password.');
+      }
+    });
+  }
+
   deleteProject(id: number) {
     if (!confirm('Delete this project?')) return;
     this.adminService.deleteProject(id).subscribe(() => {
