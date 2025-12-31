@@ -1892,3 +1892,117 @@
 [API LOG] GET /api/programmers/ → 200 | 52.62 ms | User: Anonymous
 [API LOG] GET /api/programmers/ → 200 | 20.46 ms | User: Anonymous
 [API LOG] GET /api/programmers/ → 200 | 35.46 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 28.11 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 816.83 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.25 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 11.16 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 415 | 1.59 ms | User: Anonymous
+[API LOG] GET /api/ → 404 | 16.52 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 400 | 0.69 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 864.34 ms | User: Anonymous
+[API LOG] GET /api/projects/13/commits/ → 404 | 3.83 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/14/commits/ → 404 | 3.35 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/1/commits/ → 404 | 3.93 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/4/commits/ → 404 | 3.14 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/14/commits/ → 404 | 4.19 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/13/commits/ → 404 | 3.59 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/14/commits/ → 404 | 2.91 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/14/https://github.com/MO-FA-EK/Graduation1/ → 404 | 8.6 ms | User: Anonymous
+[API LOG] GET /api/projects/14/commits/ → 404 | 2.8 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/14/https://github.com/MO-FA-EK/Graduation1/ → 404 | 7.25 ms | User: Anonymous
+[API LOG] POST /api/projects/14/link-github/ → 404 | 3.26 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 836.47 ms | User: Anonymous
+[API LOG] GET /api/projects/15/commits/ → 404 | 4.08 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/14/commits/ → 404 | 2.98 ms | User: Hamze Ahmed
+[API LOG] GET /api/profile/ → 401 | 0.61 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 879.9 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.23 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 5.1 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 29.6 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 8.01 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 6.43 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 799.34 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 17.86 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 33.58 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 79.43 ms | User: new_admin
+[API LOG] POST /api/auth/register/ → 400 | 4.56 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 8.81 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 889.52 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 793.79 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.87 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 7.12 ms | User: Warda
+[API LOG] GET /api/programmers/ → 200 | 36.47 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 5.48 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 8.18 ms | User: Anonymous
+[API LOG] POST /api/projects/create/4/ → 201 | 13.94 ms | User: Warda
+[API LOG] GET /api/profile/ → 200 | 6.78 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 13.62 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 811.49 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 9.47 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 6.62 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/13/accept/ → 200 | 20.6 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 40.9 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 6.91 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/14/link-github/ → 405 | 2.12 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/14/link-github/ → 404 | 4.01 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/13/link-github/ → 403 | 3.14 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/13/link-github/ → 403 | 3.15 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/13/link-github/ → 403 | 4.07 ms | User: Hamze Ahmed
+[API LOG] GET /api/profile/ → 200 | 16.56 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 8.67 ms | User: Hamze Ahmed
+[API LOG] GET /admin/ → 302 | 24.37 ms | User: Anonymous
+[API LOG] GET /admin/login/?next=/admin/ → 200 | 20.88 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 788.86 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 9.5 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 35.76 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 74.76 ms | User: new_admin
+[API LOG] GET /api/projects/my/ → 200 | 8.05 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/projects/13/link-github/ → 405 | 2.45 ms | User: Hamze Ahmed
+[API LOG] PUT /api/projects/13/link-github/ → 405 | 2.11 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/13/link-github/ → 403 | 3.73 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/13/link-github/ → 403 | 2.89 ms | User: Hamze Ahmed
+[API LOG] GET /api/profile/ → 200 | 4.25 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/13/commits/ → 500 | 35.5 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/13/link-github/ → 401 | 0.7 ms | User: Anonymous
+[API LOG] POST /api/projects/13/link-github/ → 403 | 3.38 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 767.17 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 10.13 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 10.27 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/projects/13/update/ → 200 | 91.14 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 7.25 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 922.66 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.06 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 14.56 ms | User: Warda
+[API LOG] POST /api/projects/13/link-github/ → 403 | 3.63 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 793.55 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.35 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 6.6 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 826.44 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.22 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 8.29 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 891.45 ms | User: Anonymous
+[API LOG] GET /api/projects/13/commits/ → 500 | 52.52 ms | User: Warda
+[API LOG] GET /api/projects/13/commits/ → 500 | 42.1 ms | User: Warda
+[API LOG] GET /api/projects/13/commits/ → 500 | 57.3 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 888.12 ms | User: Anonymous
+[API LOG] GET /api/projects/13/commits/ → 500 | 37.31 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/13/commits/ → 500 | 57.5 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 875.5 ms | User: Anonymous
+[API LOG] GET /api/projects/13/commits/ → 500 | 35.73 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 901.18 ms | User: Anonymous
+[API LOG] POST /api/projects/13/link-github → 404 | 4.99 ms | User: Anonymous
+[API LOG] POST /api/projects/13/link-github/ → 403 | 3.85 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 810.68 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 882.59 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.42 ms | User: Warda
+[API LOG] GET /api/projects/13/commits/ → 500 | 41.16 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 939.12 ms | User: Anonymous
+[API LOG] GET /api/projects/13/commits/ → 500 | 39.73 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 8.07 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 850.64 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.13 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 7.25 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 827.81 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 19.57 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 59.3 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 89.75 ms | User: new_admin
