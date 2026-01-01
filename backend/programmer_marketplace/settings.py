@@ -2,7 +2,11 @@ from pathlib import Path
 from datetime import timedelta
 import os
 
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = 'django-insecure-qgebbtcnvy6x$(l!)9y3td6m2cf912q9dv4!6zbjo-!gl1nisg'
 
@@ -32,6 +36,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'marketplace',
     'accounts',
+    'ai_assistant',
 ]
 
 MIDDLEWARE = [
@@ -159,3 +164,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'softwjob@gmail.com'  
 EMAIL_HOST_PASSWORD = 'Mi968353'  
 DEFAULT_FROM_EMAIL = 'softwjob@gmail.com'
+
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+print(f"DEBUG: GEMINI_API_KEY Loaded: {'Yes' if GEMINI_API_KEY else 'No'}")

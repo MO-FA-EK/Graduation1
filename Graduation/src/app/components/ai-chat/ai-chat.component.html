@@ -1,0 +1,52 @@
+<div class="ai-chat-container" [class.open]="isOpen">
+
+  <button class="chat-toggle-btn" (click)="toggleChat()" *ngIf="!isOpen">
+    <i class="fas fa-robot"></i> SF&AI
+  </button>
+
+  <div class="chat-window" *ngIf="isOpen">
+    <div class="chat-header">
+      <div class="header-title">
+        <i class="fas fa-robot"></i> SoftwJob Assistant
+      </div>
+      <button class="close-btn" (click)="resetChat()" title="End Conversation">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+      <button class="close-btn" (click)="toggleChat()" title="Close Window">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="chat-messages" #messagesContainer>
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender">
+        <div class="message-content">
+          {{ msg.text }}
+        </div>
+        <div class="message-time">
+          {{ msg.timestamp | date:'shortTime' }}
+        </div>
+      </div>
+      <div *ngIf="isLoading" class="message ai loading">
+        <div class="typing-indicator">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input 
+        type="text" 
+        [(ngModel)]="userInput" 
+        (keyup.enter)="sendMessage()"
+        placeholder="Ask about navigation, accounts..."
+        [disabled]="isLoading"
+      >
+      <button (click)="sendMessage()" [disabled]="!userInput.trim() || isLoading">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+    <div class="disclaimer">
+      AI can make mistakes. For guidance only.
+    </div>
+  </div>
+</div>

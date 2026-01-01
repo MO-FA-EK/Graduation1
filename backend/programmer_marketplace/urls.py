@@ -9,6 +9,7 @@ urlpatterns = [
     path("api/", include("marketplace.urls")),
 
     path("api/auth/", include("accounts.urls")),
+    path("api/ai/", include("ai_assistant.urls")),
 ]
 
 if settings.DEBUG:
