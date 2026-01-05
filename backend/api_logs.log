@@ -2043,3 +2043,170 @@
 [API LOG] POST /api/ai/chat/ → 200 | 897.24 ms | User: Anonymous
 [API LOG] POST /api/ai/chat/ → 200 | 1085.7 ms | User: Anonymous
 [API LOG] POST /api/ai/chat/ → 200 | 967.06 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=Web → 200 | 11.9 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 45.54 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=Mobile → 200 | 13.55 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=Design → 200 | 14.49 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=Data → 200 | 9.68 ms | User: Anonymous
+[API LOG] GET /api/admin/projects/ → 401 | 70.57 ms | User: Anonymous
+[API LOG] GET /api/admin/users/ → 401 | 79.57 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 401 | 63.13 ms | User: Anonymous
+[API LOG] POST /api/contact/ → 200 | 48.49 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1799.71 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 18.88 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 1047.65 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 1875.44 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 401 | 1.12 ms | User: Anonymous
+[API LOG] GET /api/admin/projects/ → 401 | 2.13 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 401 | 1.2 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 846.13 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 11.64 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 37.03 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 67.99 ms | User: new_admin
+[API LOG] GET /api/admin/messages/ → 200 | 21.53 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 60.49 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 95.08 ms | User: new_admin
+[API LOG] GET /api/admin/messages/ → 200 | 12.07 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 43.76 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 75.41 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 200 | 870.05 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 13.69 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 15.5 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 500 | 301.93 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 500 | 132.27 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 33.93 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=Hamze%20Ahmed → 200 | 9.06 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 12.13 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 38.93 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.88 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 10.89 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 200 | 129.92 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 20.91 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=Hamze%20Ahmed → 200 | 7.41 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 5.43 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 18.68 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.56 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 9.69 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 200 | 90.69 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 21.82 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=Hamze%20Ahmed → 200 | 6.32 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 6.78 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 20.2 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 16.97 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 11.56 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 919.96 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.01 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 8.67 ms | User: Warda
+[API LOG] GET /api/projects/13/stats/ → 200 | 870.1 ms | User: Warda
+[API LOG] GET /api/programmers/ → 200 | 22.97 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=Hamze%20Ahmed → 200 | 5.97 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 4.79 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 23.27 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.31 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 10.11 ms | User: Warda
+[API LOG] POST /api/projects/payment-intent/13/ → 200 | 757.53 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 893.59 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 21.31 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 48.38 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 92.86 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 200 | 914.14 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.87 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 10.88 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 863.9 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 9.58 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 33.99 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 80.81 ms | User: new_admin
+[API LOG] GET /api/programmers/ → 200 | 32.25 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=hamze → 200 | 9.89 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 5.54 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 9.38 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 23.94 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 42.05 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 84.58 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 200 | 924.28 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.18 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 10.2 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 500 | 109.91 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 20.33 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=hamze → 200 | 5.63 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 3.61 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 7.83 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 9.61 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 7.23 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 500 | 152.41 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 500 | 111.36 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 27.09 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=hamze → 200 | 4.13 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 3.67 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 70.85 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 30.19 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=ham → 200 | 12.87 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 4.63 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 1115.82 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.23 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 11.88 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 898.3 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.35 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 7.81 ms | User: Warda
+[API LOG] GET /api/programmers/ → 200 | 22.36 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=hamze → 200 | 9.2 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 4.15 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 128.28 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.54 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 13.69 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 831.78 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 7.86 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 35.44 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 65.94 ms | User: new_admin
+[API LOG] GET /api/programmers/ → 200 | 22.27 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=ham → 200 | 17.36 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 9.19 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 40.48 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 15.48 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 59.61 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 99.24 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 200 | 871.62 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.17 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 10.23 ms | User: Warda
+[API LOG] POST /api/projects/payment-intent/13/ → 200 | 504.48 ms | User: Warda
+[API LOG] GET /api/programmers/ → 200 | 32.37 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.12 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 6.69 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 1353.05 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 11.1 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 13.68 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 500 | 156.61 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 20.23 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=hamze → 200 | 7.41 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 5.45 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 132.04 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.58 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 10.17 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 200 | 22.98 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 31.44 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=hamze → 200 | 4.86 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 3.34 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 5.93 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.54 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 10.91 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 500 | 218.93 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 848.16 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.96 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 11.12 ms | User: Warda
+[API LOG] GET /api/programmers/ → 200 | 22.34 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=hamze → 200 | 6.42 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 5.41 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 58.87 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/contact/ → 200 | 0.75 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.87 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 9.7 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 803.85 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.21 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 9.31 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/profile/ → 500 | 87.39 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 20.47 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=hamze → 200 | 5.67 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 5.66 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 7.05 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.95 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 11.29 ms | User: Hamze Ahmed
