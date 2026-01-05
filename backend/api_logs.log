@@ -2237,3 +2237,7 @@
 [API LOG] PATCH /api/profile/ → 500 | 148.67 ms | User: Amer
 [API LOG] PATCH /api/profile/ → 200 | 57.95 ms | User: Amer
 [API LOG] PATCH /api/profile/ → 200 | 35.14 ms | User: Amer
+[API LOG] GET /api/profile/ → 200 | 121.37 ms | User: Amer
+[API LOG] GET /api/projects/my/ → 200 | 33.42 ms | User: Amer
+[API LOG] PATCH /api/profile/ → 200 | 84.33 ms | User: Amer
+[API LOG] PATCH /api/profile/ → 200 | 50.09 ms | User: Amer
