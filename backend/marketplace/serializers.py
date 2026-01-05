@@ -33,8 +33,6 @@ class ProgrammerSerializer(serializers.ModelSerializer):
             'profileViews',
             'hourly_rate',  
             'experience_level',
-            'bank_name',
-            'iban',
             'balance'
         ]
 

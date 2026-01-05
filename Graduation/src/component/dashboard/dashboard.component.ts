@@ -236,9 +236,10 @@ export class DashboardComponent implements OnInit {
         this.profile = user;
         alert('Profile saved!');
       },
-      error: () => {
+      error: (err) => {
+        console.error('Save failed', err);
         this.isSaving = false;
-        alert('Save failed.');
+        alert('Save failed: ' + (err.error?.detail || err.message || JSON.stringify(err)));
       }
     });
   }

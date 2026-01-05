@@ -17,8 +17,6 @@ export interface User {
   contactClicks?: number;
   rating?: number;
   totalRatings?: number;
-  bank_name?: string;
-  iban?: string;
   is_superuser?: boolean;
 }
 
@@ -97,8 +95,6 @@ export class AuthService {
           totalRatings: data.totalRatings,
           profileViews: data.profileViews,
           contactClicks: data.contactClicks,
-          bank_name: data.bank_name,
-          iban: data.iban,
           is_superuser: data.is_superuser
         };
         return mappedUser;
@@ -118,9 +114,7 @@ export class AuthService {
       category: profileData.category,
       skills: profileData.skills,
       portfolio: profileData.portfolio,
-      imageUrl: profileData.imageUrl,
-      bank_name: profileData.bank_name,
-      iban: profileData.iban
+      imageUrl: profileData.imageUrl
     };
 
     return this.http.patch<any>(this.profileUrl, payload, { headers }).pipe(

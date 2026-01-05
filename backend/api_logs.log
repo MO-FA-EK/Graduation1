@@ -2210,3 +2210,30 @@
 [API LOG] POST /api/programmers/4/view/ → 200 | 7.05 ms | User: Anonymous
 [API LOG] GET /api/profile/ → 200 | 4.95 ms | User: Hamze Ahmed
 [API LOG] GET /api/projects/my/ → 200 | 11.29 ms | User: Hamze Ahmed
+[API LOG] GET /api/profile/ → 401 | 76.97 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1333.32 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 13.71 ms | User: Amer
+[API LOG] GET /api/projects/my/ → 200 | 12.82 ms | User: Amer
+[API LOG] GET /api/profile/ → 500 | 249.24 ms | User: Amer
+[API LOG] POST /api/auth/login/ → 200 | 1147.73 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 500 | 125.29 ms | User: Amer
+[API LOG] POST /api/auth/login/ → 200 | 1212.76 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 500 | 120.03 ms | User: Amer
+[API LOG] POST /api/auth/login/ → 200 | 1150.84 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 500 | 106.55 ms | User: Amer
+[API LOG] POST /api/auth/login/ → 200 | 1267.39 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 21.13 ms | User: Amer
+[API LOG] GET /api/projects/my/ → 200 | 18.41 ms | User: Amer
+[API LOG] PATCH /api/profile/ → 500 | 145.01 ms | User: Amer
+[API LOG] GET /api/programmers/ → 200 | 35.6 ms | User: Anonymous
+[API LOG] GET /api/programmers/1/ → 200 | 7.13 ms | User: Anonymous
+[API LOG] POST /api/programmers/1/view/ → 200 | 10.32 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 15.54 ms | User: Amer
+[API LOG] GET /api/projects/my/ → 200 | 13.4 ms | User: Amer
+[API LOG] PATCH /api/profile/ → 500 | 231.94 ms | User: Amer
+[API LOG] PATCH /api/profile/ → 500 | 125.02 ms | User: Amer
+[API LOG] GET /api/profile/ → 200 | 52.92 ms | User: Amer
+[API LOG] GET /api/projects/my/ → 200 | 13.9 ms | User: Amer
+[API LOG] PATCH /api/profile/ → 500 | 148.67 ms | User: Amer
+[API LOG] PATCH /api/profile/ → 200 | 57.95 ms | User: Amer
+[API LOG] PATCH /api/profile/ → 200 | 35.14 ms | User: Amer

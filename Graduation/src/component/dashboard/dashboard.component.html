@@ -140,10 +140,8 @@
             <div class="form-group"><label>Category</label><input [(ngModel)]="profile.category"></div>
             <div class="form-group full-width"><label>Description</label><textarea [(ngModel)]="profile.description"></textarea></div>
             <div class="form-group full-width"><label>Skills</label><input [(ngModel)]="profile.skills"></div>
-            <div class="form-group full-width"><label>Portfolio URL</label><input [(ngModel)]="profile.portfolio" placeholder="https://github.com/my-profile"></div>
+            <div class="form-group full-width"><label>Portfolio URL</label><input [(ngModel)]="profile.portfolio" placeholder="https://my-portfolio.com"></div>
             <div class="form-group full-width"><label>Image</label><input [(ngModel)]="profile.imageUrl"></div>
-            <div class="form-group"><label>Bank Name</label><input [(ngModel)]="profile.bank_name" placeholder="Bank Name"></div>
-            <div class="form-group"><label>IBAN / Account No</label><input [(ngModel)]="profile.iban" placeholder="IBAN"></div>
           </ng-container>
         </div>
         <button class="save-btn" (click)="saveProfile()">Save</button>

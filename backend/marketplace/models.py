@@ -22,9 +22,6 @@ class Programmer(models.Model):
 
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     
-    bank_name = models.CharField(max_length=100, blank=True, default='')
-    iban = models.CharField(max_length=50, blank=True, default='')
-    
     rating = models.FloatField(default=0.0)
     review_count = models.IntegerField(default=0)
     profile_views = models.IntegerField(default=0)

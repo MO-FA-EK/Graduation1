@@ -103,11 +103,14 @@ def my_profile(request):
             programmer.name = user.username 
             if 'category' in data: programmer.category = data['category']
             if 'bio' in data: programmer.bio = data['bio']
-            if 'skills' in data: programmer.skills = data['skills']
+            if 'skills' in data: 
+                skills_data = data['skills']
+                if isinstance(skills_data, list):
+                    programmer.skills = ",".join(skills_data)
+                else:
+                    programmer.skills = skills_data
             if 'portfolio' in data: programmer.portfolio_url = data['portfolio']
             if 'imageUrl' in data: programmer.image_url = data['imageUrl']
-            if 'bank_name' in data: programmer.bank_name = data['bank_name']
-            if 'iban' in data: programmer.iban = data['iban']
             
             programmer.save()
             
