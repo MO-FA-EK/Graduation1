@@ -26,7 +26,6 @@ export class FreelancerService {
   constructor(private http: HttpClient) {}
 
 
-  //Fetch the list and search
   getFreelancers(search?: string): Observable<Freelancer[]> {
     let url = this.apiUrl;
     if (search && search.trim() !== "") {
@@ -55,7 +54,6 @@ export class FreelancerService {
   }
 
 
-  // 2. Retrieve details of one programmer
   getFreelancerById(id: number): Observable<Freelancer> {
     return this.http.get<any>(`${this.apiUrl}${id}/`).pipe(
       map((f: any) => ({
@@ -74,7 +72,6 @@ export class FreelancerService {
       }))
     );
   }
-  //Increase views
   incrementProfileViews(id: number): Observable<number> {
     return this.http.post<any>(`${this.apiUrl}${id}/view/`, {}).pipe(
       map(res => res.profileViews)
@@ -82,21 +79,21 @@ export class FreelancerService {
   }
 
 
-  //Increase clicks
   incrementContactClicks(id: number): Observable<number> {
-    return this.http.post<any>(`${this.apiUrl}${id}/contact/`, {}).pipe(
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<any>(`${this.apiUrl}${id}/contact/`, {}, { headers }).pipe(
       map(res => res.contactClicks)
     );
   }
 
 
-   //Evaluation
   rateFreelancer(id: number, rating: number): Observable<any> {
-    // Fetch tokens from local storage
     const token = localStorage.getItem('access_token');
 
 
-   // Add it to the header
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

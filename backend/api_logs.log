@@ -2695,3 +2695,245 @@
 [API LOG] GET /api/profile/ → 200 | 6.65 ms | User: saeed
 [API LOG] GET /api/projects/my/ → 200 | 7.25 ms | User: saeed
 [API LOG] GET /api/programmers/ → 200 | 26.59 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 100.59 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 36.34 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 401 | 56.68 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 757.16 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.54 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 42.09 ms | User: Faisal
+[API LOG] GET /api/programmers/ → 200 | 20.57 ms | User: Anonymous
+[API LOG] GET /api/programmers/20/ → 200 | 4.84 ms | User: Anonymous
+[API LOG] POST /api/programmers/20/view/ → 200 | 10.72 ms | User: Anonymous
+[API LOG] POST /api/programmers/20/rate/ → 403 | 11.36 ms | User: Faisal
+[API LOG] GET /api/programmers/ → 200 | 28.82 ms | User: Anonymous
+[API LOG] GET /api/programmers/15/ → 200 | 8.23 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 12.43 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/rate/ → 403 | 22.46 ms | User: Faisal
+[API LOG] GET /api/programmers/15/ → 200 | 5.78 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 10.7 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 28.1 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.69 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 11.34 ms | User: Faisal
+[API LOG] POST /api/auth/login/ → 200 | 581.81 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.78 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 10.35 ms | User: Hoda Nasser
+[API LOG] POST /api/projects/12/complete/ → 200 | 20.55 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 16.12 ms | User: Hoda Nasser
+[API LOG] POST /api/auth/login/ → 200 | 709.3 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 2.93 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 10.75 ms | User: Faisal
+[API LOG] GET /api/projects/12/stats/ → 200 | 1527.25 ms | User: Faisal
+[API LOG] GET /api/programmers/ → 200 | 32.23 ms | User: Anonymous
+[API LOG] GET /api/programmers/15/ → 200 | 5.62 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 10.02 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/rate/ → 200 | 34.89 ms | User: Faisal
+[API LOG] GET /api/programmers/15/ → 200 | 11.81 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 14.1 ms | User: Anonymous
+[API LOG] GET /api/programmers/15/ → 200 | 8.2 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 11.91 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/rate/ → 200 | 30.95 ms | User: Faisal
+[API LOG] GET /api/programmers/15/ → 200 | 6.87 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 9.83 ms | User: Anonymous
+[API LOG] GET /api/programmers/15/ → 200 | 5.82 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 7.67 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 10.46 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 17.53 ms | User: Faisal
+[API LOG] POST /api/auth/login/ → 200 | 776.09 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.62 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 10.71 ms | User: Hoda Nasser
+[API LOG] GET /api/programmers/ → 200 | 27.82 ms | User: Anonymous
+[API LOG] GET /api/programmers/2/ → 200 | 4.89 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 10.9 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 403 | 9.63 ms | User: Hoda Nasser
+[API LOG] GET /api/programmers/2/ → 200 | 7.25 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 9.57 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 403 | 12.16 ms | User: Hoda Nasser
+[API LOG] GET /api/programmers/2/ → 200 | 5.41 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 10.23 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/rate/ → 403 | 6.53 ms | User: Hoda Nasser
+[API LOG] POST /api/programmers/2/rate/ → 403 | 3.07 ms | User: Hoda Nasser
+[API LOG] POST /api/programmers/2/rate/ → 403 | 19.3 ms | User: Hoda Nasser
+[API LOG] GET /api/programmers/2/ → 200 | 5.27 ms | User: Anonymous
+[API LOG] POST /api/programmers/2/view/ → 200 | 11.31 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 32.66 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 36.72 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 21.07 ms | User: Hoda Nasser
+[API LOG] GET /api/profile/ → 200 | 7.78 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 12.18 ms | User: Hoda Nasser
+[API LOG] GET /api/programmers/ → 200 | 24.47 ms | User: Anonymous
+[API LOG] GET /api/programmers/15/ → 200 | 7.77 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 14.33 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/contact/ → 401 | 2.13 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 20.19 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 15.46 ms | User: Hoda Nasser
+[API LOG] POST /api/auth/login/ → 200 | 798.89 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.99 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 10.72 ms | User: Faisal
+[API LOG] GET /api/programmers/ → 200 | 27.6 ms | User: Anonymous
+[API LOG] GET /api/programmers/15/ → 200 | 7.45 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 14.78 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/contact/ → 401 | 0.76 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.65 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 17.98 ms | User: Faisal
+[API LOG] POST /api/auth/login/ → 200 | 797.8 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.65 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 8.12 ms | User: Hoda Nasser
+[API LOG] GET /api/profile/ → 200 | 5.94 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 11.93 ms | User: Hoda Nasser
+[API LOG] POST /api/auth/login/ → 401 | 774.54 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 778.86 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.63 ms | User: mmmm
+[API LOG] GET /api/projects/my/ → 200 | 4.67 ms | User: mmmm
+[API LOG] GET /api/programmers/ → 200 | 32.71 ms | User: Anonymous
+[API LOG] GET /api/programmers/15/ → 200 | 5.33 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 9.68 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/contact/ → 401 | 1.14 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 10.1 ms | User: mmmm
+[API LOG] GET /api/projects/my/ → 200 | 5.54 ms | User: mmmm
+[API LOG] POST /api/auth/login/ → 200 | 807.18 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 8.26 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 14.5 ms | User: Hoda Nasser
+[API LOG] GET /api/profile/ → 200 | 7.92 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 14.92 ms | User: Hoda Nasser
+[API LOG] GET /api/profile/ → 200 | 12.71 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 19.58 ms | User: Hoda Nasser
+[API LOG] POST /api/auth/login/ → 200 | 756.24 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.66 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 27.41 ms | User: Faisal
+[API LOG] GET /api/programmers/ → 200 | 31.95 ms | User: Anonymous
+[API LOG] GET /api/programmers/15/ → 200 | 8.0 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 12.69 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/contact/ → 500 | 273.05 ms | User: Faisal
+[API LOG] GET /api/profile/ → 200 | 8.83 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 24.0 ms | User: Faisal
+[API LOG] POST /api/auth/login/ → 200 | 816.79 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 11.65 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 18.01 ms | User: Hoda Nasser
+[API LOG] GET /api/profile/ → 200 | 6.73 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 12.73 ms | User: Hoda Nasser
+[API LOG] GET /api/profile/ → 200 | 55.56 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 15.4 ms | User: Hoda Nasser
+[API LOG] POST /api/auth/login/ → 200 | 792.61 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.67 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 11.08 ms | User: Faisal
+[API LOG] GET /api/programmers/ → 200 | 34.76 ms | User: Anonymous
+[API LOG] GET /api/programmers/15/ → 200 | 6.97 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/view/ → 200 | 10.2 ms | User: Anonymous
+[API LOG] POST /api/programmers/15/contact/ → 500 | 90.58 ms | User: Faisal
+[API LOG] GET /api/profile/ → 200 | 9.04 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 15.67 ms | User: Faisal
+[API LOG] POST /api/auth/login/ → 200 | 811.77 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 8.32 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 9.33 ms | User: Hoda Nasser
+[API LOG] GET /api/profile/ → 200 | 6.88 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 14.75 ms | User: Hoda Nasser
+[API LOG] GET /api/programmers/ → 200 | 26.95 ms | User: Anonymous
+[API LOG] GET /api/programmers/12/ → 200 | 6.26 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/view/ → 200 | 9.58 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/contact/ → 500 | 59.94 ms | User: Hoda Nasser
+[API LOG] GET /api/profile/ → 200 | 8.89 ms | User: Hoda Nasser
+[API LOG] GET /api/projects/my/ → 200 | 11.68 ms | User: Hoda Nasser
+[API LOG] POST /api/auth/login/ → 200 | 797.41 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.87 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 14.08 ms | User: Mahmoud Saeed
+[API LOG] POST /api/auth/login/ → 200 | 789.91 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.54 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 10.98 ms | User: Faisal
+[API LOG] GET /api/programmers/ → 200 | 34.12 ms | User: Anonymous
+[API LOG] GET /api/programmers/12/ → 200 | 6.47 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/view/ → 200 | 10.63 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/rate/ → 403 | 17.37 ms | User: Faisal
+[API LOG] GET /api/programmers/12/ → 200 | 7.73 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/view/ → 200 | 12.02 ms | User: Anonymous
+[API LOG] GET /api/programmers/12/ → 200 | 7.53 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/view/ → 200 | 9.77 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/contact/ → 500 | 77.59 ms | User: Faisal
+[API LOG] GET /api/profile/ → 200 | 4.73 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 12.59 ms | User: Faisal
+[API LOG] POST /api/auth/login/ → 200 | 820.0 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 9.55 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 10.78 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 8.23 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 14.92 ms | User: Mahmoud Saeed
+[API LOG] GET /api/programmers/ → 200 | 32.08 ms | User: Anonymous
+[API LOG] GET /api/programmers/12/ → 200 | 7.24 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/view/ → 200 | 12.97 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 15.17 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 15.94 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 54.92 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 14.35 ms | User: Mahmoud Saeed
+[API LOG] POST /api/auth/login/ → 200 | 800.5 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.15 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 13.64 ms | User: Faisal
+[API LOG] POST /api/auth/login/ → 200 | 811.18 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 9.85 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 13.53 ms | User: Mahmoud Saeed
+[API LOG] POST /api/projects/11/accept/ → 200 | 35.04 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 19.5 ms | User: Mahmoud Saeed
+[API LOG] POST /api/projects/10/complete/ → 200 | 17.28 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 24.59 ms | User: Mahmoud Saeed
+[API LOG] POST /api/projects/11/complete/ → 200 | 18.61 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 25.75 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 9.36 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 14.13 ms | User: Mahmoud Saeed
+[API LOG] POST /api/auth/login/ → 200 | 793.89 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.32 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 9.78 ms | User: Faisal
+[API LOG] GET /api/programmers/ → 200 | 40.81 ms | User: Anonymous
+[API LOG] GET /api/programmers/12/ → 200 | 4.88 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/view/ → 200 | 11.17 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/rate/ → 200 | 69.7 ms | User: Faisal
+[API LOG] POST /api/programmers/12/contact/ → 500 | 95.18 ms | User: Faisal
+[API LOG] GET /api/programmers/12/ → 200 | 6.22 ms | User: Anonymous
+[API LOG] POST /api/programmers/12/view/ → 200 | 8.25 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.52 ms | User: Faisal
+[API LOG] GET /api/projects/my/ → 200 | 11.01 ms | User: Faisal
+[API LOG] POST /api/auth/login/ → 200 | 817.11 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 8.44 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 17.48 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 7.87 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 13.44 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 6.48 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 16.32 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 6.52 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 11.28 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 6.45 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 13.82 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 11.69 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 26.92 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 6.32 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 11.75 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 11.35 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 12.52 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 8.22 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 19.57 ms | User: Mahmoud Saeed
+[API LOG] GET /api/profile/ → 200 | 7.26 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 24.83 ms | User: Mahmoud Saeed
+[API LOG] POST /api/auth/login/ → 200 | 696.27 ms | User: Anonymous
+[API LOG] GET /api/admin/projects/ → 200 | 66.27 ms | User: new_admin
+[API LOG] GET /api/admin/messages/ → 200 | 14.66 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 93.79 ms | User: new_admin
+[API LOG] GET /api/programmers/ → 200 | 26.47 ms | User: Anonymous
+[API LOG] GET /api/admin/projects/ → 200 | 31.36 ms | User: new_admin
+[API LOG] GET /api/admin/messages/ → 200 | 7.72 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 59.32 ms | User: new_admin
+[API LOG] GET /api/admin/messages/ → 200 | 11.52 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 41.56 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 78.87 ms | User: new_admin
+[API LOG] GET /api/admin/messages/ → 200 | 13.04 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 54.22 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 76.88 ms | User: new_admin
+[API LOG] GET /api/programmers/ → 200 | 33.25 ms | User: Anonymous
+[API LOG] GET /api/programmers/6/ → 200 | 4.69 ms | User: Anonymous
+[API LOG] POST /api/programmers/6/view/ → 200 | 11.3 ms | User: Anonymous
+[API LOG] GET /api/programmers/6/ → 200 | 15.44 ms | User: Anonymous
+[API LOG] POST /api/programmers/6/view/ → 200 | 15.67 ms | User: Anonymous
+[API LOG] GET /api/programmers/6/ → 200 | 9.6 ms | User: Anonymous
+[API LOG] POST /api/programmers/6/view/ → 200 | 11.33 ms | User: Anonymous
+[API LOG] POST /api/projects/create/6/ → 403 | 46.49 ms | User: new_admin
+[API LOG] GET /api/admin/messages/ → 200 | 28.04 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 48.9 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 59.78 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 200 | 764.0 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.63 ms | User: Mahmoud Saeed
+[API LOG] GET /api/projects/my/ → 200 | 17.99 ms | User: Mahmoud Saeed

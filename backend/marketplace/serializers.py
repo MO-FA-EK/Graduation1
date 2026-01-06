@@ -6,6 +6,7 @@ class ProgrammerSerializer(serializers.ModelSerializer):
     portfolio = serializers.CharField(source='portfolio_url', required=False, allow_blank=True)
     totalRatings = serializers.IntegerField(source='review_count', read_only=True)
     profileViews = serializers.IntegerField(source='profile_views', read_only=True)
+    contactClicks = serializers.IntegerField(source='contact_clicks', read_only=True)
     
     email = serializers.EmailField(source='user.email', read_only=True)
 
@@ -31,6 +32,7 @@ class ProgrammerSerializer(serializers.ModelSerializer):
             'rating',
             'totalRatings',
             'profileViews',
+            'contactClicks',
             'hourly_rate',  
             'experience_level',
             'balance'

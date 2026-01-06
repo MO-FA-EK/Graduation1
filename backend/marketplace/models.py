@@ -25,12 +25,25 @@ class Programmer(models.Model):
     rating = models.FloatField(default=0.0)
     review_count = models.IntegerField(default=0)
     profile_views = models.IntegerField(default=0)
+    contact_clicks = models.IntegerField(default=0)
     
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return f"/freelancer/{self.id}"
+
+
+class ProfileContactClick(models.Model):
+    client = models.ForeignKey(User, on_delete=models.CASCADE)
+    programmer = models.ForeignKey(Programmer, on_delete=models.CASCADE, related_name='click_tracking')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('client', 'programmer')
+
+    def __str__(self):
+        return f"{self.client.username} clicked {self.programmer.name}"
 
 
 class Project(models.Model):

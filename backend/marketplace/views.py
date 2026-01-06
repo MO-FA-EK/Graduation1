@@ -52,6 +52,18 @@ def rate_programmer(request, id):
     programmer = get_object_or_404(Programmer, id=id)
     new_rating = request.data.get('rating')
     
+    has_completed_project = Project.objects.filter(
+        client=request.user,
+        freelancer=programmer,
+        status='completed'
+    ).exists()
+
+    if not has_completed_project:
+        return Response(
+            {'error': 'You can only rate freelancers you have completed a project with.'}, 
+            status=403
+        )
+
     if new_rating:
         Review.objects.update_or_create(
             client=request.user,
@@ -81,9 +93,25 @@ def increment_profile_views(request, id):
         return Response({'error': 'Not found'}, status=404)
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def increment_contact_clicks(request, id):
-    return Response({'message': 'Click recorded'})
+    try:
+        programmer = Programmer.objects.get(id=id)
+        
+        if hasattr(request.user, 'programmer') and request.user.programmer == programmer:
+             return Response({'message': 'Owner click ignored'})
+
+        if not ProfileContactClick.objects.filter(client=request.user, programmer=programmer).exists():
+            ProfileContactClick.objects.create(client=request.user, programmer=programmer)
+            programmer.contact_clicks += 1
+            programmer.save()
+            return Response({'contactClicks': programmer.contact_clicks})
+        
+        return Response({'message': 'Click already counted'})
+        
+    except Programmer.DoesNotExist:
+        return Response({'error': 'Not found'}, status=404)
 
 
 
@@ -194,6 +222,9 @@ def my_projects(request):
 @permission_classes([IsAuthenticated])
 @parser_classes([MultiPartParser, FormParser])
 def create_project(request, freelancer_id):
+    if request.user.is_staff or request.user.is_superuser:
+        return Response({'error': 'Admins cannot create projects.'}, status=403)
+
     try:
         freelancer = Programmer.objects.get(id=freelancer_id)
     except Programmer.DoesNotExist:
@@ -506,7 +537,7 @@ def get_all_users(request):
             'username': u.username,
             'email': u.email,
             'user_type': role,
-            'is_active': u.is_active  # Added status
+            'is_active': u.is_active  
         })
     return Response(data)
 
