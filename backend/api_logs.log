@@ -2705,3 +2705,7 @@
 [API LOG] GET /api/profile/ → 200 | 9.06 ms | User: Ismaiil
 [API LOG] GET /api/projects/my/ → 200 | 4.62 ms | User: Ismaiil
 [API LOG] GET /api/programmers/ → 200 | 30.18 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 401 | 32.7 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 1295.99 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.65 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 17.76 ms | User: Hamze Ahmed
