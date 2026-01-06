@@ -7,7 +7,6 @@
       <button [class.active]="activeTab === 'projects'" (click)="setTab('projects')">🚀 {{ isClient ? 'Hired Projects' : 'My Jobs' }}</button>
       <button [class.active]="activeTab === 'profile'" (click)="setTab('profile')">👤 Profile</button>
       <button *ngIf="!isClient" [class.active]="activeTab === 'stats'" (click)="setTab('stats')">📊 Stats</button>
-      <button *ngIf="!isClient" [class.active]="activeTab === 'ratings'" (click)="setTab('ratings')">⭐ Ratings</button>
       <button [class.active]="activeTab === 'security'" (click)="setTab('security')">🔒 Security</button>
       <button class="logout-btn" (click)="logout()">🚪 Logout</button>
     </nav>
@@ -163,15 +162,6 @@
           <div class="stat-card"><h3>👁️ Views</h3><p class="stat-value">{{ profile.profileViews || 0 }}</p></div>
           <div class="stat-card"><h3>📩 Clicks</h3><p class="stat-value">{{ profile.contactClicks || 0 }}</p></div>
           <div class="stat-card"><h3>⭐ Rating</h3><p class="stat-value">{{ profile.rating || 0 }}</p></div>
-        </div>
-      </div>
-
-      <div *ngIf="activeTab === 'ratings' && !isClient" class="tab-content fade-in">
-        <h2>Reviews</h2>
-        <div class="rating-summary">
-          <span class="big-star">⭐</span>
-          <span class="rating-number">{{ profile.rating || 0 }}</span>
-          <span class="rating-count">({{ profile.totalRatings || 0 }} reviews)</span>
         </div>
       </div>
 
