@@ -2316,3 +2316,359 @@
 [API LOG] POST /api/ai/chat/ → 200 | 2.8 ms | User: Anonymous
 [API LOG] POST /api/ai/chat/ → 200 | 1.39 ms | User: Anonymous
 [API LOG] POST /api/ai/chat/ → 200 | 3.32 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 786.26 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 16.02 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 12.03 ms | User: Hamze Ahmed
+[API LOG] GET /api/programmers/ → 200 | 21.03 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=hamze → 200 | 5.55 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 5.63 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 7.44 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 48.93 ms | User: Hamze Ahmed
+[API LOG] GET /api/profile/ → 200 | 6.0 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 8.05 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 775.44 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.29 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 9.38 ms | User: Warda
+[API LOG] GET /api/programmers/ → 200 | 21.13 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=hamze → 200 | 12.12 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 5.3 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 7.49 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 39.53 ms | User: Warda
+[API LOG] GET /api/programmers/4/ → 200 | 6.86 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 15.11 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 40.62 ms | User: Warda
+[API LOG] GET /api/programmers/4/ → 200 | 5.66 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 9.57 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/contact/ → 200 | 0.78 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 12.35 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 10.84 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 764.64 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.78 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 8.91 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 200 | 1446.36 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 747.08 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 1168.0 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 1168.32 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 1196.02 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 1474.59 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 1386.5 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 818.09 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 1036.49 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 2213.94 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 2672.7 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 1922.79 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 3070.11 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 2836.03 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 3416.7 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 2921.84 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 3943.36 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 4063.91 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 3534.01 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 3633.24 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 3830.86 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 3150.95 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 3745.93 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 3055.12 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 3424.59 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 2508.85 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 2366.71 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 1915.53 ms | User: Hamze Ahmed
+[API LOG] PUT /api/auth/change-password/ → 400 | 1679.86 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 770.1 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.61 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 9.48 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 401 | 769.06 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 763.96 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.97 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 7.97 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/13/complete/ → 200 | 14.89 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 9.0 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 757.21 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.31 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 9.13 ms | User: Warda
+[API LOG] GET /api/projects/13/stats/ → 200 | 911.22 ms | User: Warda
+[API LOG] POST /api/projects/payment-intent/13/ → 200 | 834.89 ms | User: Warda
+[API LOG] POST /api/projects/13/confirm-payment/ → 200 | 16.77 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 12.51 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 763.6 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.09 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 6.33 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 798.0 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.57 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 10.68 ms | User: Warda
+[API LOG] GET /api/programmers/ → 200 | 21.24 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=Hamze%20Ahmed → 200 | 9.6 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 3.79 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 8.0 ms | User: Anonymous
+[API LOG] POST /api/projects/create/4/ → 201 | 15.1 ms | User: Warda
+[API LOG] GET /api/profile/ → 200 | 6.73 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 9.0 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 401 | 785.65 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 723.5 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.36 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 9.83 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 744.28 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.46 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 10.44 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 743.71 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.95 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 9.49 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/14/accept/ → 200 | 11.44 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 13.23 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 764.03 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.82 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 10.43 ms | User: Warda
+[API LOG] POST /api/projects/payment-intent/14/ → 200 | 795.87 ms | User: Warda
+[API LOG] POST /api/projects/14/confirm-payment/ → 200 | 16.1 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 10.35 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 775.99 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.11 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 8.53 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/14/complete/ → 200 | 15.79 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 12.83 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 838.28 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.06 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 9.86 ms | User: Warda
+[API LOG] GET /api/programmers/ → 200 | 27.17 ms | User: Anonymous
+[API LOG] GET /api/programmers/?search=Hamze%20Ahmed → 200 | 16.62 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 6.7 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 11.05 ms | User: Anonymous
+[API LOG] POST /api/projects/create/4/ → 201 | 24.36 ms | User: Warda
+[API LOG] GET /api/profile/ → 200 | 3.11 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 14.86 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 897.28 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.57 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 13.57 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/15/accept/ → 200 | 33.19 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 46.67 ms | User: Hamze Ahmed
+[API LOG] PATCH /api/projects/15/update/ → 200 | 116.08 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/15/complete/ → 200 | 14.45 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 38.53 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 822.9 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.35 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 11.02 ms | User: Warda
+[API LOG] POST /api/projects/payment-intent/15/ → 200 | 548.18 ms | User: Warda
+[API LOG] POST /api/projects/15/confirm-payment/ → 200 | 21.53 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 14.73 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 802.14 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 7.7 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 13.82 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 916.95 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.09 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 15.67 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 828.36 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.11 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 12.58 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 200 | 5545.67 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 200 | 5630.59 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 200 | 5525.07 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 200 | 6192.14 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 200 | 5568.28 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 400 | 2004.44 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 200 | 7302.9 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 200 | 7366.39 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 400 | 3149.02 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 200 | 9177.53 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 400 | 2075.67 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 400 | 4032.17 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 200 | 8277.76 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 400 | 3259.94 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 400 | 3051.37 ms | User: Warda
+[API LOG] PUT /api/auth/change-password/ → 400 | 2873.76 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 840.24 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.98 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 10.31 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 401 | 814.55 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 866.39 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.89 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 16.65 ms | User: Warda
+[API LOG] GET /api/programmers/ → 200 | 31.78 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 6.85 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 11.75 ms | User: Warda
+[API LOG] POST /api/auth/register/ → 400 | 4.21 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 500 | 995.79 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.43 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 15.16 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 2.9 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.66 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.21 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.86 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.52 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 8.65 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 8.75 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 8.49 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.01 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.17 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 5.81 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.22 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.2 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 10.12 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.8 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.16 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 5.54 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.43 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 3.1 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 10.51 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 5.68 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.43 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 16.68 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.07 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 10.29 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.92 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.18 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 4.77 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 10.95 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 11.63 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.28 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 11.5 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.31 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 5.44 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 10.36 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 5.09 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 4.99 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.09 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.54 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 27.26 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.15 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.11 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 3.72 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.1 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.07 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.71 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.34 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 8.21 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.55 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 4.15 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 13.36 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.71 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.65 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 8.11 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 12.65 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.59 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 9.42 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 26.97 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 3.45 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 11.29 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.65 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 4.92 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 3.53 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.59 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 4.3 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 11.02 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 4.62 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 11.66 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 16.81 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 4.96 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 3.62 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 13.48 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.32 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 38.02 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 10.86 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 7.31 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 8.75 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 6.14 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 877.72 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.57 ms | User: Ismaiil
+[API LOG] GET /api/projects/my/ → 200 | 5.85 ms | User: Ismaiil
+[API LOG] POST /api/auth/login/ → 401 | 859.42 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 400 | 3.68 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 866.15 ms | User: Anonymous
+[API LOG] POST /api/auth/register/ → 201 | 811.07 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 857.71 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.13 ms | User: Luqman
+[API LOG] GET /api/projects/my/ → 200 | 5.0 ms | User: Luqman
+[API LOG] GET /api/programmers/ → 200 | 30.35 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.87 ms | User: Luqman
+[API LOG] GET /api/projects/my/ → 200 | 5.87 ms | User: Luqman
+[API LOG] GET /api/programmers/ → 200 | 22.18 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 3.71 ms | User: Luqman
+[API LOG] GET /api/projects/my/ → 200 | 5.17 ms | User: Luqman
+[API LOG] POST /api/auth/login/ → 200 | 891.08 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 16.73 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 38.54 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 83.46 ms | User: new_admin
+[API LOG] POST /api/admin/users/35/reset-password/ → 200 | 909.7 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 401 | 827.01 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 877.91 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.3 ms | User: Ismaiil
+[API LOG] GET /api/projects/my/ → 200 | 5.26 ms | User: Ismaiil
+[API LOG] POST /api/auth/login/ → 200 | 892.73 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 20.29 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 54.93 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 79.08 ms | User: new_admin
+[API LOG] POST /api/admin/users/35/block/ → 200 | 23.58 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 36.31 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 401 | 855.29 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 813.6 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 831.27 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 23.97 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 49.23 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 77.96 ms | User: new_admin
+[API LOG] POST /api/admin/users/35/unblock/ → 200 | 36.32 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 51.16 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 200 | 782.75 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.67 ms | User: Ismaiil
+[API LOG] GET /api/projects/my/ → 200 | 6.25 ms | User: Ismaiil
+[API LOG] POST /api/auth/login/ → 200 | 798.04 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 10.97 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 47.9 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 75.06 ms | User: new_admin
+[API LOG] POST /api/admin/users/34/block/ → 200 | 41.07 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 75.85 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 401 | 814.61 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 809.62 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 812.23 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 847.72 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 14.92 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 47.81 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 85.25 ms | User: new_admin
+[API LOG] POST /api/admin/users/34/unblock/ → 200 | 34.16 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 78.49 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 401 | 879.38 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 845.29 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 5.95 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 13.5 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 854.39 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 14.96 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 51.27 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 77.85 ms | User: new_admin
+[API LOG] DELETE /api/auth/admin/users/35/delete/ → 204 | 24.71 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 39.38 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 401 | 845.66 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 815.19 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 869.5 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 8.69 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 40.39 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 68.82 ms | User: new_admin
+[API LOG] DELETE /api/admin/projects/14/delete/ → 204 | 18.87 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 37.95 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 200 | 833.91 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 4.4 ms | User: Warda
+[API LOG] GET /api/projects/my/ → 200 | 11.87 ms | User: Warda
+[API LOG] POST /api/auth/login/ → 200 | 881.44 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 12.68 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 47.21 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 67.96 ms | User: new_admin
+[API LOG] GET /api/programmers/ → 200 | 39.89 ms | User: Anonymous
+[API LOG] GET /api/programmers/4/ → 200 | 11.41 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 13.78 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/rate/ → 200 | 28.52 ms | User: new_admin
+[API LOG] GET /api/programmers/4/ → 200 | 4.69 ms | User: Anonymous
+[API LOG] POST /api/programmers/4/view/ → 200 | 20.2 ms | User: Anonymous
+[API LOG] POST /api/projects/create/4/ → 201 | 27.13 ms | User: new_admin
+[API LOG] GET /api/profile/ → 200 | 4.93 ms | User: new_admin
+[API LOG] GET /api/admin/messages/ → 200 | 37.67 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 79.43 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 139.2 ms | User: new_admin
+[API LOG] POST /api/auth/login/ → 401 | 856.1 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 891.85 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 401 | 859.65 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 810.07 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 13.3 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 24.37 ms | User: Hamze Ahmed
+[API LOG] POST /api/projects/16/reject/ → 200 | 37.7 ms | User: Hamze Ahmed
+[API LOG] GET /api/projects/my/ → 200 | 19.32 ms | User: Hamze Ahmed
+[API LOG] POST /api/auth/login/ → 200 | 836.12 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 8.19 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 50.5 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 78.73 ms | User: new_admin
