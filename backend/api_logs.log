@@ -2695,3 +2695,13 @@
 [API LOG] GET /api/profile/ → 200 | 6.65 ms | User: saeed
 [API LOG] GET /api/projects/my/ → 200 | 7.25 ms | User: saeed
 [API LOG] GET /api/programmers/ → 200 | 26.59 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 35.29 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 825.69 ms | User: Anonymous
+[API LOG] GET /api/admin/messages/ → 200 | 21.53 ms | User: new_admin
+[API LOG] GET /api/admin/projects/ → 200 | 49.14 ms | User: new_admin
+[API LOG] GET /api/admin/users/ → 200 | 85.6 ms | User: new_admin
+[API LOG] POST /api/auth/register/ → 201 | 905.24 ms | User: Anonymous
+[API LOG] POST /api/auth/login/ → 200 | 789.67 ms | User: Anonymous
+[API LOG] GET /api/profile/ → 200 | 9.06 ms | User: Ismaiil
+[API LOG] GET /api/projects/my/ → 200 | 4.62 ms | User: Ismaiil
+[API LOG] GET /api/programmers/ → 200 | 30.18 ms | User: Anonymous
