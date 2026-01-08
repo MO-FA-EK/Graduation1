@@ -2715,3 +2715,4 @@
 [API LOG] GET /api/programmers/ → 200 | 32.42 ms | User: Anonymous
 [API LOG] POST /api/ai/chat/ → 200 | 4.62 ms | User: Anonymous
 [API LOG] POST /api/ai/chat/ → 200 | 0.89 ms | User: Anonymous
+[API LOG] GET /api/programmers/ → 200 | 26.89 ms | User: Anonymous
